@@ -37,14 +37,19 @@ const Menu = observer((props) => {
   };
   const checkActiveMenu = () => {
     if (window.location.pathname === '/') {
-      document.getElementById('wr_list_menu').classList.remove('wr_list_menu');
+      setIsOpenCollapse('0');
     } else {
-      document.getElementById('wr_list_menu').classList.add('wr_list_menu');
+      let indexActiveMenu = '';
+      dataMenu.map((menu, index) => {
+        if (menu?.submenu?.length) {
+          let subIndex = menu?.submenu?.map((e) => e.link).indexOf(props?.location?.pathname);
+          if (subIndex !== -1) {
+            indexActiveMenu = index.toString();
+          }
+        }
+      });
+      indexActiveMenu && handleOpen(indexActiveMenu);
     }
-  };
-
-  const handleCheckActive = () => {
-    checkActiveMenu();
   };
 
   const dataMenu = [
@@ -198,11 +203,7 @@ const Menu = observer((props) => {
                       <ul id="wr_list_submenu" className="list-unstyled">
                         {menuList.submenu.map((value, menuListSubkey) => {
                           return (
-                            <li
-                              key={menuListSubkey}
-                              className={`item_menu`}
-                              onClick={handleCheckActive}
-                            >
+                            <li key={menuListSubkey} className={`item_menu`}>
                               {value.link && (
                                 <NavLink
                                   exact={true}
