@@ -19,12 +19,12 @@ import PublishOptions from 'components/PublishOptions';
 import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
-import CategoryStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
-import CategoryViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
+import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
+import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
-const categoryStore = new CategoryStore();
-const categoryViewModel = new CategoryViewModel(categoryStore);
+const companyStore = new CompanyStore();
+const companyViewModel = new CompanyViewModel(companyStore);
 const EditEmail = observer(
   class EditEmail extends Component {
     emailDetailViewModel = null;
@@ -35,8 +35,8 @@ const EditEmail = observer(
       this.state = { key: 'commonInformation', requiredField: '' };
       this.viewModel = props.viewModel ? props.viewModel : null;
       this.emailDetailViewModel = this.viewModel ? this.viewModel.getEmailDetailViewModel() : null;
-      this.categoryListViewModel = categoryViewModel
-        ? categoryViewModel.getCategoryListViewModel()
+      this.companyListViewModel = companyViewModel
+        ? companyViewModel.getCompanyListViewModel()
         : null;
       this.emailDetailViewModel.setForm(this);
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
@@ -48,8 +48,8 @@ const EditEmail = observer(
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.emailDetailViewModel.initializeData();
       }
-      await this.categoryListViewModel.handleFilter({ limit: 0 });
-      await this.categoryListViewModel.initializeDataCustom();
+      await this.companyListViewModel.handleFilter({ limit: 0 });
+      await this.companyListViewModel.initializeDataCustom();
     }
 
     handleAliasFormPropsData() {
@@ -185,7 +185,7 @@ const EditEmail = observer(
                 <CommonInformation
                   formPropsData={this.formPropsData}
                   validator={this.validator}
-                  categoryListViewModel={this.categoryListViewModel}
+                  companyListViewModel={this.companyListViewModel}
                 />
               </Col>
               <Col xxl={3} lg={4}>

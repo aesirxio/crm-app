@@ -8,15 +8,12 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withEmailViewModel } from 'containers/EmailPage/EmailViewModel/EmailViewModelContextProvider';
 
-// const tagStore = new TagStore();
-// const tagViewModel = new TagViewModel(tagStore);
 const CommonInformation = observer(
   class CommonInformation extends Component {
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.emailDetailViewModel;
-      this.categoryListViewModel = this.props.categoryListViewModel;
-      // this.tagListViewModel = tagViewModel ? tagViewModel.getTagListViewModel() : null;
+      this.companyListViewModel = this.props.companyListViewModel;
     }
 
     async componentDidMount() {
@@ -45,7 +42,7 @@ const CommonInformation = observer(
               },
             },
             {
-              label: 'txt_main_category',
+              label: 'txt_main_company',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.viewModel.emailDetailViewModel.formPropsData[
@@ -62,8 +59,8 @@ const CommonInformation = observer(
                       ],
                   }
                 : null,
-              getDataSelectOptions: this.categoryListViewModel.items
-                ? this.categoryListViewModel.items.map((item) => {
+              getDataSelectOptions: this.companyListViewModel.items
+                ? this.companyListViewModel.items.map((item) => {
                     let levelString = Array.from(Array(parseInt(item.level)).keys())
                       .map(() => ``)
                       .join('- ');
@@ -123,7 +120,7 @@ const CommonInformation = observer(
       ];
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.companyListViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)
