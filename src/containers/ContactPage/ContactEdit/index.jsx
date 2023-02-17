@@ -15,11 +15,17 @@ import ActionsBar from 'components/ActionsBar';
 import { withContactViewModel } from 'containers/ContactPage/ContactViewModel/ContactViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
-import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactInformation from './Component/ContactInformation';
 import EditHeader from 'components/EditHeader';
-
+import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
+import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
+import ContactGroupStore from 'containers/ContactGroupPage/ContactGroupStore/ContactGroupStore';
+import ContactGroupViewModel from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModel';
+const companyStore = new CompanyStore();
+const companyViewModel = new CompanyViewModel(companyStore);
+const contactGroupStore = new ContactGroupStore();
+const contactGroupViewModel = new ContactGroupViewModel(contactGroupStore);
 const EditContact = observer(
   class EditContact extends Component {
     contactDetailViewModel = null;
@@ -35,6 +41,12 @@ const EditContact = observer(
       this.contactDetailViewModel = this.viewModel
         ? this.viewModel.getContactDetailViewModel()
         : null;
+      this.companyListViewModel = companyViewModel
+        ? companyViewModel.getCompanyListViewModel()
+        : null;
+      this.contactGroupListViewModel = contactGroupViewModel
+        ? contactGroupViewModel.getContactGroupListViewModel()
+        : null;
       this.contactDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
@@ -44,6 +56,10 @@ const EditContact = observer(
         this.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.contactDetailViewModel.initializeData();
       }
+      await this.companyListViewModel.handleFilter({ limit: 0 });
+      await this.companyListViewModel.initializeDataCustom();
+      await this.contactGroupListViewModel.handleFilter({ limit: 0 });
+      await this.contactGroupListViewModel.initializeData();
     }
 
     render() {
@@ -116,40 +132,11 @@ const EditContact = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
-                  <Input
-                    field={{
-                      getValueSelected:
-                        this.contactDetailViewModel.contactDetailViewModel.formPropsData[
-                          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
-                        ],
-                      classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_contact_name'),
-                      handleChange: (event) => {
-                        this.contactDetailViewModel.handleFormPropsData(
-                          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE,
-                          event.target.value
-                        );
-                      },
-                      required: true,
-                      validation: 'required',
-                      blurred: () => {
-                        this.validator.showMessageFor('Contact Name');
-                      },
-                    }}
-                  />
-                  {this.validator.message(
-                    'Contact Name',
-                    this.contactDetailViewModel.contactDetailViewModel.formPropsData[
-                      PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
-                    ],
-                    'required',
-                    {
-                      className: 'text-danger mt-8px',
-                    }
-                  )}
-                </Form.Group>
-                <ContactInformation validator={this.validator} />
+                <ContactInformation
+                  validator={this.validator}
+                  companyListViewModel={this.companyListViewModel}
+                  contactGroupListViewModel={this.contactGroupListViewModel}
+                />
               </Col>
               <Col lg={3}>
                 <PublishOptions
