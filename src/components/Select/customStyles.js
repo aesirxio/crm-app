@@ -8,7 +8,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     control: (provided) => {
       return {
         ...provided,
-        minHeight: creatable ? 110 : 40,
+        minHeight: creatable ? 40 : 40,
         height: '100%',
         alignItems: creatable ? 'start' : 'center',
         boxShadow: 'none',
@@ -22,7 +22,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--bs-white)',
         cursor: 'pointer',
         width: 'auto',
-        paddingLeft: 7,
+        paddingLeft: creatable ? 0 : 7,
         paddingRight: 7,
       };
     },
@@ -78,7 +78,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
       return {
         ...styles,
         backgroundColor: 'var(--dropdown-multi-bg)',
-        margin: '8px 8px 8px 2px',
+        margin: '0 8px 0 2px',
         borderRadius: '5px',
       };
     },
@@ -97,8 +97,8 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     valueContainer: (provided) => ({
       ...provided,
-      paddingTop: '4.5px',
-      paddingBottom: '4.5px',
+      paddingTop: '5.5px',
+      paddingBottom: '5.5px',
     }),
   };
 };

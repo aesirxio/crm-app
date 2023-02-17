@@ -16,7 +16,7 @@ class CreatableComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.defaultValue ?? [],
+      value: props.value ?? [],
       inputValue: '',
     };
   }
@@ -54,28 +54,28 @@ class CreatableComponent extends React.Component {
     }
     let styles = customStyles(isBorder, plColor, arrowColor, creatable);
 
-    const ClearIndicator = (props) => {
-      const {
-        children = <div className="text-danger">{t('txt_remove_all')}</div>,
-        getStyles,
-        innerProps: { ref, ...restInnerProps },
-      } = props;
-      return (
-        <div
-          {...restInnerProps}
-          ref={ref}
-          style={{
-            ...getStyles('clearIndicator', props),
-            position: 'absolute',
-            top: '-38px',
-            right: '0',
-            paddingRight: 0,
-          }}
-        >
-          <div style={{ padding: '0px 5px' }}>{children}</div>
-        </div>
-      );
-    };
+    // const ClearIndicator = (props) => {
+    //   const {
+    //     children = <div className="text-danger">{t('txt_remove_all')}</div>,
+    //     getStyles,
+    //     innerProps: { ref, ...restInnerProps },
+    //   } = props;
+    //   return (
+    //     <div
+    //       {...restInnerProps}
+    //       ref={ref}
+    //       style={{
+    //         ...getStyles('clearIndicator', props),
+    //         position: 'absolute',
+    //         top: '-38px',
+    //         right: '0',
+    //         paddingRight: 0,
+    //       }}
+    //     >
+    //       <div style={{ padding: '0px 5px' }}>{children}</div>
+    //     </div>
+    //   );
+    // };
 
     const MultiValueRemove = (props) => {
       return (
@@ -90,15 +90,13 @@ class CreatableComponent extends React.Component {
       <CreatableSelect
         {...this.props}
         components={{
-          ClearIndicator,
+          ClearIndicator: null,
           MultiValueRemove,
-          DropdownIndicator: null,
         }}
         styles={styles}
         inputValue={this.state.inputValue}
         isClearable
         isMulti
-        menuIsOpen={false}
         placeholder={placeholder ?? t('txt_type_something_and_press_enter')}
         onChange={(newValue) => {
           onChange(newValue);

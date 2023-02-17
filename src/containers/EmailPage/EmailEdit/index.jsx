@@ -143,7 +143,7 @@ const EditEmail = observer(
           </div>
           <Form>
             <Row className="gx-24 mb-24">
-              <Col xxl={9} lg={8}>
+              <Col xxl={9} lg={8} className="h-100">
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{

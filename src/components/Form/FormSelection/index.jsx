@@ -29,8 +29,9 @@ class FormSelection extends Component {
       <>
         {this.props.field.creatable ? (
           <CreatableComponent
-            defaultValue={this.props.field.getValueSelected}
+            value={this.state.field ?? null}
             isBorder={true}
+            options={this.props.field?.getDataSelectOptions}
             arrowColor={this.props.field.arrowColor}
             placeholder={this.props.field.placeholder}
             className="fs-14"

@@ -13,3 +13,14 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+.form-control:read-only {
+  &:focus {
+    border: 1px solid var(--input-border-color);
+  }
+}
+.form-control:disabled {
+  color: var(--input-placeholder-color);
+  &:focus {
+    border: 1px solid var(--input-border-color);
+  }
+}

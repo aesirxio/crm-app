@@ -35,7 +35,7 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.INPUT:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                  {field.label && <Label text={field.label} required={field.required ?? false} />}
                   <Input field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {

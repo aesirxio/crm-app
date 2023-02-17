@@ -1,5 +1,4 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
@@ -7,6 +6,8 @@ import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withEmailViewModel } from 'containers/EmailPage/EmailViewModel/EmailViewModelContextProvider';
+import { Row } from 'react-bootstrap';
+import FromEmail from './FromEmail';
 
 const CommonInformation = observer(
   class CommonInformation extends Component {
@@ -16,9 +17,7 @@ const CommonInformation = observer(
       this.companyListViewModel = this.props.companyListViewModel;
     }
 
-    async componentDidMount() {
-      // await this.tagListViewModel.initializeData();
-    }
+    async componentDidMount() {}
 
     render() {
       const { t, validator } = this.props;
@@ -26,112 +25,141 @@ const CommonInformation = observer(
         {
           fields: [
             {
-              label: 'txt_alias',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS,
+              key: 'TO_PARTNER_LABEL',
               type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected:
-                this.viewModel.emailDetailViewModel.formPropsData[
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
-                ],
-              className: 'col-lg-12',
-              placeholder: this.viewModel.aliasChange ? this.viewModel.aliasChange : t('txt_type'),
-              handleChange: (event) => {
-                this.viewModel.emailDetailViewModel.formPropsData[
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
-                ] = event.target.value;
-              },
+              getValueSelected: t('txt_to_partners'),
+              readOnly: true,
+              className: 'col-lg-2',
             },
             {
-              label: 'txt_main_company',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,
+              key: 'TO_PARTNERS',
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData[
-                PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
-              ]
-                ? {
-                    label:
-                      this.viewModel.emailDetailViewModel.formPropsData[
-                        PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME
-                      ],
-                    value:
-                      this.viewModel.emailDetailViewModel.formPropsData[
-                        PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
-                      ],
-                  }
+              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData['TO_PARTNERS']
+                ?.length
+                ? this.viewModel.emailDetailViewModel.formPropsData['TO_PARTNERS'].map((item) => {
+                    return {
+                      label: item.label,
+                      value: item.value,
+                    };
+                  })
                 : null,
               getDataSelectOptions: this.companyListViewModel.items
                 ? this.companyListViewModel.items.map((item) => {
-                    let levelString = Array.from(Array(parseInt(item.level)).keys())
-                      .map(() => ``)
-                      .join('- ');
                     return {
-                      label: levelString + item.title,
+                      label: item.title,
                       value: item.id,
                     };
                   })
                 : null,
+              isMulti: true,
+              creatable: true,
               handleChange: (data) => {
-                this.viewModel.emailDetailViewModel.formPropsData[
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME
-                ] = data.label;
-                this.viewModel.emailDetailViewModel.formPropsData[
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
-                ] = data.value;
+                this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
+                  'TO_PARTNERS',
+                  data
+                );
+              },
+              placeholder: t('txt_choose_from_list_contact'),
+              className: 'col-lg-10',
+            },
+            {
+              key: 'CC_LABEL',
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected: t('txt_cc'),
+              readOnly: true,
+              className: 'col-lg-2',
+              classNameInput: 'text-capitalize',
+            },
+            {
+              key: 'CC',
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData['CC'],
+              className: 'col-lg-10',
+              placeholder: '',
+              handleChange: (event) => {
+                this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
+                  'CC',
+                  event.target.value
+                );
+              },
+            },
+            {
+              key: 'SUBJECT_LABEL',
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected: t('txt_subject'),
+              readOnly: true,
+              className: 'col-lg-2',
+              classNameInput: 'text-capitalize',
+            },
+            {
+              key: 'SUBJECT',
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData['SUBJECT'],
+              className: 'col-lg-10',
+              placeholder: t('txt_your_title_email'),
+              handleChange: (event) => {
+                this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
+                  'SUBJECT',
+                  event.target.value
+                );
+              },
+            },
+          ],
+        },
+      ];
+
+      const generateFormSetting2 = [
+        {
+          fields: [
+            {
+              key: 'MESSAGE',
+              label: 'txt_message',
+              type: FORM_FIELD_TYPE.EDITOR,
+              getValueSelected:
+                this.viewModel.emailDetailViewModel.formPropsData['MESSAGE'] ?? null,
+              handleChange: (data) => {
+                this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
+                  'MESSAGE',
+                  data
+                );
               },
               className: 'col-lg-12',
             },
-            // {
-            //   label: 'txt_tags',
-            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS,
-            //   type: FORM_FIELD_TYPE.SELECTION,
-            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            //     PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
-            //   ]
-            //     ? {
-            //         label: this.tagListViewModel.items?.find(
-            //           (x) =>
-            //             x.id ===
-            //             formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            //               PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
-            //             ]
-            //         )?.title,
-            //         value:
-            //           formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            //             PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
-            //           ],
-            //       }
-            //     : null,
-            //   getDataSelectOptions: this.tagListViewModel.items
-            //     ? this.tagListViewModel.items.map((item) => ({
-            //         label: item.title,
-            //         value: item.id,
-            //       }))
-            //     : null,
-            //   isMulti: true,
-            //   handleChange: (data) => {
-            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            //       PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
-            //     ] = data.map((tag) => tag.value);
-            //   },
-            //   className: 'col-lg-12',
-            // },
           ],
         },
       ];
       return (
-        <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
+        <div className="position-relative">
           {this.companyListViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
-          {Object.keys(generateFormSetting)
-            .map((groupIndex) => {
-              return [...Array(generateFormSetting[groupIndex])].map((group) => {
-                return renderingGroupFieldHandler(group, validator);
-              });
-            })
-            .reduce((arr, el) => {
-              return arr.concat(el);
-            }, [])}
+          <div className="p-24 pb-8px bg-white rounded-1 shadow-sm h-100 mt-24">
+            <Row className="gx-24">
+              <FromEmail validator={validator} companyListViewModel={this.companyListViewModel} />
+              {Object.keys(generateFormSetting)
+                .map((groupIndex) => {
+                  return [...Array(generateFormSetting[groupIndex])].map((group) => {
+                    return renderingGroupFieldHandler(group, validator);
+                  });
+                })
+                .reduce((arr, el) => {
+                  return arr.concat(el);
+                }, [])}
+            </Row>
+          </div>
+          <div className="p-24 pb-8px bg-white rounded-1 shadow-sm h-100 mt-24">
+            <Row className="gx-24">
+              {Object.keys(generateFormSetting2)
+                .map((groupIndex) => {
+                  return [...Array(generateFormSetting2[groupIndex])].map((group) => {
+                    return renderingGroupFieldHandler(group, validator);
+                  });
+                })
+                .reduce((arr, el) => {
+                  return arr.concat(el);
+                }, [])}
+            </Row>
+          </div>
         </div>
       );
     }

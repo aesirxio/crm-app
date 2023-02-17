@@ -322,5 +322,11 @@
   "txt_by": "por",
   "txt_mail_name": "Mail name",
   "txt_send_email": "Send Email",
-  "txt_send_a_test": "Send A Test"
+  "txt_send_a_test": "Send A Test",
+  "txt_to_partners": "To Parners",
+  "txt_choose_from_list_contact": "Choose from list contact or Input email partners",
+  "txt_cc": "CC",
+  "txt_subject": "Subject",
+  "txt_your_title_email": "Your title email",
+  "txt_other": "Other"
 }
