@@ -1,5 +1,4 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
@@ -10,7 +9,8 @@ const ContactGroupInformation = observer(
   class ContactGroupInformation extends Component {
     constructor(props) {
       super(props);
-      this.contactGroupDetailViewModel = this.props.viewModel.contactGroupDetailViewModel;
+      this.viewModel = this.props.viewModel.contactGroupDetailViewModel;
+      this.contactListViewModel = this.props.contactListViewModel;
     }
 
     render() {
@@ -19,35 +19,48 @@ const ContactGroupInformation = observer(
         {
           fields: [
             {
-              label: 'txt_alias',
-              key: PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS,
+              label: t('txt_group_name'),
+              key: 'GROUP_NAME',
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData[
-                  PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
-                ],
-              placeholder: this.contactGroupDetailViewModel.aliasChange
-                ? this.contactGroupDetailViewModel.aliasChange
-                : t('txt_type'),
+                this.viewModel.contactGroupDetailViewModel.formPropsData['GROUP_NAME'],
+              placeholder: t('txt_type'),
               handleChange: (data) => {
-                this.contactGroupDetailViewModel.handleFormPropsData(
-                  PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS,
+                this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
+                  'GROUP_NAME',
                   data.target.value
                 );
               },
+              required: true,
               className: 'col-lg-12',
             },
             {
-              label: 'txt_description',
-              key: PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION,
-              type: FORM_FIELD_TYPE.EDITOR,
-              getValueSelected:
-                this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData[
-                  PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION
-                ] ?? null,
+              label: t('txt_add_contact_to_group'),
+              key: 'CONTACTS',
+              type: FORM_FIELD_TYPE.SELECTION_COLUMN,
+              getValueSelected: this.viewModel.contactGroupDetailViewModel.formPropsData['CONTACTS']
+                ?.length
+                ? this.viewModel.contactGroupDetailViewModel.formPropsData['CONTACTS'].map(
+                    (item) => {
+                      return {
+                        label: item.label,
+                        value: item.value,
+                      };
+                    }
+                  )
+                : null,
+              getDataSelectOptions: this.contactListViewModel.items
+                ? this.contactListViewModel.items.map((item) => {
+                    return {
+                      label: item.title,
+                      value: item.id,
+                    };
+                  })
+                : null,
+              isMulti: true,
               handleChange: (data) => {
-                this.contactGroupDetailViewModel.handleFormPropsData(
-                  PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION,
+                this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
+                  'CONTACTS',
                   data
                 );
               },

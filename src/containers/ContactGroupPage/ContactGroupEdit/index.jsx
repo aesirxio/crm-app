@@ -15,12 +15,14 @@ import ActionsBar from 'components/ActionsBar';
 import { withContactGroupViewModel } from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
-import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactGroupInformation from './Component/ContactGroupInformation';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
-
+import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
+import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
+const contactStore = new ContactStore();
+const contactViewModel = new ContactViewModel(contactStore);
 const EditContactGroup = observer(
   class EditContactGroup extends Component {
     contactGroupDetailViewModel = null;
@@ -35,6 +37,9 @@ const EditContactGroup = observer(
       this.contactGroupDetailViewModel = this.viewModel
         ? this.viewModel.getContactGroupDetailViewModel()
         : null;
+      this.contactListViewModel = contactViewModel
+        ? contactViewModel.getContactListViewModel()
+        : null;
       this.contactGroupDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
@@ -44,6 +49,8 @@ const EditContactGroup = observer(
         this.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.contactGroupDetailViewModel.initializeData();
       }
+      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.initializeData();
     }
 
     handleAliasFormPropsData() {
@@ -91,11 +98,6 @@ const EditContactGroup = observer(
                     },
                     icon: '/assets/images/cancel.svg',
                   },
-                  // {
-                  //   title: t('txt_preview'),
-                  //   handle: () => {},
-                  //   icon: '/assets/images/preview.svg',
-                  // },
                   {
                     title: t('txt_save_close'),
                     handle: async () => {
@@ -140,51 +142,12 @@ const EditContactGroup = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
-                  <Input
-                    field={{
-                      getValueSelected:
-                        this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData[
-                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME
-                        ],
-                      classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_group_name'),
-                      handleChange: (event) => {
-                        this.contactGroupDetailViewModel.handleFormPropsData(
-                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME,
-                          event.target.value
-                        );
-                        if (
-                          !this.contactGroupDetailViewModel.contactGroupDetailViewModel
-                            .formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS]
-                        ) {
-                          this.debouncedChangeHandler(event.target.value);
-                        }
-                      },
-                      required: true,
-                      validation: 'required',
-                      blurred: () => {
-                        this.validator.showMessageFor('Field Group Name');
-                      },
-                    }}
-                  />
-                  {this.validator.message(
-                    'Field Group Name',
-                    this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData[
-                      PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME
-                    ],
-                    'required',
-                    {
-                      className: 'text-danger mt-8px',
-                    }
-                  )}
-                </Form.Group>
-
                 <ContactGroupInformation
                   validator={this.validator}
                   formPropsData={
                     this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData
                   }
+                  contactListViewModel={this.contactListViewModel}
                 />
               </Col>
               <Col lg={3}>
@@ -194,8 +157,6 @@ const EditContactGroup = observer(
                     this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData
                   }
                   isEdit={this.isEdit}
-                  isPublished={false}
-                  isFeatured={false}
                 />
               </Col>
             </Row>

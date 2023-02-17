@@ -137,8 +137,13 @@ const ListContactGroup = observer((props) => {
         className="mb-3"
       >
         <Tab eventKey={'default'} title={t('txt_all_groups')} />
-        <Tab key={1} eventKey={1} title={t('txt_published')} />
-        <Tab key={0} eventKey={0} title={t('txt_unpublished')} />
+        {viewModel?.successResponse?.listPublishStatus?.map((o) => (
+          <Tab
+            key={o.value}
+            eventKey={o.value}
+            title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+          />
+        ))}
       </Tabs>
 
       <div className="d-flex align-items-center justify-content-between gap-2 mb-2">

@@ -59,7 +59,7 @@ class FromEmail extends Component {
               if (data.value === 'from') {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
                   'EMAIL_FROM',
-                  Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)
+                  Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL)
                 );
               }
               this.setState({ fromSelect: data.value });
@@ -72,7 +72,7 @@ class FromEmail extends Component {
             type: FORM_FIELD_TYPE.INPUT,
             getValueSelected:
               this.viewModel.emailDetailViewModel.formPropsData['EMAIL_FROM'] ??
-              Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME),
+              Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
             className: 'col-lg-10',
             placeholder: t('txt_type'),
             handleChange: (event) => {

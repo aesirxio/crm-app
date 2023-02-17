@@ -331,5 +331,11 @@
   "txt_cc": "CC",
   "txt_subject": "Subject",
   "txt_your_title_email": "Your title email",
-  "txt_other": "Other"
+  "txt_other": "Other",
+  "txt_group_name": "Group Name",
+  "txt_add_contact_to_group": "Add Contacts To Group",
+  "txt_all_contacts": "All contacts",
+  "txt_select_all": "Select All",
+  "txt_selected_contacts": "Selected contacts",
+  "txt_unselect_all": "Unselect All"
 }

@@ -20,6 +20,7 @@ class ContactGroupListViewModel {
   pagination = {};
   successResponse = {
     state: false,
+    listPublishStatus: [],
     content_id: '',
   };
 
@@ -36,6 +37,11 @@ class ContactGroupListViewModel {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.contactGroupStore.getList(
       this.filter,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    await this.contactGroupStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -102,6 +108,9 @@ class ContactGroupListViewModel {
     if (result?.items) {
       this.items = result.items;
       this.pagination = result.pagination;
+    }
+    if (result?.listPublishStatus) {
+      this.successResponse.listPublishStatus = result.listPublishStatus;
     }
     if (result && message) {
       notify(message, 'success');

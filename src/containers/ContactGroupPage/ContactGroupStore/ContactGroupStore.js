@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimFieldGroupApiService } from 'aesirx-dma-lib';
+import { AesirxPimFieldGroupApiService, AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { FieldGroupItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
@@ -126,5 +126,25 @@ export default class ContactGroupStore {
         callbackOnError(error?.response?.data);
       });
     }
+  }
+  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
   }
 }
