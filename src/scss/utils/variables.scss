@@ -17,7 +17,7 @@ $gray-700: #949494 !default;
 $gray-800: #c0c0c0 !default;
 $gray-900: #4e4f53 !default;
 $black: #000 !default;
-
+$disabled-content: #a5a4b5 !default;
 // fusv-disable
 $grays: (
   '100': $gray-100,
@@ -87,6 +87,7 @@ $colors: (
   'gray': $gray-600,
   'gray-100': $gray-100,
   'gray-dark': $gray-800,
+  'disabled-content': $disabled-content,
 ) !default;
 // scss-docs-end colors-map
 

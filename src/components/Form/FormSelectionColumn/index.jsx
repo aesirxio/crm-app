@@ -5,7 +5,6 @@
 
 import ComponentSVG from 'components/ComponentSVG';
 import React, { Component } from 'react';
-import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import SelectionTable from './SelectionTable';
@@ -30,9 +29,9 @@ class FormSelectionColumn extends Component {
 
     return (
       <>
-        <Row className="gx-lg-8 gx-4">
-          <Col lg="6">
-            <div className="p-24 bg-white border rounded-2">
+        <div className="selection-grid d-flex justify-content-center flex-wrap">
+          <div className="selection-grid-item">
+            <div className="p-24 bg-white border rounded-2 h-100">
               <div className="d-flex align-items-center justify-content-between fs-14">
                 <div className="fw-semibold">{t('txt_all_contacts')}</div>
                 <div
@@ -54,9 +53,19 @@ class FormSelectionColumn extends Component {
                 data={this.props.field.dataTable}
               ></SelectionTable>
             </div>
-          </Col>
-          <Col lg="6">
-            <div className="p-24 bg-white border rounded-2">
+          </div>
+          <div className="d-flex align-items-center justity-content-center m-24 text-center">
+            <div className="mx-auto">
+              <ComponentSVG
+                url="/assets/images/switch-line.png"
+                className={`bg-black`}
+                width={'32px'}
+                height={'32px'}
+              />
+            </div>
+          </div>
+          <div className="selection-grid-item">
+            <div className="p-24 bg-white border rounded-2 h-100">
               <div className="d-flex align-items-center justify-content-between fs-14">
                 <div className="fw-semibold">{t('txt_selected_contacts')}</div>
                 <div
@@ -79,8 +88,8 @@ class FormSelectionColumn extends Component {
                 isSelectedTable={true}
               ></SelectionTable>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </>
     );
   }

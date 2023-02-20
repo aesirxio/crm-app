@@ -116,7 +116,7 @@ const ContactGroupInformation = observer(
                 >
                   <ComponentSVG
                     url="/assets/images/plus.svg"
-                    className={`me-1 bg-black`}
+                    className={`me-1`}
                     width={'13px'}
                     height={'13px'}
                   />
@@ -143,7 +143,7 @@ const ContactGroupInformation = observer(
                 >
                   <ComponentSVG
                     url="/assets/images/minus.png"
-                    className={`me-1 bg-black`}
+                    className={`me-1`}
                     width={'13px'}
                     height={'13px'}
                   />

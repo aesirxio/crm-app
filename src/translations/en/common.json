@@ -337,5 +337,10 @@
   "txt_all_contacts": "All contacts",
   "txt_select_all": "Select All",
   "txt_selected_contacts": "Selected contacts",
-  "txt_unselect_all": "Unselect All"
+  "txt_unselect_all": "Unselect All",
+  "txt_phone": "Phone",
+  "txt_track_this_user": "Track This User",
+  "txt_add_contact_to_company": "Add Contacts To Company",
+  "txt_company_address": "Company Address",
+  "txt_company_website": "Company Website"
 }

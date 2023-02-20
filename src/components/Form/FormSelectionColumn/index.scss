@@ -4,9 +4,12 @@
  */
 @import '../../../scss/utils/bootstrap.scss';
 
+.selection-grid-item {
+  width: calc(50% - 40px);
+}
 .selection {
   .selection-table {
-    max-height: 50vh;
+    max-height: 39vh;
     overflow: scroll;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
     thead {
@@ -22,10 +25,29 @@
         border: 1px solid $border-color;
       }
     }
+    tr {
+      &.disabled {
+        pointer-events: none;
+        td {
+          color: $disabled-content;
+          .icon {
+            background-color: $disabled-content;
+          }
+        }
+      }
+      .icon {
+        background-color: $black;
+      }
+    }
   }
   .selection-search-icon {
     position: absolute;
     left: 24px;
     top: 12px;
+  }
+}
+@include media-breakpoint-down(lg) {
+  .selection-grid-item {
+    width: 100%;
   }
 }

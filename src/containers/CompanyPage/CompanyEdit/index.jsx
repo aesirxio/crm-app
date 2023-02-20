@@ -15,12 +15,14 @@ import ActionsBar from 'components/ActionsBar';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
-import Input from 'components/Form/Input';
-import CompanyTab from './Component/CompanyTab';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
-
+import CompanyInformation from './Component/CompanyInformation';
+import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
+import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
+const contactStore = new ContactStore();
+const contactViewModel = new ContactViewModel(contactStore);
 const EditCompany = observer(
   class EditCompany extends Component {
     companyDetailViewModel = null;
@@ -37,6 +39,10 @@ const EditCompany = observer(
         : null;
       this.companyDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
+
+      this.contactListViewModel = contactViewModel
+        ? contactViewModel.getContactListViewModel()
+        : null;
     }
 
     async componentDidMount() {
@@ -44,6 +50,8 @@ const EditCompany = observer(
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.companyDetailViewModel.initializeData();
       }
+      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.initializeData();
     }
 
     handleAliasFormPropsData() {
@@ -152,51 +160,10 @@ const EditCompany = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
-                  <Input
-                    field={{
-                      getValueSelected:
-                        this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
-                        ],
-                      classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_company_name'),
-                      handleChange: (event) => {
-                        this.companyDetailViewModel.handleFormPropsData(
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
-                          event.target.value
-                        );
-
-                        if (
-                          !this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-                            PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
-                          ]
-                        ) {
-                          this.debouncedChangeHandler(event.target.value);
-                        }
-                      },
-                      required: true,
-                      validation: 'required',
-                      blurred: () => {
-                        this.validator.showMessageFor('Company Name');
-                      },
-                    }}
-                  />
-                  {this.validator.message(
-                    'Company Name',
-                    this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-                      PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
-                    ],
-                    'required',
-                    {
-                      className: 'text-danger mt-8px',
-                    }
-                  )}
-                </Form.Group>
-                <CompanyTab
-                  detailViewModal={this.companyDetailViewModel}
+                <CompanyInformation
                   validator={this.validator}
-                  requiredField={this.state.requiredField}
+                  formPropsData={this.companyDetailViewModel.companyDetailViewModel.formPropsData}
+                  contactListViewModel={this.contactListViewModel}
                 />
               </Col>
               <Col lg={3}>

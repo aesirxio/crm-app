@@ -61,9 +61,6 @@ const SelectionTable = ({ columns, data, dataList, classNameTable, isSelectedTab
   );
 
   const { t } = props;
-  const isTableHaveData = !(
-    !isSelectedTable && rows.every((row) => row.original?.selected === true)
-  );
   const [value, setValue] = React.useState(state.globalFilter);
   const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined);
@@ -87,7 +84,7 @@ const SelectionTable = ({ columns, data, dataList, classNameTable, isSelectedTab
       </div>
       <div className="selection-table p-0 rounded-2 mt-16">
         <div className="fs-14 text-color position-relative h-100">
-          {rows.length && isTableHaveData ? (
+          {rows.length ? (
             <table {...getTableProps()} className={`w-100 mb-0 ${classNameTable}`}>
               <thead className="fs-6 bg-white zindex-1">
                 {headerGroups.map((headerGroup, index) => {
@@ -143,34 +140,37 @@ const SelectionTable = ({ columns, data, dataList, classNameTable, isSelectedTab
                 {rows.length > 0 &&
                   rows.map((row) => {
                     return (
-                      ((isSelectedTable && row.original?.selected) ||
-                        (!isSelectedTable && !row.original?.selected)) && (
-                        <tr key={row.getRowProps().key} {...row.getRowProps()}>
-                          {row.cells.map((cell, index) => {
-                            if (cell.isRowSpanned) return null;
-                            else
-                              return (
-                                <td
-                                  key={index}
-                                  rowSpan={cell.rowSpan}
-                                  {...cell.getCellProps({
-                                    style: { width: cell.column.width },
-                                  })}
-                                  className="py-0 fs-14 align-middle border-bottom-0"
-                                >
-                                  {cell.render('Cell')}
-                                </td>
-                              );
-                          })}
-                        </tr>
-                      )
+                      <tr
+                        key={row.getRowProps().key}
+                        {...row.getRowProps()}
+                        className={`${
+                          !isSelectedTable ? (row.original?.selected ? 'disabled' : '') : ''
+                        }`}
+                      >
+                        {row.cells.map((cell, index) => {
+                          if (cell.isRowSpanned) return null;
+                          else
+                            return (
+                              <td
+                                key={index}
+                                rowSpan={cell.rowSpan}
+                                {...cell.getCellProps({
+                                  style: { width: cell.column.width },
+                                })}
+                                className="py-0 fs-14 align-middle border-bottom-0"
+                              >
+                                {cell.render('Cell')}
+                              </td>
+                            );
+                        })}
+                      </tr>
                     );
                   })}
               </tbody>
             </table>
           ) : null}
 
-          {rows.length === 0 || !isTableHaveData ? (
+          {rows.length === 0 ? (
             <div className="py-5">
               <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
             </div>
