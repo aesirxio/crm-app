@@ -48,7 +48,6 @@ const Table = ({
   dataList,
   selection = true,
   classNameTable,
-  onRightClickItem,
   sortAPI,
   canSort,
   pagination,
@@ -278,13 +277,7 @@ const Table = ({
               {rows.length > 0 &&
                 rows.map((row) => {
                   return (
-                    <tr
-                      key={row.getRowProps().key}
-                      {...row.getRowProps()}
-                      onContextMenu={(e) => {
-                        onRightClickItem(e, row.original);
-                      }}
-                    >
+                    <tr key={row.getRowProps().key} {...row.getRowProps()}>
                       {row.cells.map((cell, index) => {
                         if (cell.isRowSpanned) return null;
                         else

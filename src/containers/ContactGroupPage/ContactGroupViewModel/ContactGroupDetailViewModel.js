@@ -90,6 +90,8 @@ class ContactGroupDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        // Fix static data
+        this.contactGroupDetailViewModel.formPropsData[key] = {};
         Object.assign(this.contactGroupDetailViewModel.formPropsData[key], value);
       } else {
         this.contactGroupDetailViewModel.formPropsData[key] = value;

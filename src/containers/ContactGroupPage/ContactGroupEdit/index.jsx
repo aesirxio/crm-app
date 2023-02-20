@@ -78,7 +78,8 @@ const EditContactGroup = observer(
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.contactGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {(this.contactGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.contactListViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">

@@ -122,7 +122,10 @@ class ContactListViewModel {
 
   callbackOnSuccessHandler = (result, message) => {
     if (result?.items) {
-      this.items = result.items;
+      this.items = result.items.map((item) => {
+        Object.assign(item, { selected: false });
+        return item;
+      });
       this.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {

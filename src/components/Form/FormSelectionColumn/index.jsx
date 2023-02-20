@@ -7,8 +7,8 @@ import ComponentSVG from 'components/ComponentSVG';
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-
 import './index.scss';
+import SelectionTable from './SelectionTable';
 
 class FormSelectionColumn extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class FormSelectionColumn extends Component {
   };
   render() {
     const { t } = this.props;
+
     return (
       <>
         <Row className="gx-lg-8 gx-4">
@@ -34,7 +35,10 @@ class FormSelectionColumn extends Component {
             <div className="p-24 bg-white border rounded-2">
               <div className="d-flex align-items-center justify-content-between fs-14">
                 <div className="fw-semibold">{t('txt_all_contacts')}</div>
-                <div className="text-success cursor-pointer d-flex align-items-center">
+                <div
+                  className="text-success cursor-pointer d-flex align-items-center"
+                  onClick={this.props.field.onSelectAll}
+                >
                   <ComponentSVG
                     url="/assets/images/plus.svg"
                     className={`me-1 bg-success`}
@@ -44,13 +48,21 @@ class FormSelectionColumn extends Component {
                   {t('txt_select_all')}
                 </div>
               </div>
+              <SelectionTable
+                classNameTable={`bg-white rounded table-striped table`}
+                columns={this.props.field.columnsTable}
+                data={this.props.field.dataTable}
+              ></SelectionTable>
             </div>
           </Col>
           <Col lg="6">
             <div className="p-24 bg-white border rounded-2">
               <div className="d-flex align-items-center justify-content-between fs-14">
                 <div className="fw-semibold">{t('txt_selected_contacts')}</div>
-                <div className="text-danger cursor-pointer d-flex align-items-center">
+                <div
+                  className="text-danger cursor-pointer d-flex align-items-center"
+                  onClick={this.props.field.onUnSelectAll}
+                >
                   <ComponentSVG
                     url="/assets/images/minus.png"
                     className={`me-1 bg-danger`}
@@ -60,22 +72,15 @@ class FormSelectionColumn extends Component {
                   {t('txt_unselect_all')}
                 </div>
               </div>
+              <SelectionTable
+                classNameTable={`bg-white rounded table-striped table`}
+                columns={this.props.field.columnsTableSelected}
+                data={this.props.field.dataTableSelected}
+                isSelectedTable={true}
+              ></SelectionTable>
             </div>
           </Col>
         </Row>
-        {/* <SelectComponent
-          value={this.state.field ?? null}
-          options={this.props.field?.getDataSelectOptions}
-          className="fs-14"
-          isBorder={true}
-          //onFocus={this.props.field.changed}
-          onBlur={this.props.field?.blurred}
-          isMulti={this.props.field?.isMulti}
-          onChange={this.handleChange}
-          arrowColor={this.props.field?.arrowColor}
-          placeholder={this.props.field?.placeholder}
-          isDisabled={this.props.field?.isDisabled}
-        /> */}
       </>
     );
   }
