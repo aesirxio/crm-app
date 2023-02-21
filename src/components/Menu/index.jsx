@@ -88,6 +88,12 @@ const Menu = observer((props) => {
     //   ],
     // },
     {
+      text: 'txt_left_menu_opportunity',
+      link: `/opportunity`,
+      icons: '/assets/images/lead.png',
+      icons_color: '/assets/images/lead.png',
+    },
+    {
       text: 'txt_left_menu_contact',
       link: `/contacts`,
       icons: '/assets/images/contact.png',

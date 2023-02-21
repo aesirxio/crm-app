@@ -15,6 +15,7 @@ const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProductProvider = lazy(() => import('containers/EmailPage/edit'));
+const EditOpportunityProvider = lazy(() => import('containers/OpportunityPage/edit'));
 const EditCompanyProvider = lazy(() => import('containers/CompanyPage/edit'));
 const EditFContactGroupProvider = lazy(() => import('containers/ContactGroupPage/edit'));
 const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
@@ -22,7 +23,8 @@ const EditContactProvider = lazy(() => import('containers/ContactPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const EmailPage = lazy(() => import('../containers/EmailPage'));
-const CategoriesPage = lazy(() => import('../containers/CompanyPage'));
+const OpportunitiesPage = lazy(() => import('../containers/OpportunityPage'));
+const CompaniesPage = lazy(() => import('../containers/CompanyPage'));
 const ContactPage = lazy(() => import('../containers/ContactPage'));
 const ContactGroupPage = lazy(() => import('../containers/ContactGroupPage'));
 
@@ -46,9 +48,14 @@ const mainRoutes = [
     main: () => <EmailPage />,
   },
   {
+    path: ['/opportunity', '/opportunity'],
+    exact: true,
+    main: () => <OpportunitiesPage />,
+  },
+  {
     path: ['/company', '/company'],
     exact: true,
-    main: () => <CategoriesPage />,
+    main: () => <CompaniesPage />,
   },
   {
     path: ['/setting', '/setting/configuration'],
@@ -69,6 +76,16 @@ const mainRoutes = [
     path: '/email/add',
     exact: true,
     main: () => <EditProductProvider />,
+  },
+  {
+    path: '/opportunity/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditOpportunityProvider match={match} />,
+  },
+  {
+    path: '/opportunity/add',
+    exact: true,
+    main: () => <EditOpportunityProvider />,
   },
   {
     path: '/company/edit/:id',

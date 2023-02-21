@@ -347,5 +347,10 @@
   "txt_preview_test": "Preview & Test",
   "txt_preview_email_text": "We found personalizations in your email. Would you like to preview them with one of your contacts?",
   "txt_select_or_type_email_to_send_test": "Select or type your person to send test",
-  "txt_send_test": "Send Test"
+  "txt_send_test": "Send Test",
+  "txt_left_menu_opportunity": "Opportunity",
+  "txt_list_opportunity": "List Opportunity",
+  "txt_opportunity_name": "Opportunity Name",
+  "txt_all_opportunity":"All Opportunity",
+  "txt_opportunity":"Opportunity"
 }
