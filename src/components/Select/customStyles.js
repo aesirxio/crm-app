@@ -78,7 +78,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
       return {
         ...styles,
         backgroundColor: 'var(--dropdown-multi-bg)',
-        margin: '0 8px 0 2px',
+        margin: '0 8px 5.5px 2px',
         borderRadius: '5px',
       };
     },
@@ -93,13 +93,16 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
       backgroundColor: 'var(--dropdown-multi-bg)',
       order: 2,
       padding: '10px 16px 10px 0',
+      paddingLeft: '0',
       fontSize: '14px',
     }),
-    valueContainer: (provided) => ({
-      ...provided,
-      paddingTop: '5.5px',
-      paddingBottom: '5.5px',
-    }),
+    valueContainer: (provided, state) => {
+      return {
+        ...provided,
+        paddingTop: '5.5px',
+        paddingBottom: state.hasValue && state.isMulti ? '0' : '5.5px',
+      };
+    },
   };
 };
 

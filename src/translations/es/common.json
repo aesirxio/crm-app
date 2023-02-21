@@ -339,5 +339,10 @@
   "txt_track_this_user": "Track This User",
   "txt_add_contact_to_company": "Add Contacts To Company",
   "txt_company_address": "Company Address",
-  "txt_company_website": "Company Website"
+  "txt_company_website": "Company Website",
+  "txt_to": "to",
+  "txt_preview_test": "Preview & Test",
+  "txt_preview_email_text": "We found personalizations in your email. Would you like to preview them with one of your contacts?",
+  "txt_select_or_type_email_to_send_test": "Select or type your person to send test",
+  "txt_send_test": "Send Test"
 }

@@ -21,7 +21,6 @@ class FromEmail extends Component {
   render() {
     const { t, validator } = this.props;
 
-    console.log('dsajdksajkdjksa', this.viewModel.emailDetailViewModel.formPropsData['EMAIL_FROM']);
     const generateFormSetting = [
       {
         fields: [
