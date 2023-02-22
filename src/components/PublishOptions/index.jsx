@@ -1,6 +1,6 @@
 import ComponentSVG from 'components/ComponentSVG';
 import FormSelection from 'components/Form/FormSelection';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
@@ -39,10 +39,10 @@ const PublishOptions = observer(
         isCreateBy = true,
       } = this.props;
       let createBy = isEdit
-        ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
+        ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.AUTHOR]?.user?.name
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
       let modifiedBy = isEdit
-        ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
+        ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm">
@@ -60,19 +60,19 @@ const PublishOptions = observer(
                 <FormSelection
                   field={{
                     getValueSelected:
-                      formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED] !== undefined
+                      formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS] !== undefined
                         ? {
                             label: t(
                               `txt_${this.utilsListViewModel.listPublishStatus
                                 ?.find(
                                   (x) =>
                                     x.value.toString() ===
-                                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
+                                    formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS].toString()
                                 )
                                 ?.label?.toString()
                                 .toLowerCase()}`
                             ),
-                            value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
+                            value: formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS]?.toString(),
                           }
                         : null,
                     getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
@@ -84,7 +84,7 @@ const PublishOptions = observer(
                     arrowColor: 'var(--dropdown-indicator-color)',
                     handleChange: (data) => {
                       detailViewModal.handleFormPropsData(
-                        PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED,
+                        CRM_COMPANY_DETAIL_FIELD_KEY.STATUS,
                         data.value
                       );
                     },
@@ -105,14 +105,14 @@ const PublishOptions = observer(
               <Form.Group>
                 <FormRadio
                   field={{
-                    key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
-                    getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED]
+                    key: CRM_COMPANY_DETAIL_FIELD_KEY.FEATURED,
+                    getValueSelected: formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.FEATURED]
                       ? {
                           label:
-                            formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] === '1'
+                            formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.FEATURED] === '1'
                               ? t('txt_yes')
                               : 'No',
-                          value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED].toString(),
+                          value: formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.FEATURED].toString(),
                         }
                       : {
                           label: 'No',
@@ -131,7 +131,7 @@ const PublishOptions = observer(
                     ],
                     handleChange: (data) => {
                       detailViewModal.handleFormPropsData(
-                        PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
+                        CRM_COMPANY_DETAIL_FIELD_KEY.FEATURED,
                         data.target.value
                       );
                     },
@@ -147,8 +147,8 @@ const PublishOptions = observer(
                 <CustomizedDatePicker
                   dateFormat={FORMAT_DATE + ' ' + FORMAT_TIME}
                   defaultDate={
-                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_TIME]
-                      ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_TIME]
+                    formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]
+                      ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]
                       : new Date()
                   }
                   isDisabled={true}

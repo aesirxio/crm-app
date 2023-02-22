@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
@@ -26,7 +26,7 @@ const contactViewModel = new ContactViewModel(contactStore);
 const EditCompany = observer(
   class EditCompany extends Component {
     companyDetailViewModel = null;
-    formPropsData = { [PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = { [CRM_COMPANY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
     isEdit = false;
     constructor(props) {
       super(props);
@@ -47,7 +47,7 @@ const EditCompany = observer(
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.companyDetailViewModel.initializeData();
       }
       await this.contactListViewModel.handleFilter({ limit: 0 });
@@ -57,24 +57,22 @@ const EditCompany = observer(
     handleAliasFormPropsData() {
       if (
         !this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-          PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
+          CRM_COMPANY_DETAIL_FIELD_KEY.ALIAS
         ]
       ) {
         this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-          PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
+          CRM_COMPANY_DETAIL_FIELD_KEY.ALIAS
         ] = this.companyDetailViewModel.aliasChange;
       }
     }
 
     handleValidateForm() {
-      if (this.validator.fields['Company Name'] === true) {
-        this.setState((prevState) => {
-          return {
-            ...prevState,
-            requiredField: Math.random(1, 200),
-          };
-        });
-      }
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          requiredField: Math.random(1, 200),
+        };
+      });
       this.validator.showMessages();
     }
 
@@ -164,6 +162,8 @@ const EditCompany = observer(
                   validator={this.validator}
                   formPropsData={this.companyDetailViewModel.companyDetailViewModel.formPropsData}
                   contactListViewModel={this.contactListViewModel}
+                  isEdit={this.isEdit}
+                  requiredField={this.state.requiredField}
                 />
               </Col>
               <Col lg={3}>

@@ -362,5 +362,11 @@
   "txt_assign_to": "Assign To",
   "txt_close_probability": "Close Probability",
   "txt_next_step": "Next Step",
-  "txt_type_to_search": "Type to search"
+  "txt_type_to_search": "Type to search",
+  "txt_company_annual_revenue": "Company Annual Revenue",
+  "txt_company_number_employees": "Company Number Employees",
+  "txt_company_contact_email": "Company Contact Email",
+  "txt_company_tax_number": "Company Tax Number",
+  "txt_company_fax_number": "Company Fax Number",
+  "txt_company_phone_number": "Company Phone Number"
 }

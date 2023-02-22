@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 class CompanyDetailViewModel {
   companyStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -29,7 +29,7 @@ class CompanyDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.companyStore.getDetail(
-      this.companyDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+      this.companyDetailViewModel.formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetCompanySuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,10 +73,10 @@ class CompanyDetailViewModel {
     if (result) {
       this.companyDetailViewModel.formPropsData = {
         ...this.companyDetailViewModel.formPropsData,
-        ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
+        ...Object.keys(CRM_COMPANY_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]: result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
+              [CRM_COMPANY_DETAIL_FIELD_KEY[index]]: result[CRM_COMPANY_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

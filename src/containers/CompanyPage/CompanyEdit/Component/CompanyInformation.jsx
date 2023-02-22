@@ -7,6 +7,8 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
 import ComponentSVG from 'components/ComponentSVG';
+import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { Row } from 'react-bootstrap';
 
 const CompanyInformation = observer(
   class CompanyInformation extends Component {
@@ -17,7 +19,7 @@ const CompanyInformation = observer(
     }
 
     render() {
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
       let dataTable = this.contactListViewModel.items ?? [];
       const handleSelectContact = (data, isAll = false) => {
         if (isAll) {
@@ -176,70 +178,176 @@ const CompanyInformation = observer(
           fields: [
             {
               label: t('txt_company_name'),
-              key: 'COMPANY_NAME',
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME,
               type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected: this.viewModel.companyDetailViewModel.formPropsData['COMPANY_NAME'],
-              placeholder: t('txt_type'),
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME
+                ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  'COMPANY_NAME',
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME,
                   data.target.value
                 );
               },
               required: true,
+              validation: 'required',
               className: 'col-lg-12',
             },
             {
               label: t('txt_company_address'),
-              key: 'COMPANY_ADDRESS',
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ADDRESS,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.companyDetailViewModel.formPropsData['COMPANY_ADDRESS'],
-              placeholder: t('txt_type'),
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ADDRESS
+                ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  'COMPANY_ADDRESS',
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ADDRESS,
                   data.target.value
                 );
               },
               required: true,
+              validation: 'required',
               className: 'col-lg-12',
             },
             {
               label: t('txt_company_website'),
-              key: 'COMPANY_WEBSITE',
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_WEBSITE,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.companyDetailViewModel.formPropsData['COMPANY_WEBSITE'],
-              placeholder: t('txt_type'),
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_WEBSITE
+                ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  'COMPANY_WEBSITE',
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_WEBSITE,
                   data.target.value
                 );
               },
-              required: true,
               className: 'col-lg-12',
             },
             {
-              label: t('txt_add_contact_to_company'),
-              key: 'CONTACTS',
-              type: FORM_FIELD_TYPE.SELECTION_COLUMN,
-              columnsTable: columnsTable,
-              dataTable: dataTable,
-              onSelectAll: () => {
-                handleSelectContact(null, true);
+              label: t('txt_company_annual_revenue'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ANNUAL_REVENUE,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ANNUAL_REVENUE
+                ],
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ANNUAL_REVENUE,
+                  data.target.value
+                );
               },
-              columnsTableSelected: columnsTableSelected,
-              dataTableSelected: this.viewModel.companyDetailViewModel.formPropsData['CONTACTS']
-                ?.length
-                ? this.viewModel.companyDetailViewModel.formPropsData['CONTACTS']
-                : [],
-              onUnSelectAll: () => {
-                handleUnSelectContact(null, true);
-              },
-              className: 'col-lg-12',
+              className: 'col-lg-6',
             },
+            {
+              label: t('txt_company_number_employees'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NUMBER_EMPLOYEES,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NUMBER_EMPLOYEES
+                ],
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NUMBER_EMPLOYEES,
+                  data.target.value
+                );
+              },
+              className: 'col-lg-6',
+            },
+            {
+              label: t('txt_company_contact_email'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_CONTACT_EMAIL,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_CONTACT_EMAIL
+                ],
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_CONTACT_EMAIL,
+                  data.target.value
+                );
+              },
+              className: 'col-lg-6',
+            },
+            {
+              label: t('txt_company_tax_number'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_TAX_NUMBER,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_TAX_NUMBER
+                ],
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_TAX_NUMBER,
+                  data.target.value
+                );
+              },
+              className: 'col-lg-6',
+            },
+            {
+              label: t('txt_company_fax_number'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_FAX_NUMBER,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_FAX_NUMBER
+                ],
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_FAX_NUMBER,
+                  data.target.value
+                );
+              },
+              className: 'col-lg-6',
+            },
+            {
+              label: t('txt_company_phone_number'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_PHONE_NUMBER,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.companyDetailViewModel.formPropsData[
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_PHONE_NUMBER
+                ],
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_PHONE_NUMBER,
+                  data.target.value
+                );
+              },
+              className: 'col-lg-6',
+            },
+            ...(isEdit
+              ? [
+                  {
+                    label: t('txt_add_contact_to_company'),
+                    key: 'CONTACTS',
+                    type: FORM_FIELD_TYPE.SELECTION_COLUMN,
+                    columnsTable: columnsTable,
+                    dataTable: dataTable,
+                    onSelectAll: () => {
+                      handleSelectContact(null, true);
+                    },
+                    columnsTableSelected: columnsTableSelected,
+                    dataTableSelected: this.viewModel.companyDetailViewModel.formPropsData[
+                      'CONTACTS'
+                    ]?.length
+                      ? this.viewModel.companyDetailViewModel.formPropsData['CONTACTS']
+                      : [],
+                    onUnSelectAll: () => {
+                      handleUnSelectContact(null, true);
+                    },
+                    className: 'col-lg-12',
+                  },
+                ]
+              : []),
           ],
         },
       ];
@@ -248,15 +356,17 @@ const CompanyInformation = observer(
           {this.props.viewModel.companyDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
-          {Object.keys(generateFormSetting)
-            .map((groupIndex) => {
-              return [...Array(generateFormSetting[groupIndex])].map((group) => {
-                return renderingGroupFieldHandler(group, validator);
-              });
-            })
-            .reduce((arr, el) => {
-              return arr.concat(el);
-            }, [])}
+          <Row>
+            {Object.keys(generateFormSetting)
+              .map((groupIndex) => {
+                return [...Array(generateFormSetting[groupIndex])].map((group) => {
+                  return renderingGroupFieldHandler(group, validator);
+                });
+              })
+              .reduce((arr, el) => {
+                return arr.concat(el);
+              }, [])}
+          </Row>
         </div>
       );
     }

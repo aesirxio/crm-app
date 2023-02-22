@@ -3,20 +3,17 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
+import { AesirxCrmCompanyApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { CategoryItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class CompanyStore {
   async createCompany(createCompanyData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        CategoryItemModel.__transformItemToApiOfCreation(createCompanyData);
       let resultOnSave;
-      const createCompanyApiService = new AesirxPimCategoryApiService();
+      const createCompanyApiService = new AesirxCrmCompanyApiService();
 
-      resultOnSave = await createCompanyApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await createCompanyApiService.create(createCompanyData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Created successfully');
@@ -37,13 +34,10 @@ export default class CompanyStore {
 
   async updateCompany(updateCompanyData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        CategoryItemModel.__transformItemToApiOfUpdation(updateCompanyData);
-
       let resultOnSave;
 
-      const updateCompanyApiService = new AesirxPimCategoryApiService();
-      resultOnSave = await updateCompanyApiService.update(convertedUpdateGeneralData);
+      const updateCompanyApiService = new AesirxCrmCompanyApiService();
+      resultOnSave = await updateCompanyApiService.update(updateCompanyData);
 
       if (resultOnSave?.result) {
         runInAction(() => {
@@ -70,7 +64,7 @@ export default class CompanyStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimCategoryApiService();
+        const getDetailInfoAPIService = new AesirxCrmCompanyApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -93,7 +87,7 @@ export default class CompanyStore {
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const getListAPIService = new AesirxPimCategoryApiService();
+      const getListAPIService = new AesirxCrmCompanyApiService();
       const respondedData = await getListAPIService.getList(filters);
       if (respondedData) {
         runInAction(() => {
@@ -116,8 +110,8 @@ export default class CompanyStore {
 
   async getListWithoutPagination(callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimCompanyApiService = new AesirxPimCategoryApiService();
-      const respondedData = await aesirxPimCompanyApiService.getList({ 'list[limit]': 9999 });
+      const aesirxCrmCompanyApiService = new AesirxCrmCompanyApiService();
+      const respondedData = await aesirxCrmCompanyApiService.getList({ 'list[limit]': 9999 });
 
       if (respondedData) {
         runInAction(() => {
@@ -159,7 +153,7 @@ export default class CompanyStore {
 
   async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
-      const updateStatusAPIService = new AesirxPimCategoryApiService();
+      const updateStatusAPIService = new AesirxCrmCompanyApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Updated successfully');
@@ -176,8 +170,10 @@ export default class CompanyStore {
 
   async deleteCompanies(arr, callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimCompanyApiService = new AesirxPimCategoryApiService();
-      const respondedData = await aesirxPimCompanyApiService.deleteCompanies(arr);
+      const aesirxCrmCompanyApiService = new AesirxCrmCompanyApiService();
+      // Waiting Builk Delete
+      const respondedData = await aesirxCrmCompanyApiService.delete(arr[0]);
+
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });

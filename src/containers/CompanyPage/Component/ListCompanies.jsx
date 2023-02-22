@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
 import history from 'routes/history';
 import { notify } from 'components/Toast';
+// import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const ListCompanies = observer((props) => {
   const { t } = props;
@@ -27,7 +28,7 @@ const ListCompanies = observer((props) => {
           <>
             <div className="d-flex align-items-center py-8px">
               <div>
-                <div className="mb-1">{value?.name}</div>
+                <div className="mb-1">{value.name}</div>
                 <div className="text-green">
                   <button
                     onClick={() => {
@@ -44,14 +45,14 @@ const ListCompanies = observer((props) => {
         );
       },
     },
-    {
-      Header: t('txt_number'),
-      accessor: 'productQuantity',
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value }) => {
-        return <div className="d-inline-block border px-1 rounded-pill">{value}</div>;
-      },
-    },
+    // {
+    //   Header: t('txt_number'),
+    //   accessor: 'productQuantity',
+    //   className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
+    //   Cell: ({ value }) => {
+    //     return <div className="d-inline-block border px-1 rounded-pill">{value}</div>;
+    //   },
+    // },
     {
       Header: () => {
         return (
@@ -115,6 +116,14 @@ const ListCompanies = observer((props) => {
           )}
         </div>
       ),
+    },
+    {
+      Header: t('txt_create_date'),
+      accessor: 'createTime',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      Cell: ({ value }) => {
+        return <div className="pe-2">{value.dateTime}</div>;
+      },
     },
     {
       Header: t('txt_last_modified'),

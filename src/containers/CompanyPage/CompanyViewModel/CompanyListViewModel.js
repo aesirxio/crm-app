@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 class CompanyListViewModel {
   companyStore = null;
@@ -202,24 +202,25 @@ class CompanyListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      const date = moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
         company: {
-          id: o[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
-          level: o[PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL],
+          id: o[CRM_COMPANY_DETAIL_FIELD_KEY.ID],
+          name: o[CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME],
         },
-        productQuantity: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_QUANTITY],
         lastModified: {
-          status: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS],
           dateTime: date ?? '',
-          author: o[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[CRM_COMPANY_DETAIL_FIELD_KEY.AUTHOR]?.user?.name,
+        },
+        createTime: {
+          dateTime:
+            o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME] &&
+            moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
         },
         published: {
-          state: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],
-          id: o[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+          status: o[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS],
         },
-        parentName: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_NAME],
       };
     });
   };
