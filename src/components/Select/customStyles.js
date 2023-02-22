@@ -5,7 +5,7 @@
 
 const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
   return {
-    control: (provided) => {
+    control: (provided, state) => {
       return {
         ...provided,
         minHeight: creatable ? 40 : 40,
@@ -22,7 +22,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--bs-white)',
         cursor: 'pointer',
         width: 'auto',
-        paddingLeft: creatable ? 0 : 7,
+        paddingLeft: state.isMulti ? 0 : 7,
         paddingRight: 7,
       };
     },

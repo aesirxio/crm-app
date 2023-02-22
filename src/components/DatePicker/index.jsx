@@ -18,6 +18,8 @@ const CustomizedDatePicker = ({
   showTimeSelect,
   placeholderText,
   isUTC,
+  icon,
+  iconClass,
 }) => {
   const [startDate, setStartDate] = useState();
   useEffect(() => {
@@ -31,7 +33,11 @@ const CustomizedDatePicker = ({
   return (
     <div className="d-flex align-items-center bg-white position-relative date-picker">
       <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
-        <ComponentSVG url="/assets/images/clock.svg" color="#C0C0C0" />
+        <ComponentSVG
+          className={iconClass && iconClass}
+          url={`${icon ?? '/assets/images/clock.svg'}`}
+          color="#C0C0C0"
+        />
       </div>
       <DatePicker
         dateFormat={dateFormat ?? 'MMM d, yyyy'}
@@ -44,7 +50,7 @@ const CustomizedDatePicker = ({
         showTimeSelect={showTimeSelect}
         adjustDateOnChange
         fixedHeight={40}
-        className={`ps-4 m-0 border-0 outline-none position-relative border-1 rounded-1 ${
+        className={`ps-4 m-0 border-0 border-gray-500 outline-none position-relative border-1 rounded-1 ${
           isDisabled ? 'bg-gray-300 text-body' : 'bg-white text-body'
         }`}
         readOnly={isDisabled}

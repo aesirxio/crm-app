@@ -29,13 +29,13 @@ const Input = ({ field, ...props }) => {
         onPaste={field.pasted ?? undefined}
         className={`${field.classNameInput}`}
         onBlur={field.blurred ?? undefined}
-        placeholder={field.placeholder ?? t('txt_type')}
+        placeholder={field.placeholder ?? t('txt_type_your_content')}
         readOnly={field.readOnly}
         disabled={field.disabled}
       />
       {field.format && (
         <div
-          className={`form-control input-format border-0 border-start border-end ${field.classNameInput}`}
+          className={`form-control input-format border-0 border-start border-end text-center ${field.classNameInput}`}
         >
           {field.format}
         </div>

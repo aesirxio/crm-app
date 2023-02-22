@@ -65,6 +65,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     id={field.key}
                     onChange={field.handleChange ?? undefined}
                     onBlur={field.blurred ?? undefined}
+                    placeholder={field.placeholder}
                   />
 
                   {field.validation &&
@@ -182,6 +183,8 @@ const renderingGroupFieldHandler = (group, validator) => {
                     handleOnChange={(date) => field.handleChange(date)}
                     defaultDate={field.getValueSelected ? field.getValueSelected : null}
                     placeholderText={field.placeholder}
+                    icon={field.icon}
+                    iconClass={field.iconClass}
                   />
                 </Form.Group>
               );

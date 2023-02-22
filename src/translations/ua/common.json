@@ -349,5 +349,15 @@
   "txt_list_opportunity": "List Opportunity",
   "txt_opportunity_name": "Opportunity Name",
   "txt_all_opportunity":"All Opportunity",
-  "txt_opportunity":"Opportunity"
+  "txt_opportunity":"Opportunity",
+  "txt_type_your_content": "Type your content",
+  "txt_text_input_content": "Text input content",
+  "txt_lead_source": "Lead Source",
+  "txt_budget_amount": "Budget Amount",
+  "txt_estimated_value": "Estimated Value",
+  "txt_expect_closed_date": "Expect Closed Date",
+  "txt_assign_to": "Assign To",
+  "txt_close_probability": "Close Probability",
+  "txt_next_step": "Next Step",
+  "txt_type_to_search": "Type to search"
 }

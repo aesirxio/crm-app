@@ -10,7 +10,8 @@ import AsyncSelect from 'react-select/async';
 import customStyles from './customStyles';
 import { ThemesContext } from 'themes/ThemeContextProvider';
 import { withTranslation } from 'react-i18next';
-
+import { components } from 'react-select';
+import ComponentSVG from 'components/ComponentSVG';
 class SelectComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -48,13 +49,23 @@ class SelectComponent extends React.Component {
     //     </ValueContainer>
     //   );
     // };
+    const MultiValueRemove = (props) => {
+      return (
+        <components.MultiValueRemove {...props}>
+          {' '}
+          <ComponentSVG url="/assets/images/cancel.svg" color="#C0C0C0" />
+        </components.MultiValueRemove>
+      );
+    };
 
     return (
       <Select
         {...this.props}
-        // components={{
-        //   ValueContainer: CustomValueContainer,
-        // }}
+        components={{
+          // ValueContainer: CustomValueContainer,
+          ClearIndicator: null,
+          MultiValueRemove,
+        }}
         placeholder={placeholder ?? t('txt_select')}
         styles={styles}
       />
