@@ -15,6 +15,7 @@ const FORM_FIELD_TYPE = {
   SELECTION: 'select',
   SELECTION_COLUMN: 'select_columns',
   SELECTION_FIELDS: 'select_fields',
+  SELECTION_CUSTOM: 'select_custom',
   TAB: 10,
   PASSWORD: 11,
   CANVA: 12,

@@ -6,19 +6,86 @@ import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
-import { Row } from 'react-bootstrap';
+import { Button, Modal, Row } from 'react-bootstrap';
 import moment from 'moment';
-
+import ComponentSVG from 'components/ComponentSVG';
+import EditContactProvider from 'containers/ContactPage/edit';
 const OpportunityInformation = observer(
   class OpportunityInformation extends Component {
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.opportunityDetailViewModel;
       this.contactListViewModel = this.props.contactListViewModel;
+      this.state = { showPreview: false };
     }
+    handleShowPreview = () => {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          showPreview: true,
+        };
+      });
+    };
+    handleClosePreview = () => {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          showPreview: false,
+        };
+      });
+    };
 
     render() {
       const { t, validator } = this.props;
+      const contactCreateComponent = () => {
+        return (
+          <div className="ps-16">
+            <Button
+              variant="success"
+              className="d-flex align-items-center p-15"
+              onClick={() => {
+                this.handleShowPreview();
+              }}
+            >
+              <ComponentSVG
+                url="/assets/images/plus.svg"
+                className={`bg-white`}
+                width={'10px'}
+                height={'10px'}
+              />
+            </Button>
+            <Modal
+              show={this.state.showPreview}
+              onHide={() => {
+                this.handleClosePreview();
+              }}
+              centered
+              size="xl"
+            >
+              <Modal.Body className="p-24">
+                <div className="d-flex align-items-center justify-content-end mb-2">
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                      this.handleClosePreview();
+                    }}
+                  >
+                    <ComponentSVG
+                      url="/assets/images/close-circle.svg"
+                      className={'bg-success'}
+                      width="24px"
+                      height="24px"
+                    />
+                  </div>
+                </div>
+                <div className="bg-body rounded-2">
+                  <EditContactProvider />,
+                </div>
+              </Modal.Body>
+            </Modal>
+          </div>
+        );
+      };
       const generateFormSetting = [
         {
           fields: [
@@ -55,7 +122,7 @@ const OpportunityInformation = observer(
             {
               label: t('txt_contact'),
               key: 'CONTACT',
-              type: FORM_FIELD_TYPE.SELECTION,
+              type: FORM_FIELD_TYPE.SELECTION_CUSTOM,
               getValueSelected: this.viewModel.opportunityDetailViewModel.formPropsData['CONTACT']
                 ?.length
                 ? this.viewModel.opportunityDetailViewModel.formPropsData['CONTACT'].map((item) => {
@@ -83,6 +150,7 @@ const OpportunityInformation = observer(
               },
               placeholder: t('txt_type_to_search'),
               className: 'col-lg-12',
+              component: contactCreateComponent(),
             },
             {
               label: t('txt_lead_source'),
