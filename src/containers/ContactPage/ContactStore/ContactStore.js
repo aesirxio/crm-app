@@ -5,18 +5,15 @@
 
 import { AesirxPimDebtorGroupApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { DebtorGroupItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class ContactStore {
   async create(createContactData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        DebtorGroupItemModel.__transformItemToApiOfCreation(createContactData);
       let resultOnSave;
       const createContactApiService = new AesirxPimDebtorGroupApiService();
 
-      resultOnSave = await createContactApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await createContactApiService.create(createContactData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Created successfully');
@@ -37,13 +34,10 @@ export default class ContactStore {
 
   async update(updateContactData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        DebtorGroupItemModel.__transformItemToApiOfUpdation(updateContactData);
-
       let resultOnSave;
       const updateContactApiService = new AesirxPimDebtorGroupApiService();
 
-      resultOnSave = await updateContactApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await updateContactApiService.update(updateContactData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Updated successfully');

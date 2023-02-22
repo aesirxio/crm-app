@@ -6,20 +6,16 @@
 import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
 import { AesirxPimProductApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { ProductItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class emailStore {
   async create(createEmailData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        ProductItemModel.__transformItemToApiOfCreation(createEmailData);
-
       let resultOnSave;
 
       const aesirxPimEmailApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await aesirxPimEmailApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await aesirxPimEmailApiService.create(createEmailData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Created successfully');
@@ -40,12 +36,10 @@ export default class emailStore {
 
   async update(updateEmailData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        ProductItemModel.__transformItemToApiOfUpdation(updateEmailData);
       let resultOnSave;
       const aesirxPimEmailApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await aesirxPimEmailApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await aesirxPimEmailApiService.update(updateEmailData);
 
       if (resultOnSave?.result) {
         runInAction(() => {

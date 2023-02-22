@@ -4,19 +4,15 @@
  */
 
 import { AesirxPimFieldGroupApiService, AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { FieldGroupItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class ContactGroupStore {
   async create(createContactGroupData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        FieldGroupItemModel.__transformItemToApiOfCreation(createContactGroupData);
-
       let resultOnSave;
       const createContactGroupApiService = new AesirxPimFieldGroupApiService();
 
-      resultOnSave = await createContactGroupApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await createContactGroupApiService.create(createContactGroupData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Created successfully');
@@ -37,13 +33,10 @@ export default class ContactGroupStore {
 
   async update(updateContactGroupData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        FieldGroupItemModel.__transformItemToApiOfUpdation(updateContactGroupData);
-
       let resultOnSave;
       const updateContactGroupApiService = new AesirxPimFieldGroupApiService();
 
-      resultOnSave = await updateContactGroupApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await updateContactGroupApiService.update(updateContactGroupData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Updated successfully');

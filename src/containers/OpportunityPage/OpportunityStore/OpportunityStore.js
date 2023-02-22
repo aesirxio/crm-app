@@ -5,18 +5,15 @@
 
 import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { CategoryItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class OpportunityStore {
   async createOpportunity(createOpportunityData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        CategoryItemModel.__transformItemToApiOfCreation(createOpportunityData);
       let resultOnSave;
       const createOpportunityApiService = new AesirxPimCategoryApiService();
 
-      resultOnSave = await createOpportunityApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await createOpportunityApiService.create(createOpportunityData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Created successfully');
@@ -37,13 +34,10 @@ export default class OpportunityStore {
 
   async updateOpportunity(updateOpportunityData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdateGeneralData =
-        CategoryItemModel.__transformItemToApiOfUpdation(updateOpportunityData);
-
       let resultOnSave;
 
       const updateOpportunityApiService = new AesirxPimCategoryApiService();
-      resultOnSave = await updateOpportunityApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await updateOpportunityApiService.update(updateOpportunityData);
 
       if (resultOnSave?.result) {
         runInAction(() => {
