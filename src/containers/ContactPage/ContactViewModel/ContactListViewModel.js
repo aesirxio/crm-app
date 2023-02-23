@@ -122,7 +122,9 @@ class ContactListViewModel {
 
   callbackOnSuccessHandler = (result, message) => {
     if (result?.listItems) {
-      this.items = result.listItems;
+      this.items = result.listItems.map((item) => {
+        return { ...item, selected: false };
+      });
       this.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
@@ -152,7 +154,6 @@ class ContactListViewModel {
           date: date ?? '',
           by: o[CRM_CONTACT_DETAIL_FIELD_KEY.MODIFIED_BY],
         },
-        selected: false,
       };
     });
   };

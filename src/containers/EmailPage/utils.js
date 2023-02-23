@@ -11,7 +11,7 @@ export const transform = (data) => {
         image: '',
       },
       categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
-      author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+      author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
       featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
       type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
         PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
@@ -19,7 +19,7 @@ export const transform = (data) => {
       lastModified: {
         status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
         dateTime: date ?? '',
-        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
       },
     };
   });

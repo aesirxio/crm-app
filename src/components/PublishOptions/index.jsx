@@ -39,10 +39,10 @@ const PublishOptions = observer(
         isCreateBy = true,
       } = this.props;
       let createBy = isEdit
-        ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.AUTHOR]?.user?.name
+        ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_BY]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
       let modifiedBy = isEdit
-        ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
+        ? formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_BY]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm">

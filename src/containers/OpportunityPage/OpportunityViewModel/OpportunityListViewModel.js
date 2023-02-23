@@ -213,7 +213,7 @@ class OpportunityListViewModel {
         lastModified: {
           status: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_BY],
         },
         published: {
           state: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],

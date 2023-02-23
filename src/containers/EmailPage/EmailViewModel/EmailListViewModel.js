@@ -191,7 +191,7 @@ class EmailListViewModel {
           name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
         },
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
-        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
         featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
         type: Array.isArray(
           o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
@@ -205,7 +205,7 @@ class EmailListViewModel {
         lastModified: {
           status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATE],
           dateTime: date ?? '',
-          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
         },
       };
     });

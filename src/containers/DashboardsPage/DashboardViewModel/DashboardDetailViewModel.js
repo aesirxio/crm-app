@@ -133,11 +133,11 @@ class DashboardDetailViewModel {
             ][0]
           : '',
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
-        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
         lastModified: {
-          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATUS],
           dateTime: date ?? '',
-          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME],
+          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_BY],
         },
       };
     });

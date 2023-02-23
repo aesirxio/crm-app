@@ -131,6 +131,7 @@ class ContactGroupListViewModel {
           name: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME],
           id: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID],
         },
+        numberContact: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS]?.length ?? 0,
         createDate:
           o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] &&
           moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),

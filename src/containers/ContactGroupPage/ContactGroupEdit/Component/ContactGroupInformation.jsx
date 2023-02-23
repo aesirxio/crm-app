@@ -17,6 +17,22 @@ const ContactGroupInformation = observer(
     render() {
       const { t, validator } = this.props;
       let dataTable = this.contactListViewModel.items ?? [];
+      if (
+        this.viewModel.contactGroupDetailViewModel.formPropsData[
+          CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
+        ]?.length &&
+        dataTable.length
+      ) {
+        this.viewModel.contactGroupDetailViewModel.formPropsData[
+          CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
+        ].map((item) => {
+          let index = dataTable.findIndex((obj) => {
+            return obj.id === item.id;
+          });
+          dataTable[index].selected = true;
+          return;
+        });
+      }
       const handleSelectContact = (data, isAll = false) => {
         if (isAll) {
           this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(

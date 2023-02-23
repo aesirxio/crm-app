@@ -61,6 +61,14 @@ const ListContactGroup = observer((props) => {
       },
     },
     {
+      Header: t('txt_no_of_contacts'),
+      accessor: 'numberContact',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
+      Cell: ({ value }) => {
+        return <div className="d-inline-block border px-1 rounded-pill">{value}</div>;
+      },
+    },
+    {
       Header: () => {
         return (
           <div className="text-center pe-5">

@@ -365,5 +365,6 @@
   "txt_company_contact_email": "Company Contact Email",
   "txt_company_tax_number": "Company Tax Number",
   "txt_company_fax_number": "Company Fax Number",
-  "txt_company_phone_number": "Company Phone Number"
+  "txt_company_phone_number": "Company Phone Number",
+  "txt_no_of_contacts": "No. of contacts"
 }
