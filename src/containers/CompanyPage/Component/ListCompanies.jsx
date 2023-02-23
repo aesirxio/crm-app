@@ -82,7 +82,7 @@ const ListCompanies = observer((props) => {
         );
       },
       width: 50,
-      accessor: 'published',
+      accessor: 'status',
       className: 'py-18 border-bottom-1 text-center align-middle',
       Cell: ({ value, row }) => (
         <div className="text-center pe-5">
@@ -191,7 +191,7 @@ const ListCompanies = observer((props) => {
   };
 
   const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value.id);
+    listSelected = arr.map((o) => o.original.id);
   };
 
   const publishedBtnHandler = (id, value) => {

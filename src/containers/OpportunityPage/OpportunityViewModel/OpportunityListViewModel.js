@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 class OpportunityListViewModel {
   opportunityStore = null;
@@ -202,24 +202,27 @@ class OpportunityListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      const date =
+        o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.MODIFIED_TIME] &&
+        moment(o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
+        id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ID],
         opportunity: {
-          id: o[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
-          level: o[PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL],
+          id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ID],
+          name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME],
         },
-        productQuantity: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_QUANTITY],
+        companyName: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY],
+        contactName: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT],
+        amount: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT],
+        expectDate: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE],
+        assignedTo: 'Kanira Tr',
+        saleStage: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE] ?? '',
         lastModified: {
-          status: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_BY],
+          author: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CREATED_BY],
         },
-        published: {
-          state: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],
-          id: o[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
-        },
-        parentName: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_NAME],
+        status: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STATUS],
       };
     });
   };

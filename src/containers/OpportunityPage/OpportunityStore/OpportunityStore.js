@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
+import { AesirxCrmOpportunityApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
@@ -11,7 +11,7 @@ export default class OpportunityStore {
   async createOpportunity(createOpportunityData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const createOpportunityApiService = new AesirxPimCategoryApiService();
+      const createOpportunityApiService = new AesirxCrmOpportunityApiService();
 
       resultOnSave = await createOpportunityApiService.create(createOpportunityData);
       if (resultOnSave?.result) {
@@ -36,7 +36,7 @@ export default class OpportunityStore {
     try {
       let resultOnSave;
 
-      const updateOpportunityApiService = new AesirxPimCategoryApiService();
+      const updateOpportunityApiService = new AesirxCrmOpportunityApiService();
       resultOnSave = await updateOpportunityApiService.update(updateOpportunityData);
 
       if (resultOnSave?.result) {
@@ -64,7 +64,7 @@ export default class OpportunityStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimCategoryApiService();
+        const getDetailInfoAPIService = new AesirxCrmOpportunityApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -87,7 +87,7 @@ export default class OpportunityStore {
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const getListAPIService = new AesirxPimCategoryApiService();
+      const getListAPIService = new AesirxCrmOpportunityApiService();
       const respondedData = await getListAPIService.getList(filters);
       if (respondedData) {
         runInAction(() => {
@@ -110,7 +110,7 @@ export default class OpportunityStore {
 
   async getListWithoutPagination(callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimOpportunityApiService = new AesirxPimCategoryApiService();
+      const aesirxPimOpportunityApiService = new AesirxCrmOpportunityApiService();
       const respondedData = await aesirxPimOpportunityApiService.getList({ 'list[limit]': 9999 });
 
       if (respondedData) {
@@ -153,7 +153,7 @@ export default class OpportunityStore {
 
   async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
-      const updateStatusAPIService = new AesirxPimCategoryApiService();
+      const updateStatusAPIService = new AesirxCrmOpportunityApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Updated successfully');
@@ -170,7 +170,7 @@ export default class OpportunityStore {
 
   async deleteOpportunities(arr, callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimOpportunityApiService = new AesirxPimCategoryApiService();
+      const aesirxPimOpportunityApiService = new AesirxCrmOpportunityApiService();
       const respondedData = await aesirxPimOpportunityApiService.deleteOpportunities(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');

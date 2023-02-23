@@ -31,7 +31,7 @@ const List = observer((props) => {
   };
 
   const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value);
+    listSelected = arr.map((o) => o.original.id);
   };
   const selectTabHandler = (value) => {
     viewModel.isLoading();

@@ -140,4 +140,20 @@ export default class ContactGroupStore {
 
     return false;
   }
+  async deleteContactGroups(arr, callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxCrmContactApiService = new AesirxCrmListGroupApiService();
+      const respondedData = await getAesirxCrmContactApiService.delete(arr);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Deleted successfully');
+      });
+      return respondedData;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error?.response?.data);
+      });
+    }
+
+    return false;
+  }
 }

@@ -19,7 +19,6 @@ const ListContact = observer((props) => {
   useEffect(() => {
     viewModel.initializeData();
   }, []);
-  console.log('viewModel?.items', viewModel?.items);
   const columnsTable = [
     {
       Header: 'Id',
@@ -36,7 +35,6 @@ const ListContact = observer((props) => {
       width: 250,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
-        console.log('value', value);
         return (
           <div className="py-8px">
             <div className="mb-1">{value}</div>
@@ -112,7 +110,7 @@ const ListContact = observer((props) => {
   };
 
   const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value);
+    listSelected = arr.map((o) => o.original.id);
   };
 
   const selectTabHandler = (value) => {

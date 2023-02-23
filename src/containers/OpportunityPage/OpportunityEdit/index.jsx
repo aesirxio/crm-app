@@ -19,10 +19,10 @@ import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
 import OpportunityInformation from './Component/OpportunityInformation';
-import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
-import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
-const contactStore = new ContactStore();
-const contactViewModel = new ContactViewModel(contactStore);
+import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
+import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
+const companyStore = new CompanyStore();
+const companyViewModel = new CompanyViewModel(companyStore);
 const EditOpportunity = observer(
   class EditOpportunity extends Component {
     opportunityDetailViewModel = null;
@@ -40,8 +40,8 @@ const EditOpportunity = observer(
       this.opportunityDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
 
-      this.contactListViewModel = contactViewModel
-        ? contactViewModel.getContactListViewModel()
+      this.companyListViewModel = companyViewModel
+        ? companyViewModel.getCompanyListViewModel()
         : null;
     }
 
@@ -50,19 +50,17 @@ const EditOpportunity = observer(
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.opportunityDetailViewModel.initializeData();
       }
-      await this.contactListViewModel.handleFilter({ limit: 0 });
-      await this.contactListViewModel.initializeData();
+      await this.companyListViewModel.handleFilter({ limit: 0 });
+      await this.companyListViewModel.initializeDataCustom();
     }
 
     handleValidateForm() {
-      if (this.validator.fields['Opportunity Name'] === true) {
-        this.setState((prevState) => {
-          return {
-            ...prevState,
-            requiredField: Math.random(1, 200),
-          };
-        });
-      }
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          requiredField: Math.random(1, 200),
+        };
+      });
       this.validator.showMessages();
     }
 
@@ -130,7 +128,7 @@ const EditOpportunity = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.opportunityDetailViewModel.create();
-                          history.push(`/opportunity/edit/${result}`);
+                          result && history.push(`/opportunity/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -151,7 +149,8 @@ const EditOpportunity = observer(
                   formPropsData={
                     this.opportunityDetailViewModel.opportunityDetailViewModel.formPropsData
                   }
-                  contactListViewModel={this.contactListViewModel}
+                  companyListViewModel={this.companyListViewModel}
+                  requiredField={this.state.requiredField}
                 />
               </Col>
               <Col lg={3}>

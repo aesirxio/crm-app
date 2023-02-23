@@ -171,8 +171,7 @@ export default class CompanyStore {
   async deleteCompanies(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxCrmCompanyApiService = new AesirxCrmCompanyApiService();
-      // Waiting Builk Delete
-      const respondedData = await aesirxCrmCompanyApiService.delete(arr[0]);
+      const respondedData = await aesirxCrmCompanyApiService.delete(arr);
 
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');

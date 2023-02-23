@@ -135,7 +135,7 @@ class ContactGroupListViewModel {
         createDate:
           o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] &&
           moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
-        published: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],
+        status: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],
         lastModified: {
           status: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],
           date: date ?? '',
@@ -147,6 +147,22 @@ class ContactGroupListViewModel {
 
   isLoading = () => {
     this.successResponse.state = false;
+  };
+
+  deleteContactGroups = async (arr) => {
+    const res = await this.contactGroupStore.deleteContactGroups(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    if (res) {
+      await this.contactGroupStore.getList(
+        this.filter,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler
+      );
+    }
+    this.successResponse.state = true;
   };
 }
 

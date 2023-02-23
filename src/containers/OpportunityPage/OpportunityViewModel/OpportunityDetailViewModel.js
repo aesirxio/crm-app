@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 class OpportunityDetailViewModel {
   opportunityStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -29,7 +29,7 @@ class OpportunityDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.opportunityStore.getDetail(
-      this.opportunityDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+      this.opportunityDetailViewModel.formPropsData[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetOpportunitySuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,10 +73,11 @@ class OpportunityDetailViewModel {
     if (result) {
       this.opportunityDetailViewModel.formPropsData = {
         ...this.opportunityDetailViewModel.formPropsData,
-        ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
+        ...Object.keys(CRM_OPPORTUNITY_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]: result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
+              [CRM_OPPORTUNITY_DETAIL_FIELD_KEY[index]]:
+                result[CRM_OPPORTUNITY_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

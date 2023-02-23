@@ -21,7 +21,6 @@ const ContactInformation = observer(
 
     render() {
       const { t, validator } = this.props;
-      console.log('adsakdksadsa', this.viewModel.contactDetailViewModel.formPropsData);
       const generateFormSetting = [
         {
           fields: [

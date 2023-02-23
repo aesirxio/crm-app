@@ -88,7 +88,7 @@ const ListContactGroup = observer((props) => {
         );
       },
       width: 50,
-      accessor: 'published',
+      accessor: 'status',
       className: 'py-18 border-bottom-1 text-center align-middle',
       Cell: ({ value, row }) => (
         <div className="text-center pe-5">
@@ -144,7 +144,7 @@ const ListContactGroup = observer((props) => {
     {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      width: 100,
+      width: 200,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
@@ -168,7 +168,7 @@ const ListContactGroup = observer((props) => {
   };
 
   const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value.id);
+    listSelected = arr.map((o) => o.original.id);
   };
 
   const selectShowItemsHandler = (value) => {
@@ -195,6 +195,15 @@ const ListContactGroup = observer((props) => {
     }
   };
 
+  const deleteContactGroups = () => {
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteContactGroups(listSelected);
+    }
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-start mb-3">
@@ -203,6 +212,15 @@ const ListContactGroup = observer((props) => {
         </div>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteContactGroups();
+              },
+            },
             {
               title: t('txt_create_group'),
               icon: '/assets/images/plus.svg',

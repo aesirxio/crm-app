@@ -6,16 +6,15 @@ import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
-import { Button, Modal, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import moment from 'moment';
-import ComponentSVG from 'components/ComponentSVG';
-import EditContactProvider from 'containers/ContactPage/edit';
+import { CRM_COMPANY_DETAIL_FIELD_KEY, CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 const OpportunityInformation = observer(
   class OpportunityInformation extends Component {
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.opportunityDetailViewModel;
-      this.contactListViewModel = this.props.contactListViewModel;
+      this.companyListViewModel = this.props.companyListViewModel;
       this.state = { showPreview: false };
     }
     handleShowPreview = () => {
@@ -37,130 +36,73 @@ const OpportunityInformation = observer(
 
     render() {
       const { t, validator } = this.props;
-      const contactCreateComponent = () => {
-        return (
-          <div className="ps-16">
-            <Button
-              variant="success"
-              className="d-flex align-items-center p-15"
-              onClick={() => {
-                this.handleShowPreview();
-              }}
-            >
-              <ComponentSVG
-                url="/assets/images/plus.svg"
-                className={`bg-white`}
-                width={'10px'}
-                height={'10px'}
-              />
-            </Button>
-            <Modal
-              show={this.state.showPreview}
-              onHide={() => {
-                this.handleClosePreview();
-              }}
-              centered
-              size="xl"
-            >
-              <Modal.Body className="p-24">
-                <div className="d-flex align-items-center justify-content-end mb-2">
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => {
-                      this.handleClosePreview();
-                    }}
-                  >
-                    <ComponentSVG
-                      url="/assets/images/close-circle.svg"
-                      className={'bg-success'}
-                      width="24px"
-                      height="24px"
-                    />
-                  </div>
-                </div>
-                <div className="bg-body rounded-2">
-                  <EditContactProvider />,
-                </div>
-              </Modal.Body>
-            </Modal>
-          </div>
-        );
-      };
+
       const generateFormSetting = [
         {
           fields: [
             {
               label: t('txt_opportunity_name'),
-              key: 'OPPORTUNITY_NAME',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['OPPORTUNITY_NAME'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'OPPORTUNITY_NAME',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME,
                   data.target.value
                 );
               },
               required: true,
+              validation: 'required',
               className: 'col-lg-12',
             },
             {
               label: t('txt_company_name'),
-              key: 'COMPANY_NAME',
-              type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['COMPANY_NAME'],
-              handleChange: (data) => {
-                this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'COMPANY_NAME',
-                  data.target.value
-                );
-              },
-              required: true,
-              className: 'col-lg-12',
-            },
-            {
-              label: t('txt_contact'),
-              key: 'CONTACT',
-              type: FORM_FIELD_TYPE.SELECTION_CUSTOM,
-              getValueSelected: this.viewModel.opportunityDetailViewModel.formPropsData['CONTACT']
-                ?.length
-                ? this.viewModel.opportunityDetailViewModel.formPropsData['CONTACT'].map((item) => {
-                    return {
-                      label: item.label,
-                      value: item.value,
-                    };
-                  })
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected: this.viewModel.opportunityDetailViewModel.formPropsData[
+                CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID
+              ]
+                ? {
+                    label:
+                      this.viewModel.opportunityDetailViewModel.formPropsData[
+                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.crm_company_name
+                      ],
+                    value:
+                      this.viewModel.opportunityDetailViewModel.formPropsData[
+                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID
+                      ],
+                  }
                 : null,
-              getDataSelectOptions: this.contactListViewModel.items
-                ? this.contactListViewModel.items.map((item) => {
+              getDataSelectOptions: this.companyListViewModel.items
+                ? this.companyListViewModel.items.map((item) => {
                     return {
-                      label: item.title,
+                      label: item[CRM_COMPANY_DETAIL_FIELD_KEY.NAME],
                       value: item.id,
                     };
                   })
                 : null,
-              isMulti: true,
-              required: true,
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'CONTACT',
-                  data
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID,
+                  data.value
                 );
               },
-              placeholder: t('txt_type_to_search'),
               className: 'col-lg-12',
-              component: contactCreateComponent(),
             },
             {
               label: t('txt_lead_source'),
-              key: 'LEAD_SOURCE',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['LEAD_SOURCE'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'LEAD_SOURCE',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE,
                   data.target.value
                 );
               },
@@ -168,15 +110,17 @@ const OpportunityInformation = observer(
             },
             {
               label: t('txt_budget_amount'),
-              key: 'BUDGET_AMOUNT',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT,
               type: FORM_FIELD_TYPE.NUMBER,
               format: 'VND',
               placeholder: t('txt_text_input_content'),
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['BUDGET_AMOUNT'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'BUDGET_AMOUNT',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT,
                   data.target.value
                 );
               },
@@ -184,15 +128,17 @@ const OpportunityInformation = observer(
             },
             {
               label: t('txt_estimated_value'),
-              key: 'ESTIMATED_VALUE',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ESTIMATED_VALUE,
               type: FORM_FIELD_TYPE.NUMBER,
               format: 'VND',
               placeholder: t('txt_text_input_content'),
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['ESTIMATED_VALUE'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ESTIMATED_VALUE
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'ESTIMATED_VALUE',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ESTIMATED_VALUE,
                   data.target.value
                 );
               },
@@ -200,47 +146,52 @@ const OpportunityInformation = observer(
             },
             {
               label: t('txt_expect_closed_date'),
-              key: 'EXPECT_CLOSED_DATE',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE,
               type: FORM_FIELD_TYPE.DATE,
               icon: '/assets/images/calendar-line.png',
               iconClass: 'bg-success',
               placeholder: 'Choose date',
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['EXPECT_CLOSED_DATE'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'EXPECT_CLOSED_DATE',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE,
                   data && moment(data).format(FORMAT_DATE_UPDATE_POST)
                 );
               },
               className: 'col-lg-6',
             },
-            {
-              label: t('txt_assign_to'),
-              key: 'ASSIGN_TO',
-              type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['ASSIGN_TO'],
-              handleChange: (data) => {
-                this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'ASSIGN_TO',
-                  data.target.value
-                );
-              },
-              required: true,
-              className: 'col-lg-6',
-            },
+            // {
+            //   label: t('txt_assign_to'),
+            //   key: 'ASSIGN_TO',
+            //   type: FORM_FIELD_TYPE.INPUT,
+            //   getValueSelected:
+            //     this.viewModel.opportunityDetailViewModel.formPropsData['ASSIGN_TO'],
+            //   handleChange: (data) => {
+            //     this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
+            //       'ASSIGN_TO',
+            //       data.target.value
+            //     );
+            //   },
+            //   required: true,
+            //  validation: 'required',
+            //   className: 'col-lg-6',
+            // },
             {
               label: t('txt_close_probability'),
-              key: 'CLOSE_PROBABILITY',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CLOSE_PROBABILITY,
               type: FORM_FIELD_TYPE.NUMBER,
               format: '%',
               placeholder: t('txt_text_input_content'),
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['CLOSE_PROBABILITY'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CLOSE_PROBABILITY
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'CLOSE_PROBABILITY',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CLOSE_PROBABILITY,
                   data.target.value
                 );
               },
@@ -248,13 +199,15 @@ const OpportunityInformation = observer(
             },
             {
               label: t('txt_next_step'),
-              key: 'NEXT_STEP',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NEXT_STEP,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['NEXT_STEP'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NEXT_STEP
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'NEXT_STEP',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NEXT_STEP,
                   data.target.value
                 );
               },
@@ -262,14 +215,16 @@ const OpportunityInformation = observer(
             },
             {
               label: t('txt_description'),
-              key: 'DESCRIPTION',
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.DESCRIPTION,
               type: FORM_FIELD_TYPE.TEXTAREA,
               placeholder: t('txt_text_input_content'),
               getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData['DESCRIPTION'],
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.DESCRIPTION
+                ],
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  'DESCRIPTION',
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.DESCRIPTION,
                   data.target.value
                 );
               },
