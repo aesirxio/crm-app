@@ -21,8 +21,12 @@ import EditHeader from 'components/EditHeader';
 import OpportunityInformation from './Component/OpportunityInformation';
 import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
 import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
+import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
+import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
 const companyStore = new CompanyStore();
 const companyViewModel = new CompanyViewModel(companyStore);
+const contactStore = new ContactStore();
+const contactViewModel = new ContactViewModel(contactStore);
 const EditOpportunity = observer(
   class EditOpportunity extends Component {
     opportunityDetailViewModel = null;
@@ -43,6 +47,10 @@ const EditOpportunity = observer(
       this.companyListViewModel = companyViewModel
         ? companyViewModel.getCompanyListViewModel()
         : null;
+
+      this.contactListViewModel = contactViewModel
+        ? contactViewModel.getContactListViewModel()
+        : null;
     }
 
     async componentDidMount() {
@@ -52,6 +60,8 @@ const EditOpportunity = observer(
       }
       await this.companyListViewModel.handleFilter({ limit: 0 });
       await this.companyListViewModel.initializeDataCustom();
+      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.initializeData();
     }
 
     handleValidateForm() {
@@ -150,6 +160,7 @@ const EditOpportunity = observer(
                     this.opportunityDetailViewModel.opportunityDetailViewModel.formPropsData
                   }
                   companyListViewModel={this.companyListViewModel}
+                  contactListViewModel={this.contactListViewModel}
                   requiredField={this.state.requiredField}
                 />
               </Col>

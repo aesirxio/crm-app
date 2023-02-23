@@ -8,13 +8,18 @@ import { observer } from 'mobx-react';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
 import { Row } from 'react-bootstrap';
 import moment from 'moment';
-import { CRM_COMPANY_DETAIL_FIELD_KEY, CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import {
+  CRM_COMPANY_DETAIL_FIELD_KEY,
+  CRM_CONTACT_DETAIL_FIELD_KEY,
+  CRM_OPPORTUNITY_DETAIL_FIELD_KEY,
+} from 'aesirx-dma-lib';
 const OpportunityInformation = observer(
   class OpportunityInformation extends Component {
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.opportunityDetailViewModel;
       this.companyListViewModel = this.props.companyListViewModel;
+      this.contactListViewModel = this.props.contactListViewModel;
       this.state = { showPreview: false };
     }
     handleShowPreview = () => {
@@ -60,10 +65,10 @@ const OpportunityInformation = observer(
             },
             {
               label: t('txt_company_name'),
-              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID,
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.viewModel.opportunityDetailViewModel.formPropsData[
-                CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID
+                CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY
               ]
                 ? {
                     label:
@@ -72,7 +77,7 @@ const OpportunityInformation = observer(
                       ],
                     value:
                       this.viewModel.opportunityDetailViewModel.formPropsData[
-                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID
+                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY
                       ],
                   }
                 : null,
@@ -86,10 +91,45 @@ const OpportunityInformation = observer(
                 : null,
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY_ID,
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY,
                   data.value
                 );
               },
+              className: 'col-lg-12',
+            },
+            {
+              label: t('txt_contact'),
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected: this.viewModel.opportunityDetailViewModel.formPropsData[
+                CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
+              ]?.length
+                ? this.viewModel.opportunityDetailViewModel.formPropsData[
+                    CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
+                  ].map((item) => {
+                    return {
+                      label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
+                      value: item?.value,
+                    };
+                  })
+                : null,
+              getDataSelectOptions: this.contactListViewModel.items
+                ? this.contactListViewModel.items.map((item) => {
+                    return {
+                      label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
+                      value: item.id,
+                    };
+                  })
+                : null,
+              isMulti: true,
+              required: true,
+              handleChange: (data) => {
+                this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT,
+                  data
+                );
+              },
+              placeholder: t('txt_type_to_search'),
               className: 'col-lg-12',
             },
             {
