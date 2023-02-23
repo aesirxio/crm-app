@@ -75,17 +75,6 @@ const EditEmail = observer(
       await this.companyListViewModel.initializeDataCustom();
     }
 
-    handleAliasFormPropsData() {
-      if (
-        !this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-          PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
-        ]
-      ) {
-        this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-          PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
-        ] = this.emailDetailViewModel.aliasChange;
-      }
-    }
     debouncedChangeHandler = _.debounce((value) => {
       this.emailDetailViewModel.handleAliasChange(value);
     }, 300);
@@ -186,7 +175,6 @@ const EditEmail = observer(
                     validator: this.validator,
                     handle: async () => {
                       if (this.validator.allValid()) {
-                        this.handleAliasFormPropsData();
                         if (this.isEdit) {
                           await this.emailDetailViewModel.update();
                           await this.emailDetailViewModel.initializeData();

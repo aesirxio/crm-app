@@ -6,6 +6,7 @@ import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withContactViewModel } from 'containers/ContactPage/ContactViewModel/ContactViewModelContextProvider';
+import { CRM_COMPANY_DETAIL_FIELD_KEY, CRM_CONTACT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const ContactInformation = observer(
   class ContactInformation extends Component {
@@ -20,153 +21,177 @@ const ContactInformation = observer(
 
     render() {
       const { t, validator } = this.props;
+      console.log('adsakdksadsa', this.viewModel.contactDetailViewModel.formPropsData);
       const generateFormSetting = [
         {
           fields: [
             {
-              label: 'txt_contact_name',
-              key: 'CONTACT_NAME',
-              type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected: this.viewModel.contactDetailViewModel.formPropsData['CONTACT_NAME'],
-              className: 'col-lg-12',
-              placeholder: t('txt_type'),
-              required: true,
-              handleChange: (event) => {
-                this.viewModel.handleFormPropsData('CONTACT_NAME', event.target.value);
-              },
-            },
-            {
-              label: 'txt_email',
-              key: 'CONTACT_PHONE',
+              label: t('txt_contact_name'),
+              key: CRM_CONTACT_DETAIL_FIELD_KEY.NAME,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.contactDetailViewModel.formPropsData['CONTACT_EMAIL'],
+                this.viewModel.contactDetailViewModel.formPropsData[
+                  CRM_CONTACT_DETAIL_FIELD_KEY.NAME
+                ],
               className: 'col-lg-12',
               placeholder: t('txt_type'),
               required: true,
+              validation: 'required',
               handleChange: (event) => {
-                this.viewModel.handleFormPropsData('CONTACT_EMAIL', event.target.value);
-              },
-            },
-            {
-              label: 'txt_phone',
-              key: 'CONTACT_PHONE',
-              type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected:
-                this.viewModel.contactDetailViewModel.formPropsData['CONTACT_PHONE'],
-              className: 'col-lg-12',
-              placeholder: t('txt_type'),
-              required: true,
-              handleChange: (event) => {
-                this.viewModel.handleFormPropsData('CONTACT_PHONE', event.target.value);
-              },
-            },
-            {
-              label: t('txt_contact_groups'),
-              key: 'CONTACT_GROUPS',
-              type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.contactDetailViewModel.formPropsData[
-                'CONTACT_GROUPS'
-              ]?.length
-                ? this.viewModel.contactDetailViewModel.formPropsData['CONTACT_GROUPS'].map(
-                    (item) => {
-                      return {
-                        label: item.label,
-                        value: item.value,
-                      };
-                    }
-                  )
-                : null,
-              getDataSelectOptions: this.contactGroupListViewModel.items
-                ? this.contactGroupListViewModel.items.map((item) => {
-                    return {
-                      label: item.name,
-                      value: item.id,
-                    };
-                  })
-                : null,
-              isMulti: true,
-              handleChange: (data) => {
-                this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
-                  'CONTACT_GROUPS',
-                  data
+                this.viewModel.handleFormPropsData(
+                  CRM_CONTACT_DETAIL_FIELD_KEY.NAME,
+                  event.target.value
                 );
               },
-              className: 'col-lg-12',
             },
+            {
+              label: t('txt_email'),
+              key: CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.contactDetailViewModel.formPropsData[
+                  CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS
+                ],
+              className: 'col-lg-12',
+              placeholder: t('txt_type'),
+              required: true,
+              validation: 'required',
+              handleChange: (event) => {
+                this.viewModel.handleFormPropsData(
+                  CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS,
+                  event.target.value
+                );
+              },
+            },
+            {
+              label: t('txt_phone'),
+              key: CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.contactDetailViewModel.formPropsData[
+                  CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER
+                ],
+              className: 'col-lg-12',
+              placeholder: t('txt_type'),
+              required: true,
+              validation: 'required',
+              handleChange: (event) => {
+                this.viewModel.handleFormPropsData(
+                  CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER,
+                  event.target.value
+                );
+              },
+            },
+            // {
+            //   label: t('txt_contact_groups'),
+            //   key: 'CONTACT_GROUPS',
+            //   type: FORM_FIELD_TYPE.SELECTION,
+            //   getValueSelected: this.viewModel.contactDetailViewModel.formPropsData[
+            //     'CONTACT_GROUPS'
+            //   ]?.length
+            //     ? this.viewModel.contactDetailViewModel.formPropsData['CONTACT_GROUPS'].map(
+            //         (item) => {
+            //           return {
+            //             label: item.label,
+            //             value: item.value,
+            //           };
+            //         }
+            //       )
+            //     : null,
+            //   getDataSelectOptions: this.contactGroupListViewModel.items
+            //     ? this.contactGroupListViewModel.items.map((item) => {
+            //         return {
+            //           label: item.name,
+            //           value: item.id,
+            //         };
+            //       })
+            //     : null,
+            //   isMulti: true,
+            //   handleChange: (data) => {
+            //     this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
+            //       'CONTACT_GROUPS',
+            //       data
+            //     );
+            //   },
+            //   className: 'col-lg-12',
+            // },
             {
               label: t('txt_company_name'),
-              key: 'COMPANY_NAME',
+              key: CRM_CONTACT_DETAIL_FIELD_KEY.COMPANY_ID,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.contactDetailViewModel.formPropsData['COMPANY_NAME']
-                ?.length
-                ? this.viewModel.contactDetailViewModel.formPropsData['COMPANY_NAME'].map(
-                    (item) => {
-                      return {
-                        label: item.label,
-                        value: item.value,
-                      };
-                    }
-                  )
-                : null,
-              getDataSelectOptions: this.companyListViewModel.items
-                ? this.companyListViewModel.items.map((item) => {
-                    return {
-                      label: item.title,
-                      value: item.id,
-                    };
-                  })
-                : null,
-              isMulti: true,
-              handleChange: (data) => {
-                this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
-                  'COMPANY_NAME',
-                  data
-                );
-              },
-              className: 'col-lg-12',
-            },
-            {
-              label: t('txt_track_this_user'),
-              key: 'TRACK_THIS_USER',
-              type: FORM_FIELD_TYPE.RADIO,
               getValueSelected: this.viewModel.contactDetailViewModel.formPropsData[
-                'TRACK_THIS_USER'
+                CRM_CONTACT_DETAIL_FIELD_KEY.COMPANY_ID
               ]
                 ? {
                     label:
                       this.viewModel.contactDetailViewModel.formPropsData[
-                        'TRACK_THIS_USER'
-                      ].toString() === '1'
-                        ? t('txt_yes')
-                        : t('txt_no'),
+                        CRM_CONTACT_DETAIL_FIELD_KEY.crm_company_name
+                      ],
                     value:
                       this.viewModel.contactDetailViewModel.formPropsData[
-                        'TRACK_THIS_USER'
-                      ].toString(),
+                        CRM_CONTACT_DETAIL_FIELD_KEY.COMPANY_ID
+                      ],
                   }
-                : { label: t('txt_yes'), value: '1' },
-              getDataSelectOptions: [
-                { label: t('txt_yes'), value: '1' },
-                { label: t('txt_no'), value: '0' },
-              ],
+                : null,
+              getDataSelectOptions: this.companyListViewModel.items
+                ? this.companyListViewModel.items.map((item) => {
+                    return {
+                      label: item[CRM_COMPANY_DETAIL_FIELD_KEY.NAME],
+                      value: item.id,
+                    };
+                  })
+                : null,
               handleChange: (data) => {
                 this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
-                  'TRACK_THIS_USER',
-                  data.target.value
+                  CRM_CONTACT_DETAIL_FIELD_KEY.COMPANY_ID,
+                  data.value
                 );
               },
               className: 'col-lg-12',
             },
+            // {
+            //   label: t('txt_track_this_user'),
+            //   key: 'TRACK_THIS_USER',
+            //   type: FORM_FIELD_TYPE.RADIO,
+            //   getValueSelected: this.viewModel.contactDetailViewModel.formPropsData[
+            //     'TRACK_THIS_USER'
+            //   ]
+            //     ? {
+            //         label:
+            //           this.viewModel.contactDetailViewModel.formPropsData[
+            //             'TRACK_THIS_USER'
+            //           ].toString() === '1'
+            //             ? t('txt_yes')
+            //             : t('txt_no'),
+            //         value:
+            //           this.viewModel.contactDetailViewModel.formPropsData[
+            //             'TRACK_THIS_USER'
+            //           ].toString(),
+            //       }
+            //     : { label: t('txt_yes'), value: '1' },
+            //   getDataSelectOptions: [
+            //     { label: t('txt_yes'), value: '1' },
+            //     { label: t('txt_no'), value: '0' },
+            //   ],
+            //   handleChange: (data) => {
+            //     this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
+            //       'TRACK_THIS_USER',
+            //       data.target.value
+            //     );
+            //   },
+            //   className: 'col-lg-12',
+            // },
             {
-              key: 'CONTACT_NOTE',
-              label: 'txt_note',
+              key: CRM_CONTACT_DETAIL_FIELD_KEY.DESCRIPTION,
+              label: t('txt_note'),
               type: FORM_FIELD_TYPE.EDITOR,
               getValueSelected:
-                this.viewModel.contactDetailViewModel.formPropsData['CONTACT_NOTE'] ?? null,
+                this.viewModel.contactDetailViewModel.formPropsData[
+                  CRM_CONTACT_DETAIL_FIELD_KEY.DESCRIPTION
+                ] ?? null,
               handleChange: (data) => {
                 this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
-                  'CONTACT_NOTE',
+                  CRM_CONTACT_DETAIL_FIELD_KEY.DESCRIPTION,
                   data
                 );
               },

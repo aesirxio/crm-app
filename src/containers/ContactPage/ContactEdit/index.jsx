@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withContactViewModel } from 'containers/ContactPage/ContactViewModel/ContactViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_CONTACT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactInformation from './Component/ContactInformation';
 import EditHeader from 'components/EditHeader';
@@ -29,7 +29,7 @@ const contactGroupViewModel = new ContactGroupViewModel(contactGroupStore);
 const EditContact = observer(
   class EditContact extends Component {
     contactDetailViewModel = null;
-    formPropsData = { [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = {};
 
     isEdit = false;
     constructor(props) {
@@ -53,13 +53,23 @@ const EditContact = observer(
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[CRM_CONTACT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.contactDetailViewModel.initializeData();
       }
       await this.companyListViewModel.handleFilter({ limit: 0 });
       await this.companyListViewModel.initializeDataCustom();
       await this.contactGroupListViewModel.handleFilter({ limit: 0 });
       await this.contactGroupListViewModel.initializeData();
+    }
+
+    handleValidateForm() {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          requiredField: Math.random(1, 200),
+        };
+      });
+      this.validator.showMessages();
     }
 
     render() {
@@ -101,7 +111,7 @@ const EditContact = observer(
                           history.push(`/contacts`);
                         }
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                   },
@@ -119,7 +129,7 @@ const EditContact = observer(
                           result && history.push(`/contacts/edit/${result}`);
                         }
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                     icon: '/assets/images/save.svg',
@@ -136,6 +146,7 @@ const EditContact = observer(
                   validator={this.validator}
                   companyListViewModel={this.companyListViewModel}
                   contactGroupListViewModel={this.contactGroupListViewModel}
+                  requiredField={this.state.requiredField}
                 />
               </Col>
               <Col lg={3}>

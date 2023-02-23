@@ -19,7 +19,7 @@ const ListContact = observer((props) => {
   useEffect(() => {
     viewModel.initializeData();
   }, []);
-
+  console.log('viewModel?.items', viewModel?.items);
   const columnsTable = [
     {
       Header: 'Id',
@@ -32,10 +32,11 @@ const ListContact = observer((props) => {
     },
     {
       Header: t('txt_name'),
-      accessor: 'title',
+      accessor: 'name',
       width: 250,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
+        console.log('value', value);
         return (
           <div className="py-8px">
             <div className="mb-1">{value}</div>
@@ -54,12 +55,34 @@ const ListContact = observer((props) => {
       },
     },
     {
-      Header: t('txt_owner_company'),
-      accessor: 'organisationName',
+      Header: t('txt_email'),
+      accessor: 'email',
       width: 250,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
+      },
+    },
+    {
+      Header: t('txt_phone'),
+      accessor: 'phone',
+      width: 250,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      Cell: ({ value }) => {
+        return <>{value}</>;
+      },
+    },
+    {
+      Header: t('txt_create_date'),
+      accessor: 'createDate',
+      width: 250,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      Cell: ({ value }) => {
+        return (
+          <div className="pe-2">
+            <div>{value}</div>
+          </div>
+        );
       },
     },
     {
@@ -70,18 +93,8 @@ const ListContact = observer((props) => {
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
-            <div className="mb-1">
-              {viewModel?.listPublishStatus?.find((o) => o.value == value.status)?.label &&
-                t(
-                  'txt_' +
-                    viewModel?.listPublishStatus
-                      .find((o) => o.value == value.status)
-                      .label?.toString()
-                      .toLowerCase()
-                )}
-            </div>
             <div>
-              {value.lastModifiedDate} {t('txt_by')} {value.modifiedUserName}
+              {value.date} {t('txt_by')} {value.by}
             </div>
           </div>
         );

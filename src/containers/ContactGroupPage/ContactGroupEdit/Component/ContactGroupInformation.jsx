@@ -5,6 +5,7 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { observer } from 'mobx-react';
 import { withContactGroupViewModel } from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModelContextProvider';
 import ComponentSVG from 'components/ComponentSVG';
+import { CRM_CONTACT_DETAIL_FIELD_KEY, CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const ContactGroupInformation = observer(
   class ContactGroupInformation extends Component {
@@ -19,7 +20,7 @@ const ContactGroupInformation = observer(
       const handleSelectContact = (data, isAll = false) => {
         if (isAll) {
           this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
-            'CONTACTS',
+            CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS,
             this.contactListViewModel.items
           );
           dataTable.map((item) => {
@@ -28,10 +29,14 @@ const ContactGroupInformation = observer(
         } else {
           let dataAppend = Object.assign(data.original, { selected: true });
           this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
-            'CONTACTS',
-            this.viewModel.contactGroupDetailViewModel.formPropsData['CONTACTS']?.length
+            CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS,
+            this.viewModel.contactGroupDetailViewModel.formPropsData[
+              CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
+            ]?.length
               ? [
-                  ...this.viewModel.contactGroupDetailViewModel.formPropsData['CONTACTS'],
+                  ...this.viewModel.contactGroupDetailViewModel.formPropsData[
+                    CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
+                  ],
                   dataAppend,
                 ]
               : [dataAppend]
@@ -47,25 +52,28 @@ const ContactGroupInformation = observer(
       const handleUnSelectContact = async (data, isAll = false) => {
         if (isAll) {
           this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
-            'CONTACTS',
+            CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS,
             []
           );
           dataTable.map((item) => {
             return Object.assign(item, { selected: false });
           });
         } else {
-          let dataOnSelected = this.viewModel.contactGroupDetailViewModel.formPropsData['CONTACTS'];
+          let dataOnSelected =
+            this.viewModel.contactGroupDetailViewModel.formPropsData[
+              CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
+            ];
           if (dataOnSelected.length > 1) {
             let dataFiltered = dataOnSelected.filter(function (item) {
               return item.id !== data.original.id;
             });
             this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
-              'CONTACTS',
+              CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS,
               dataFiltered
             );
           } else {
             this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
-              'CONTACTS',
+              CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS,
               []
             );
           }
@@ -93,7 +101,7 @@ const ContactGroupInformation = observer(
         },
         {
           Header: t('txt_email'),
-          accessor: 'title',
+          accessor: CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS,
           width: 150,
           className: 'py-18 text-gray text-uppercase fw-semi align-middle',
           Cell: ({ value }) => {
@@ -163,7 +171,7 @@ const ContactGroupInformation = observer(
         },
         {
           Header: t('txt_email'),
-          accessor: 'title',
+          accessor: CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS,
           width: 150,
           className: 'py-18 text-gray text-uppercase fw-semi align-middle',
           Cell: ({ value }) => {
@@ -176,23 +184,26 @@ const ContactGroupInformation = observer(
           fields: [
             {
               label: t('txt_group_name'),
-              key: 'GROUP_NAME',
+              key: CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.viewModel.contactGroupDetailViewModel.formPropsData['GROUP_NAME'],
+                this.viewModel.contactGroupDetailViewModel.formPropsData[
+                  CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME
+                ],
               placeholder: t('txt_type'),
               handleChange: (data) => {
                 this.viewModel.contactGroupDetailViewModel.contactGroupDetailViewModel.handleFormPropsData(
-                  'GROUP_NAME',
+                  CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME,
                   data.target.value
                 );
               },
               required: true,
+              validation: 'required',
               className: 'col-lg-12',
             },
             {
               label: t('txt_add_contact_to_group'),
-              key: 'CONTACTS',
+              key: CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS,
               type: FORM_FIELD_TYPE.SELECTION_COLUMN,
               columnsTable: columnsTable,
               dataTable: dataTable,
@@ -201,9 +212,11 @@ const ContactGroupInformation = observer(
               },
               columnsTableSelected: columnsTableSelected,
               dataTableSelected: this.viewModel.contactGroupDetailViewModel.formPropsData[
-                'CONTACTS'
+                CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
               ]?.length
-                ? this.viewModel.contactGroupDetailViewModel.formPropsData['CONTACTS']
+                ? this.viewModel.contactGroupDetailViewModel.formPropsData[
+                    CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS
+                  ]
                 : [],
               onUnSelectAll: () => {
                 handleUnSelectContact(null, true);

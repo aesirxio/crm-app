@@ -54,18 +54,6 @@ const EditOpportunity = observer(
       await this.contactListViewModel.initializeData();
     }
 
-    handleAliasFormPropsData() {
-      if (
-        !this.opportunityDetailViewModel.opportunityDetailViewModel.formPropsData[
-          PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
-        ]
-      ) {
-        this.opportunityDetailViewModel.opportunityDetailViewModel.formPropsData[
-          PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
-        ] = this.opportunityDetailViewModel.aliasChange;
-      }
-    }
-
     handleValidateForm() {
       if (this.validator.fields['Opportunity Name'] === true) {
         this.setState((prevState) => {
@@ -119,7 +107,6 @@ const EditOpportunity = observer(
                   {
                     title: t('txt_save_close'),
                     handle: async () => {
-                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         const result = this.isEdit
                           ? await this.opportunityDetailViewModel.update()
@@ -136,7 +123,6 @@ const EditOpportunity = observer(
                     title: t('txt_save'),
                     validator: this.validator,
                     handle: async () => {
-                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.opportunityDetailViewModel.update();

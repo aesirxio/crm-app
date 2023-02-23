@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 class ContactGroupDetailViewModel {
   contactGroupStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -29,7 +29,7 @@ class ContactGroupDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.contactGroupStore.getDetail(
-      this.contactGroupDetailViewModel.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID],
+      this.contactGroupDetailViewModel.formPropsData[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetContactGroupSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,11 +73,11 @@ class ContactGroupDetailViewModel {
     if (result) {
       this.contactGroupDetailViewModel.formPropsData = {
         ...this.contactGroupDetailViewModel.formPropsData,
-        ...Object.keys(PIM_FIELD_GROUP_DETAIL_FIELD_KEY)
+        ...Object.keys(CRM_LIST_GROUP_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]]:
-                result[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]],
+              [CRM_LIST_GROUP_DETAIL_FIELD_KEY[index]]:
+                result[CRM_LIST_GROUP_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

@@ -53,16 +53,14 @@ const EditContactGroup = observer(
       await this.contactListViewModel.initializeData();
     }
 
-    handleAliasFormPropsData() {
-      if (
-        !this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData[
-          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
-        ]
-      ) {
-        this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData[
-          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
-        ] = this.contactGroupDetailViewModel.aliasChange;
-      }
+    handleValidateForm() {
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          requiredField: Math.random(1, 200),
+        };
+      });
+      this.validator.showMessages();
     }
 
     debouncedChangeHandler = _.debounce((value) => {
@@ -102,7 +100,6 @@ const EditContactGroup = observer(
                   {
                     title: t('txt_save_close'),
                     handle: async () => {
-                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         const result = this.isEdit
                           ? await this.contactGroupDetailViewModel.update()
@@ -111,7 +108,7 @@ const EditContactGroup = observer(
                           history.push(`/contact-groups`);
                         }
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                   },
@@ -119,7 +116,6 @@ const EditContactGroup = observer(
                     title: t('txt_save'),
                     validator: this.validator,
                     handle: async () => {
-                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.contactGroupDetailViewModel.update();
@@ -127,10 +123,10 @@ const EditContactGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.contactGroupDetailViewModel.create();
-                          history.push(`/contact-groups/edit/${result}`);
+                          result && history.push(`/contact-groups/edit/${result}`);
                         }
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                     icon: '/assets/images/save.svg',
@@ -149,6 +145,7 @@ const EditContactGroup = observer(
                     this.contactGroupDetailViewModel.contactGroupDetailViewModel.formPropsData
                   }
                   contactListViewModel={this.contactListViewModel}
+                  requiredField={this.state.requiredField}
                 />
               </Col>
               <Col lg={3}>

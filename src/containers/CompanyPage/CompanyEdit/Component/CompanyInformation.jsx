@@ -178,15 +178,15 @@ const CompanyInformation = observer(
           fields: [
             {
               label: t('txt_company_name'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.NAME,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME
+                  CRM_COMPANY_DETAIL_FIELD_KEY.NAME
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.NAME,
                   data.target.value
                 );
               },
@@ -196,15 +196,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_address'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ADDRESS,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.ADDRESS,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ADDRESS
+                  CRM_COMPANY_DETAIL_FIELD_KEY.ADDRESS
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ADDRESS,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.ADDRESS,
                   data.target.value
                 );
               },
@@ -214,15 +214,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_website'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_WEBSITE,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.WEBSITE,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_WEBSITE
+                  CRM_COMPANY_DETAIL_FIELD_KEY.WEBSITE
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_WEBSITE,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.WEBSITE,
                   data.target.value
                 );
               },
@@ -230,15 +230,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_annual_revenue'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ANNUAL_REVENUE,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.ANNUAL_REVENUE,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ANNUAL_REVENUE
+                  CRM_COMPANY_DETAIL_FIELD_KEY.ANNUAL_REVENUE
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_ANNUAL_REVENUE,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.ANNUAL_REVENUE,
                   data.target.value
                 );
               },
@@ -246,15 +246,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_number_employees'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NUMBER_EMPLOYEES,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.NUMBER_EMPLOYEES,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NUMBER_EMPLOYEES
+                  CRM_COMPANY_DETAIL_FIELD_KEY.NUMBER_EMPLOYEES
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NUMBER_EMPLOYEES,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.NUMBER_EMPLOYEES,
                   data.target.value
                 );
               },
@@ -262,15 +262,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_contact_email'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_CONTACT_EMAIL,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.CONTACT_EMAIL,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_CONTACT_EMAIL
+                  CRM_COMPANY_DETAIL_FIELD_KEY.CONTACT_EMAIL
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_CONTACT_EMAIL,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.CONTACT_EMAIL,
                   data.target.value
                 );
               },
@@ -278,15 +278,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_tax_number'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_TAX_NUMBER,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.TAX_NUMBER,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_TAX_NUMBER
+                  CRM_COMPANY_DETAIL_FIELD_KEY.TAX_NUMBER
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_TAX_NUMBER,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.TAX_NUMBER,
                   data.target.value
                 );
               },
@@ -294,15 +294,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_fax_number'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_FAX_NUMBER,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.FAX_NUMBER,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_FAX_NUMBER
+                  CRM_COMPANY_DETAIL_FIELD_KEY.FAX_NUMBER
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_FAX_NUMBER,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.FAX_NUMBER,
                   data.target.value
                 );
               },
@@ -310,15 +310,15 @@ const CompanyInformation = observer(
             },
             {
               label: t('txt_company_phone_number'),
-              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_PHONE_NUMBER,
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.PHONE_NUMBER,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.companyDetailViewModel.formPropsData[
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_PHONE_NUMBER
+                  CRM_COMPANY_DETAIL_FIELD_KEY.PHONE_NUMBER
                 ],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_PHONE_NUMBER,
+                  CRM_COMPANY_DETAIL_FIELD_KEY.PHONE_NUMBER,
                   data.target.value
                 );
               },

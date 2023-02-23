@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_CONTACT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 class ContactListViewModel {
   contactStore = null;
@@ -121,11 +121,8 @@ class ContactListViewModel {
   };
 
   callbackOnSuccessHandler = (result, message) => {
-    if (result?.items) {
-      this.items = result.items.map((item) => {
-        Object.assign(item, { selected: false });
-        return item;
-      });
+    if (result?.listItems) {
+      this.items = result.listItems;
       this.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
@@ -139,21 +136,23 @@ class ContactListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
-        'DD MMM, YYYY'
-      );
+      const date =
+        o[CRM_CONTACT_DETAIL_FIELD_KEY.MODIFIED_TIME] &&
+        moment(o[CRM_CONTACT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
-        id: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
-        title: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE],
+        id: o[CRM_CONTACT_DETAIL_FIELD_KEY.ID],
+        name: o[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
+        email: o[CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS],
+        phone: o[CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER],
+        createDate:
+          o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_TIME] &&
+          moment(o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
         lastModified: {
-          status: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED],
-          lastModifiedDate: date ?? '',
-          modifiedUserName: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME],
+          status: o[CRM_CONTACT_DETAIL_FIELD_KEY.STATUS],
+          date: date ?? '',
+          by: o[CRM_CONTACT_DETAIL_FIELD_KEY.MODIFIED_BY],
         },
-        code: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CODE
-        ],
-        organisationName: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ORGANISATION_NAME],
+        selected: false,
       };
     });
   };

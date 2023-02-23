@@ -19,6 +19,15 @@ const ListCompanies = observer((props) => {
 
   const columnsTable = [
     {
+      Header: 'Id',
+      accessor: 'id',
+      width: 60,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      Cell: ({ value }) => {
+        return <div className="opacity-80">{value}</div>;
+      },
+    },
+    {
       Header: t('txt_company_name'),
       accessor: 'company',
       width: 150,
@@ -75,12 +84,12 @@ const ListCompanies = observer((props) => {
       width: 50,
       accessor: 'published',
       className: 'py-18 border-bottom-1 text-center align-middle',
-      Cell: ({ value }) => (
+      Cell: ({ value, row }) => (
         <div className="text-center pe-5">
-          {value.state == 1 ? (
+          {value === 1 ? (
             <svg
               style={{ cursor: 'pointer' }}
-              onClick={() => publishedBtnHandler(value)}
+              onClick={() => publishedBtnHandler(row.original.id, 0)}
               width="22"
               height="22"
               viewBox="0 0 22 22"
@@ -95,7 +104,7 @@ const ListCompanies = observer((props) => {
           ) : (
             <svg
               style={{ cursor: 'pointer' }}
-              onClick={() => publishedBtnHandler(value)}
+              onClick={() => publishedBtnHandler(row.original.id, 1)}
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -119,10 +128,10 @@ const ListCompanies = observer((props) => {
     },
     {
       Header: t('txt_create_date'),
-      accessor: 'createTime',
+      accessor: 'createDate',
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
-        return <div className="pe-2">{value.dateTime}</div>;
+        return <div className="pe-2">{value}</div>;
       },
     },
     {
@@ -132,19 +141,8 @@ const ListCompanies = observer((props) => {
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
-            <div className="mb-1">
-              {viewModel?.successResponse?.listPublishStatus?.find((o) => o.value == value.status)
-                ?.label &&
-                t(
-                  'txt_' +
-                    viewModel?.successResponse?.listPublishStatus
-                      .find((o) => o.value == value.status)
-                      ?.label?.toString()
-                      .toLowerCase()
-                )}
-            </div>
             <div>
-              {value.dateTime} {t('txt_by')} {value.author}
+              {value.date} {t('txt_by')} {value.by}
             </div>
           </div>
         );
@@ -196,10 +194,9 @@ const ListCompanies = observer((props) => {
     listSelected = arr.map((o) => o.cells[1].value.id);
   };
 
-  const publishedBtnHandler = (value) => {
+  const publishedBtnHandler = (id, value) => {
     viewModel.isLoading();
-    const isPublished = value.state != 1 ? 1 : 0;
-    viewModel.setPublished(value.id, isPublished);
+    viewModel.updateStatus([id], value);
   };
 
   const deleteCompanies = () => {
@@ -292,7 +289,7 @@ const ListCompanies = observer((props) => {
         <Table
           classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
-          data={viewModel?.successResponse?.listCompanies}
+          data={viewModel?.transform(viewModel?.items)}
           selection={false}
           pagination={viewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}

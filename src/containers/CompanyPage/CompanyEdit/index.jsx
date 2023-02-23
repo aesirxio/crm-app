@@ -54,18 +54,6 @@ const EditCompany = observer(
       await this.contactListViewModel.initializeData();
     }
 
-    handleAliasFormPropsData() {
-      if (
-        !this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-          CRM_COMPANY_DETAIL_FIELD_KEY.ALIAS
-        ]
-      ) {
-        this.companyDetailViewModel.companyDetailViewModel.formPropsData[
-          CRM_COMPANY_DETAIL_FIELD_KEY.ALIAS
-        ] = this.companyDetailViewModel.aliasChange;
-      }
-    }
-
     handleValidateForm() {
       this.setState((prevState) => {
         return {
@@ -117,7 +105,6 @@ const EditCompany = observer(
                   {
                     title: t('txt_save_close'),
                     handle: async () => {
-                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         const result = this.isEdit
                           ? await this.companyDetailViewModel.update()
@@ -134,7 +121,6 @@ const EditCompany = observer(
                     title: t('txt_save'),
                     validator: this.validator,
                     handle: async () => {
-                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.companyDetailViewModel.update();
@@ -142,7 +128,7 @@ const EditCompany = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.companyDetailViewModel.create();
-                          history.push(`/company/edit/${result}`);
+                          result && history.push(`/company/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();

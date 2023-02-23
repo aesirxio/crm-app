@@ -3,14 +3,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimFieldGroupApiService, AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { AesirxCrmListGroupApiService, AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class ContactGroupStore {
   async create(createContactGroupData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const createContactGroupApiService = new AesirxPimFieldGroupApiService();
+      const createContactGroupApiService = new AesirxCrmListGroupApiService();
 
       resultOnSave = await createContactGroupApiService.create(createContactGroupData);
       if (resultOnSave?.result) {
@@ -34,7 +34,7 @@ export default class ContactGroupStore {
   async update(updateContactGroupData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const updateContactGroupApiService = new AesirxPimFieldGroupApiService();
+      const updateContactGroupApiService = new AesirxCrmListGroupApiService();
 
       resultOnSave = await updateContactGroupApiService.update(updateContactGroupData);
       if (resultOnSave?.result) {
@@ -57,7 +57,7 @@ export default class ContactGroupStore {
 
   async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
-      const updateStatusAPIService = new AesirxPimFieldGroupApiService();
+      const updateStatusAPIService = new AesirxCrmListGroupApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Updated successfully');
@@ -79,7 +79,7 @@ export default class ContactGroupStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimFieldGroupApiService();
+        const getDetailInfoAPIService = new AesirxCrmListGroupApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -102,7 +102,7 @@ export default class ContactGroupStore {
 
   async getList(filter, callbackOnSuccess, callbackOnError) {
     try {
-      const getListInfoAPIService = new AesirxPimFieldGroupApiService();
+      const getListInfoAPIService = new AesirxCrmListGroupApiService();
       const respondedData = await getListInfoAPIService.getList(filter);
 
       if (respondedData) {

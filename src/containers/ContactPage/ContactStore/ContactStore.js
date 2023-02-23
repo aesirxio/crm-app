@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimDebtorGroupApiService } from 'aesirx-dma-lib';
+import { AesirxCrmContactApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
@@ -11,7 +11,7 @@ export default class ContactStore {
   async create(createContactData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const createContactApiService = new AesirxPimDebtorGroupApiService();
+      const createContactApiService = new AesirxCrmContactApiService();
 
       resultOnSave = await createContactApiService.create(createContactData);
       if (resultOnSave?.result) {
@@ -35,7 +35,7 @@ export default class ContactStore {
   async update(updateContactData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const updateContactApiService = new AesirxPimDebtorGroupApiService();
+      const updateContactApiService = new AesirxCrmContactApiService();
 
       resultOnSave = await updateContactApiService.update(updateContactData);
       if (resultOnSave?.result) {
@@ -63,7 +63,7 @@ export default class ContactStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimDebtorGroupApiService();
+        const getDetailInfoAPIService = new AesirxCrmContactApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -86,7 +86,7 @@ export default class ContactStore {
 
   async getList(filter, callbackOnSuccess, callbackOnError) {
     try {
-      const getListInfoAPIService = new AesirxPimDebtorGroupApiService();
+      const getListInfoAPIService = new AesirxCrmContactApiService();
       const respondedData = await getListInfoAPIService.getList(filter);
       if (respondedData) {
         runInAction(() => {
@@ -127,7 +127,7 @@ export default class ContactStore {
 
   async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
-      const updateStatusAPIService = new AesirxPimDebtorGroupApiService();
+      const updateStatusAPIService = new AesirxCrmContactApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Updated successfully');
@@ -144,8 +144,8 @@ export default class ContactStore {
 
   async deleteContacts(arr, callbackOnSuccess, callbackOnError) {
     try {
-      const getAesirxPimDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
-      const respondedData = await getAesirxPimDebtorGroupApiService.deleteContacts(arr);
+      const getAesirxCrmContactApiService = new AesirxCrmContactApiService();
+      const respondedData = await getAesirxCrmContactApiService.deleteContacts(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });

@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_CONTACT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 class ContactDetailViewModel {
   contactStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -28,7 +28,7 @@ class ContactDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.contactStore.getDetail(
-      this.contactDetailViewModel.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
+      this.contactDetailViewModel.formPropsData[CRM_CONTACT_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetContactSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -72,11 +72,10 @@ class ContactDetailViewModel {
     if (result) {
       this.contactDetailViewModel.formPropsData = {
         ...this.contactDetailViewModel.formPropsData,
-        ...Object.keys(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY)
+        ...Object.keys(CRM_CONTACT_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]:
-                result[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]],
+              [CRM_CONTACT_DETAIL_FIELD_KEY[index]]: result[CRM_CONTACT_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

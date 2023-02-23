@@ -99,22 +99,6 @@ class CompanyListViewModel {
     this.successResponse.state = true;
   };
 
-  setPublished = async (id, state = 0) => {
-    await this.companyStore.updateCompany(
-      { id: id.toString(), published: state.toString() },
-      this.callbackOnSuccessSetPublished,
-      this.callbackOnErrorHandler
-    );
-
-    await this.companyStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
-
-    this.successResponse.state = true;
-  };
-
   updateStatus = async (arr, status = 0) => {
     const res = await this.companyStore.updateStatus(
       arr,
@@ -163,10 +147,8 @@ class CompanyListViewModel {
 
   callbackOnSuccessHandler = (result, message) => {
     if (result?.listItems) {
-      this.successResponse.listCompanies = this.transform(result.listItems);
-      this.successResponse.pagination = result.pagination;
-      // Need improve response
       this.items = result.listItems;
+      this.successResponse.pagination = result.pagination;
     }
 
     if (result?.listPublishStatus) {
@@ -176,18 +158,6 @@ class CompanyListViewModel {
       notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
-  };
-
-  callbackOnSuccessSetPublished = async (result, message) => {
-    this.successResponse.listCompanies = this.successResponse.listCompanies.map((o) => {
-      if (o.company.id == result) {
-        return { ...o, published: { ...o.published, state: !o.published.state } };
-      }
-      return o;
-    });
-    if (result && message) {
-      notify(message, 'success');
-    }
   };
 
   callbackOnSuccessGetCompaniesHandler = (result) => {
@@ -202,25 +172,24 @@ class CompanyListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      const date =
+        o[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_TIME] &&
+        moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
+        id: o[CRM_COMPANY_DETAIL_FIELD_KEY.ID],
         company: {
           id: o[CRM_COMPANY_DETAIL_FIELD_KEY.ID],
-          name: o[CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_NAME],
+          name: o[CRM_COMPANY_DETAIL_FIELD_KEY.NAME],
         },
         lastModified: {
           status: o[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS],
-          dateTime: date ?? '',
-          author: o[CRM_COMPANY_DETAIL_FIELD_KEY.AUTHOR]?.user?.name,
+          date: date ?? '',
+          by: o[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_BY] ?? '',
         },
-        createTime: {
-          dateTime:
-            o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME] &&
-            moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
-        },
-        published: {
-          status: o[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS],
-        },
+        createDate:
+          o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME] &&
+          moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+        published: o[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS],
       };
     });
   };

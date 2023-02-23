@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 
 class ContactGroupListViewModel {
@@ -105,8 +105,8 @@ class ContactGroupListViewModel {
   };
 
   callbackOnSuccessHandler = (result, message) => {
-    if (result?.items) {
-      this.items = result.items;
+    if (result?.listItems) {
+      this.items = result.listItems;
       this.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
@@ -120,17 +120,25 @@ class ContactGroupListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_DATE]).format('DD MMM, YYYY');
+      console.log(
+        'o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_BY]',
+        o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_BY]
+      );
+      const date = moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
+        id: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID],
         contactGroups: {
-          name: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME],
-          id: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID],
+          name: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME],
+          id: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID],
         },
-        createdUserName: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        createDate:
+          o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] &&
+          moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+        published: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],
         lastModified: {
-          status: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.STATE],
-          lastModifiedDate: date ?? '',
-          modifiedUserName: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME],
+          status: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],
+          date: date ?? '',
+          by: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_BY],
         },
       };
     });
