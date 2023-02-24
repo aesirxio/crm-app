@@ -1,0 +1,34 @@
+.piechart-legend {
+  list-style-type: none;
+  li {
+    position: relative;
+    &:before {
+      content: '·';
+      position: absolute;
+      left: -25px;
+      font-size: 80px;
+      vertical-align: middle;
+      line-height: 20px;
+    }
+  }
+}
+html.light {
+  .recharts-wrapper {
+    .recharts-surface {
+      rect {
+        fill: #fff;
+      }
+    }
+  }
+}
+.recharts-wrapper {
+  .recharts-surface {
+    position: relative;
+    z-index: 9;
+    overflow: unset;
+    rect {
+      fill: #1a2226;
+      filter: drop-shadow(1px 1px 1px rgb(0 0 0 / 0.25));
+    }
+  }
+}
