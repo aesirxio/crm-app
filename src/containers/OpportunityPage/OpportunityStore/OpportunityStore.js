@@ -184,4 +184,27 @@ export default class OpportunityStore {
 
     return false;
   }
+
+  async getStageList(callbackOnSuccess, callbackOnError) {
+    try {
+      const getListAPIService = new AesirxCrmOpportunityApiService();
+      const respondedData = await getListAPIService.getStageList();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error?.response?.data);
+      });
+    }
+
+    return false;
+  }
 }

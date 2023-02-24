@@ -12,6 +12,7 @@ class OpportunityDetailViewModel {
   formStatus = PAGE_STATUS.READY;
   opportunityDetailViewModel = null;
   aliasChange = '';
+  stageListItems = [];
   successResponse = {
     state: true,
     content_id: '',
@@ -31,6 +32,14 @@ class OpportunityDetailViewModel {
     await this.opportunityStore.getDetail(
       this.opportunityDetailViewModel.formPropsData[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetOpportunitySuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getStageList = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.opportunityStore.getStageList(
+      this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -63,6 +72,9 @@ class OpportunityDetailViewModel {
   };
 
   callbackOnSuccessHandler = (result, message) => {
+    if (result?.stageListItems) {
+      this.stageListItems = result.stageListItems;
+    }
     if (result && message) {
       notify(message, 'success');
     }

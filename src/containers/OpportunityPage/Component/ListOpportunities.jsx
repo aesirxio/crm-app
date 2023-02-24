@@ -59,7 +59,7 @@ const ListOpportunities = observer((props) => {
       accessor: 'companyName',
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        return <div>{value}</div>;
+        return <div>{value.name}</div>;
       },
     },
     {
@@ -67,7 +67,16 @@ const ListOpportunities = observer((props) => {
       accessor: 'contactName',
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        return <div className="text-success cursor-pointer">{value}</div>;
+        return (
+          <div
+            className="text-success cursor-pointer"
+            onClick={() => {
+              history.push(`/contacts/edit/${value.id}`);
+            }}
+          >
+            {value.name}
+          </div>
+        );
       },
     },
     {
@@ -87,37 +96,11 @@ const ListOpportunities = observer((props) => {
       },
     },
     {
-      Header: t('txt_assigned_to'),
-      accessor: 'assignedTo',
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value }) => {
-        return <div>{value}</div>;
-      },
-    },
-    {
       Header: t('txt_sale_stage'),
       accessor: 'saleStage',
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        return (
-          <div
-            className={`text-uppercase fw-semi ${
-              value === 'close_lost' ? 'text-success' : 'text-danger'
-            }`}
-            role={`alert`}
-          >
-            <span
-              className="d-inline-block p-1 rounded"
-              style={{
-                backgroundColor: `${
-                  value === 'close_lost' ? 'rgba(50, 177, 151, 0.15)' : 'rgba(239, 55, 55, 0.15)'
-                }`,
-              }}
-            >
-              {t('txt_' + value?.toString().toLowerCase())}
-            </span>
-          </div>
-        );
+        return <div className={``}>{value?.name}</div>;
       },
     },
   ];

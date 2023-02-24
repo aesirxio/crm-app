@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 class EmailDetailViewModel {
   emailStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -29,7 +29,7 @@ class EmailDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.emailStore.getEmailDetail(
-      this.emailDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+      this.emailDetailViewModel.formPropsData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetEmailSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,10 +73,11 @@ class EmailDetailViewModel {
     if (result) {
       this.emailDetailViewModel.formPropsData = {
         ...this.emailDetailViewModel.formPropsData,
-        ...Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY)
+        ...Object.keys(CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_PRODUCT_DETAIL_FIELD_KEY[index]]: result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]],
+              [CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY[index]]:
+                result[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

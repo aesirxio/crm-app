@@ -8,13 +8,14 @@ import { observer } from 'mobx-react';
 import { withEmailViewModel } from 'containers/EmailPage/EmailViewModel/EmailViewModelContextProvider';
 import { Row } from 'react-bootstrap';
 import FromEmail from './FromEmail';
+import { CRM_CONTACT_DETAIL_FIELD_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const CommonInformation = observer(
   class CommonInformation extends Component {
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.emailDetailViewModel;
-      this.companyListViewModel = this.props.companyListViewModel;
+      this.contactListViewModel = this.props.contactListViewModel;
     }
 
     async componentDidMount() {}
@@ -32,22 +33,25 @@ const CommonInformation = observer(
               className: 'col-lg-2',
             },
             {
-              key: 'TO_PARTNERS',
+              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData['TO_PARTNERS']
-                ?.length
-                ? this.viewModel.emailDetailViewModel.formPropsData['TO_PARTNERS'].map((item) => {
+              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData[
+                CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
+              ]?.length
+                ? this.viewModel.emailDetailViewModel.formPropsData[
+                    CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
+                  ].map((item) => {
                     return {
                       label: item.label,
                       value: item.value,
                     };
                   })
                 : null,
-              getDataSelectOptions: this.companyListViewModel.items
-                ? this.companyListViewModel.items.map((item) => {
+              getDataSelectOptions: this.contactListViewModel.items
+                ? this.contactListViewModel.items.map((item) => {
                     return {
-                      label: item.title,
-                      value: item.id,
+                      label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
+                      value: item[CRM_CONTACT_DETAIL_FIELD_KEY.ID],
                     };
                   })
                 : null,
@@ -55,8 +59,10 @@ const CommonInformation = observer(
               creatable: true,
               handleChange: (data) => {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  'TO_PARTNERS',
-                  data
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
+                  data.map((item) => {
+                    return item;
+                  })
                 );
               },
               placeholder: t('txt_choose_from_list_contact'),
@@ -71,15 +77,18 @@ const CommonInformation = observer(
               classNameInput: 'text-capitalize',
             },
             {
-              key: 'CC',
+              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CCERS,
               type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData['CC'],
+              getValueSelected:
+                this.viewModel.emailDetailViewModel.formPropsData[
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CCERS
+                ],
               className: 'col-lg-10',
               placeholder: '',
               handleChange: (event) => {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  'CC',
-                  event.target.value
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CCERS,
+                  [event.target.value]
                 );
               },
             },
@@ -92,14 +101,17 @@ const CommonInformation = observer(
               classNameInput: 'text-capitalize',
             },
             {
-              key: 'SUBJECT',
+              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SUBJECT,
               type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected: this.viewModel.emailDetailViewModel.formPropsData['SUBJECT'],
+              getValueSelected:
+                this.viewModel.emailDetailViewModel.formPropsData[
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SUBJECT
+                ],
               className: 'col-lg-10',
               placeholder: t('txt_your_title_email'),
               handleChange: (event) => {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  'SUBJECT',
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SUBJECT,
                   event.target.value
                 );
               },
@@ -112,14 +124,16 @@ const CommonInformation = observer(
         {
           fields: [
             {
-              key: 'MESSAGE',
+              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CONTENT,
               label: 'txt_message',
               type: FORM_FIELD_TYPE.EDITOR,
               getValueSelected:
-                this.viewModel.emailDetailViewModel.formPropsData['MESSAGE'] ?? null,
+                this.viewModel.emailDetailViewModel.formPropsData[
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CONTENT
+                ] ?? null,
               handleChange: (data) => {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  'MESSAGE',
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CONTENT,
                   data
                 );
               },
@@ -130,12 +144,12 @@ const CommonInformation = observer(
       ];
       return (
         <div className="position-relative">
-          {this.companyListViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.contactListViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="p-24 pb-8px bg-white rounded-1 shadow-sm h-100 mt-24">
             <Row className="gx-24">
-              <FromEmail validator={validator} companyListViewModel={this.companyListViewModel} />
+              <FromEmail validator={validator} contactListViewModel={this.contactListViewModel} />
               {Object.keys(generateFormSetting)
                 .map((groupIndex) => {
                   return [...Array(generateFormSetting[groupIndex])].map((group) => {

@@ -133,7 +133,7 @@ const ListContact = observer((props) => {
   const selectPageHandler = (value) => {
     if (value != viewModel.pagination.page) {
       viewModel.isLoading();
-      viewModel.getListByFilter('list[limitstart]', (value - 1) * viewModel.pagination.pageLimit);
+      viewModel.getListByFilter('list[start]', (value - 1) * viewModel.pagination.pageLimit);
     }
   };
 

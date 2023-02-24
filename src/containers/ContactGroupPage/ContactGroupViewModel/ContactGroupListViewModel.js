@@ -56,16 +56,16 @@ class ContactGroupListViewModel {
     value ? (this.filter[key] = value) : delete this.filter[key];
 
     //pagination
-    if (key != 'list[limitstart]' && key != 'list[limit]') {
-      delete this.filter['list[limitstart]'];
+    if (key != 'list[start]' && key != 'list[limit]') {
+      delete this.filter['list[start]'];
     } else {
       if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
-        this.filter['list[limitstart]'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
+        this.filter['list[start]'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.pagination.page < this.pagination.totalItems
       ) {
-        this.filter['list[limitstart]'] = (this.pagination.page - 1) * value;
+        this.filter['list[start]'] = (this.pagination.page - 1) * value;
       }
     }
 
@@ -120,10 +120,6 @@ class ContactGroupListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      console.log(
-        'o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_BY]',
-        o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_BY]
-      );
       const date = moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
         id: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID],

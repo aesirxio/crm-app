@@ -72,20 +72,20 @@ class OpportunityListViewModel {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
 
     //pagination
-    if (key != 'list[limitstart]' && key != 'list[limit]') {
-      delete this.successResponse.filters['list[limitstart]'];
+    if (key != 'list[start]' && key != 'list[limit]') {
+      delete this.successResponse.filters['list[start]'];
     } else {
       if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[limitstart]'] =
+        this.successResponse.filters['list[start]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[limitstart]'] =
+        this.successResponse.filters['list[start]'] =
           (this.successResponse.pagination.page - 1) * value;
       }
     }
@@ -211,14 +211,21 @@ class OpportunityListViewModel {
           id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ID],
           name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME],
         },
-        companyName: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY],
-        contactName: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT],
+        companyName: {
+          id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY]?.id,
+          name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY]?.name,
+        },
+        contactName: {
+          id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.id,
+          name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.name,
+        },
         amount: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT],
         expectDate: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE],
-        assignedTo: 'Kanira Tr',
-        saleStage: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE] ?? '',
+        saleStage: {
+          id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE]?.id,
+          name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE]?.name,
+        },
         lastModified: {
-          status: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
           author: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CREATED_BY],
         },

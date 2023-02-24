@@ -24,7 +24,7 @@ const List = observer((props) => {
     if (value != viewModel.successResponse.pagination.page) {
       viewModel.isLoading();
       viewModel.getListByFilter(
-        'list[limitstart]',
+        'list[start]',
         (value - 1) * viewModel.successResponse.pagination.pageLimit
       );
     }
@@ -154,13 +154,13 @@ const List = observer((props) => {
             },
             {
               Header: t('txt_name'),
-              accessor: 'productInfo',
+              accessor: 'name',
               width: 300,
               className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return (
                   <div className="d-flex align-items-center">
-                    <div>{value.name}</div>
+                    <div>{value}</div>
                   </div>
                 );
               },
@@ -169,33 +169,25 @@ const List = observer((props) => {
             {
               Header: t('txt_author'),
               accessor: 'author',
-              width: 100,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
-              Cell: ({ value }) => {
-                return <>{value}</>;
-              },
-            },
-            {
-              Header: t('txt_last_modified'),
-              accessor: 'lastModified',
               width: 150,
               className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return (
                   <div className="pe-2">
-                    <div className="mb-1">
-                      {viewModel?.listPublishStatus?.find((o) => o.value == value.status)?.label &&
-                        t(
-                          'txt_' +
-                            viewModel?.listPublishStatus
-                              .find((o) => o.value == value.status)
-                              .label?.toString()
-                              .toLowerCase()
-                        )}
-                    </div>
-                    <div>
-                      {value.dateTime} {t('txt_by')} {value.author}
-                    </div>
+                    <div>{value}</div>
+                  </div>
+                );
+              },
+            },
+            {
+              Header: t('txt_send_date'),
+              accessor: 'sendDate',
+              width: 150,
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              Cell: ({ value }) => {
+                return (
+                  <div className="pe-2">
+                    <div>{value}</div>
                   </div>
                 );
               },

@@ -1,5 +1,5 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { AUTHORIZATION_KEY, Storage } from 'aesirx-dma-lib';
+import { AUTHORIZATION_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY, Storage } from 'aesirx-dma-lib';
 import { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
@@ -57,7 +57,7 @@ class FromEmail extends Component {
               );
               if (data.value === 'from') {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  'EMAIL_FROM',
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SENDER,
                   Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL)
                 );
               }
@@ -67,16 +67,17 @@ class FromEmail extends Component {
             classNameInput: 'text-capitalize',
           },
           {
-            key: 'EMAIL_FROM',
+            key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SENDER,
             type: FORM_FIELD_TYPE.INPUT,
             getValueSelected:
-              this.viewModel.emailDetailViewModel.formPropsData['EMAIL_FROM'] ??
-              Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
+              this.viewModel.emailDetailViewModel.formPropsData[
+                CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SENDER
+              ] ?? Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
             className: 'col-lg-10',
             placeholder: t('txt_type'),
             handleChange: (event) => {
               this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                'EMAIL_FROM',
+                CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SENDER,
                 event.target.value
               );
             },

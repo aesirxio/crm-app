@@ -348,8 +348,8 @@
   "txt_left_menu_opportunity": "Opportunity",
   "txt_list_opportunity": "List Opportunity",
   "txt_opportunity_name": "Opportunity Name",
-  "txt_all_opportunity":"All Opportunity",
-  "txt_opportunity":"Opportunity",
+  "txt_all_opportunity": "All Opportunity",
+  "txt_opportunity": "Opportunity",
   "txt_type_your_content": "Type your content",
   "txt_text_input_content": "Text input content",
   "txt_lead_source": "Lead Source",
@@ -370,5 +370,6 @@
   "txt_amount": "Amount",
   "txt_expect_date": "Expect Date",
   "txt_assigned_to": "Assigned To",
-  "txt_sale_stage": "Sale Stage"
+  "txt_sale_stage": "Sale Stage",
+  "txt_send_date": "Send Date"
 }

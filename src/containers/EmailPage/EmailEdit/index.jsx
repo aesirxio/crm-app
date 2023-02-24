@@ -19,20 +19,19 @@ import PublishOptions from 'components/PublishOptions';
 import {
   AUTHORIZATION_KEY,
   PIM_FIELD_DETAIL_FIELD_KEY,
-  PIM_PRODUCT_DETAIL_FIELD_KEY,
+  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
   Storage,
 } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
-import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
-import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
-import _ from 'lodash';
+import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
+import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
 import EditHeader from 'components/EditHeader';
 import ComponentSVG from 'components/ComponentSVG';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { renderingGroupFieldHandler } from 'utils/form';
-const companyStore = new CompanyStore();
-const companyViewModel = new CompanyViewModel(companyStore);
+const contactStore = new ContactStore();
+const contactViewModel = new ContactViewModel(contactStore);
 const EditEmail = observer(
   class EditEmail extends Component {
     emailDetailViewModel = null;
@@ -43,8 +42,8 @@ const EditEmail = observer(
       this.state = { key: 'commonInformation', requiredField: '', showPreview: false };
       this.viewModel = props.viewModel ? props.viewModel : null;
       this.emailDetailViewModel = this.viewModel ? this.viewModel.getEmailDetailViewModel() : null;
-      this.companyListViewModel = companyViewModel
-        ? companyViewModel.getCompanyListViewModel()
+      this.contactListViewModel = contactViewModel
+        ? contactViewModel.getContactListViewModel()
         : null;
       this.emailDetailViewModel.setForm(this);
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
@@ -68,16 +67,17 @@ const EditEmail = observer(
     };
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.emailDetailViewModel.initializeData();
+      } else {
+        this.emailDetailViewModel.handleFormPropsData(
+          CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SENDER,
+          Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL)
+        );
       }
-      await this.companyListViewModel.handleFilter({ limit: 0 });
-      await this.companyListViewModel.initializeDataCustom();
+      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.initializeData();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.emailDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     handleValidateForm() {
       if (this.validator.fields['Email Name'] === true) {
@@ -98,33 +98,26 @@ const EditEmail = observer(
         {
           fields: [
             {
-              key: 'TO_PARTNERS',
+              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                'TO_PARTNERS'
+                CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
               ]?.length
-                ? this.emailDetailViewModel.emailDetailViewModel.formPropsData['TO_PARTNERS'].map(
-                    (item) => {
-                      return {
-                        label: item.label,
-                        value: item.value,
-                      };
-                    }
-                  )
-                : null,
-              getDataSelectOptions: this.companyListViewModel.items
-                ? this.companyListViewModel.items.map((item) => {
+                ? this.emailDetailViewModel.emailDetailViewModel.formPropsData[
+                    CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
+                  ].map((item) => {
                     return {
-                      label: item.title,
-                      value: item.id,
+                      label: item.label,
+                      value: item.value,
                     };
                   })
                 : null,
+              getDataSelectOptions: null,
               isMulti: true,
               creatable: true,
               handleChange: (data) => {
                 this.emailDetailViewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  'TO_PARTNERS',
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
                   data
                 );
               },
@@ -181,7 +174,7 @@ const EditEmail = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.emailDetailViewModel.create();
-                          result && history.push(`/email/edit/${result}`);
+                          result && history.push(`/email`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -202,21 +195,14 @@ const EditEmail = observer(
                     field={{
                       getValueSelected:
                         this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                          PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
+                          CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.NAME
                         ],
                       classNameInput: 'py-1 fs-4',
                       placeholder: t('txt_mail_name'),
                       handleChange: (event) => {
                         this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                          PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
+                          CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.NAME
                         ] = event.target.value;
-                        if (
-                          !this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                            PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
-                          ]
-                        ) {
-                          this.debouncedChangeHandler(event.target.value);
-                        }
                       },
                       required: true,
                       blurred: () => {
@@ -227,7 +213,7 @@ const EditEmail = observer(
                   {this.validator.message(
                     'Email Name',
                     this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                      PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
+                      CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.NAME
                     ],
                     'required',
                     {
@@ -238,7 +224,8 @@ const EditEmail = observer(
                 <CommonInformation
                   formPropsData={this.formPropsData}
                   validator={this.validator}
-                  companyListViewModel={this.companyListViewModel}
+                  contactListViewModel={this.contactListViewModel}
+                  requiredField={this.state.requiredField}
                 />
               </Col>
               <Col xxl={3} lg={4}>
@@ -284,10 +271,10 @@ const EditEmail = observer(
                           </td>
                           <td className="border-bottom-0 py-4px">
                             {this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                              'TO_PARTNERS'
+                              CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
                             ]?.length
                               ? this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                                  'TO_PARTNERS'
+                                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
                                 ].map((item, key) => {
                                   return (key > 0 ? '; ' : '') + item.label;
                                 })

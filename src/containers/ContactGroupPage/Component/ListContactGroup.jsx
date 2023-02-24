@@ -179,7 +179,7 @@ const ListContactGroup = observer((props) => {
   const selectPageHandler = (value) => {
     if (value != viewModel.pagination.page) {
       viewModel.isLoading();
-      viewModel.getListByFilter('list[limitstart]', (value - 1) * viewModel.pagination.pageLimit);
+      viewModel.getListByFilter('list[start]', (value - 1) * viewModel.pagination.pageLimit);
     }
   };
 
@@ -271,8 +271,8 @@ const ListContactGroup = observer((props) => {
               value: viewModel?.filter['list[limit]'],
             }}
             options={[...Array(9)].map((o, index) => ({
-              label: `${(index + 1) * 10} ${t('txt_items')}`,
-              value: (index + 1) * 10,
+              label: `${(index + 1) * 1} ${t('txt_items')}`,
+              value: (index + 1) * 1,
             }))}
             onChange={(o) => selectShowItemsHandler(o)}
             className={`fs-sm`}

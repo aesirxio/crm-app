@@ -3,8 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
-import { AesirxPimProductApiService } from 'aesirx-dma-lib';
+import { AesirxCrmEmailMarketingApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
@@ -13,7 +12,7 @@ export default class emailStore {
     try {
       let resultOnSave;
 
-      const aesirxPimEmailApiService = new AesirxPimProductApiService();
+      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
 
       resultOnSave = await aesirxPimEmailApiService.create(createEmailData);
       if (resultOnSave?.result) {
@@ -37,7 +36,7 @@ export default class emailStore {
   async update(updateEmailData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const aesirxPimEmailApiService = new AesirxPimProductApiService();
+      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
 
       resultOnSave = await aesirxPimEmailApiService.update(updateEmailData);
 
@@ -66,7 +65,7 @@ export default class emailStore {
       const results = true;
 
       if (results) {
-        const aesirxPimEmailApiService = new AesirxPimProductApiService();
+        const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
 
         const respondedData = await aesirxPimEmailApiService.getDetail(id);
 
@@ -87,31 +86,9 @@ export default class emailStore {
     }
   }
 
-  async getListCategories(callbackOnSuccess, callbackOnError) {
-    try {
-      const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
-      const respondedData = await aesirxPimCategoryApiService.getList({ 'list[limit]': 9999 });
-
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
-    } catch (error) {
-      // no error throw
-    }
-
-    return false;
-  }
-
   async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const aesirxPimEmailApiService = new AesirxPimProductApiService();
+      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
       const respondedData = await aesirxPimEmailApiService.getList(filters);
       if (respondedData) {
         runInAction(() => {
@@ -155,7 +132,7 @@ export default class emailStore {
     if (!id) return false;
 
     try {
-      const aesirxPimEmailApiService = new AesirxPimProductApiService();
+      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
       const respondedData = await aesirxPimEmailApiService.getDetailInfo(id);
       return respondedData;
     } catch (error) {
@@ -167,7 +144,7 @@ export default class emailStore {
 
   async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimEmailApiService = new AesirxPimProductApiService();
+      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
       const respondedData = await aesirxPimEmailApiService.updateStatus(arr, status);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Updated successfully');
@@ -184,7 +161,7 @@ export default class emailStore {
 
   async deleteEmails(arr, callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimEmailApiService = new AesirxPimProductApiService();
+      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
       const respondedData = await aesirxPimEmailApiService.deleteEmails(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');

@@ -58,6 +58,7 @@ const EditOpportunity = observer(
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.opportunityDetailViewModel.initializeData();
       }
+      await this.opportunityDetailViewModel.getStageList();
       await this.companyListViewModel.handleFilter({ limit: 0 });
       await this.companyListViewModel.initializeDataCustom();
       await this.contactListViewModel.handleFilter({ limit: 0 });

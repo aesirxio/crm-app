@@ -12,6 +12,7 @@ import {
   CRM_COMPANY_DETAIL_FIELD_KEY,
   CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_OPPORTUNITY_DETAIL_FIELD_KEY,
+  CRM_STAGE_DETAIL_FIELD_KEY,
 } from 'aesirx-dma-lib';
 const OpportunityInformation = observer(
   class OpportunityInformation extends Component {
@@ -73,12 +74,12 @@ const OpportunityInformation = observer(
                 ? {
                     label:
                       this.viewModel.opportunityDetailViewModel.formPropsData[
-                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.crm_company_name
-                      ],
+                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY
+                      ]?.name,
                     value:
                       this.viewModel.opportunityDetailViewModel.formPropsData[
                         CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY
-                      ],
+                      ]?.id,
                   }
                 : null,
               getDataSelectOptions: this.companyListViewModel.items
@@ -113,7 +114,7 @@ const OpportunityInformation = observer(
                     };
                   })
                 : null,
-              getDataSelectOptions: this.contactListViewModel.items
+              getDataSelectOptions: this.contactListViewModel?.items.length
                 ? this.contactListViewModel.items.map((item) => {
                     return {
                       label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
@@ -126,24 +127,47 @@ const OpportunityInformation = observer(
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT,
-                  data
+                  data?.map((item) => {
+                    return item?.value;
+                  })
                 );
               },
               placeholder: t('txt_type_to_search'),
               className: 'col-lg-12',
             },
             {
-              label: t('txt_lead_source'),
-              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE,
-              type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected:
-                this.viewModel.opportunityDetailViewModel.formPropsData[
-                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE
-                ],
+              label: t('txt_sale_stage'),
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected: this.viewModel.opportunityDetailViewModel.formPropsData[
+                CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE
+              ]
+                ? {
+                    label:
+                      this.viewModel.opportunityDetailViewModel.formPropsData[
+                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE
+                      ]?.name,
+                    value:
+                      this.viewModel.opportunityDetailViewModel.formPropsData[
+                        CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE
+                      ]?.id,
+                  }
+                : null,
+              getDataSelectOptions: this.viewModel.opportunityDetailViewModel
+                .opportunityDetailViewModel?.stageListItems?.length
+                ? this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel?.stageListItems.map(
+                    (item) => {
+                      return {
+                        label: item[CRM_STAGE_DETAIL_FIELD_KEY.TITLE],
+                        value: item[CRM_STAGE_DETAIL_FIELD_KEY.ID],
+                      };
+                    }
+                  )
+                : null,
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE,
-                  data.target.value
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE,
+                  data.value
                 );
               },
               className: 'col-lg-12',
@@ -203,22 +227,22 @@ const OpportunityInformation = observer(
               },
               className: 'col-lg-6',
             },
-            // {
-            //   label: t('txt_assign_to'),
-            //   key: 'ASSIGN_TO',
-            //   type: FORM_FIELD_TYPE.INPUT,
-            //   getValueSelected:
-            //     this.viewModel.opportunityDetailViewModel.formPropsData['ASSIGN_TO'],
-            //   handleChange: (data) => {
-            //     this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
-            //       'ASSIGN_TO',
-            //       data.target.value
-            //     );
-            //   },
-            //   required: true,
-            //  validation: 'required',
-            //   className: 'col-lg-6',
-            // },
+            {
+              label: t('txt_lead_source'),
+              key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE,
+              type: FORM_FIELD_TYPE.INPUT,
+              getValueSelected:
+                this.viewModel.opportunityDetailViewModel.formPropsData[
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE
+                ],
+              handleChange: (data) => {
+                this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
+                  CRM_OPPORTUNITY_DETAIL_FIELD_KEY.SOURCE,
+                  data.target.value
+                );
+              },
+              className: 'col-lg-6',
+            },
             {
               label: t('txt_close_probability'),
               key: CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CLOSE_PROBABILITY,
@@ -275,7 +299,9 @@ const OpportunityInformation = observer(
       ];
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {this.props.viewModel.opportunityDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {(this.props.viewModel.opportunityDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.companyListViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.contactListViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}
           <Row>

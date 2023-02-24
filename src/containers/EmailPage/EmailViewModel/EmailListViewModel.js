@@ -10,7 +10,7 @@
 
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 import { notify } from 'components/Toast';
 class EmailListViewModel {
@@ -24,7 +24,6 @@ class EmailListViewModel {
     },
     listPublishStatus: [],
     listEmail: [],
-    listCategories: [],
     pagination: {},
   };
 
@@ -45,12 +44,6 @@ class EmailListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-
-    await this.emailStore.getListCategories(
-      this.callbackOnSuccessGetCategoriesHandler,
-      this.callbackOnErrorHandler
-    );
-
     this.successResponse.state = true;
   };
 
@@ -67,20 +60,20 @@ class EmailListViewModel {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
 
     //pagination
-    if (key != 'list[limitstart]' && key != 'list[limit]') {
-      delete this.successResponse.filters['list[limitstart]'];
+    if (key != 'list[start]' && key != 'list[limit]') {
+      delete this.successResponse.filters['list[start]'];
     } else {
       if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[limitstart]'] =
+        this.successResponse.filters['list[start]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[limitstart]'] =
+        this.successResponse.filters['list[start]'] =
           (this.successResponse.pagination.page - 1) * value;
       }
     }
@@ -155,16 +148,6 @@ class EmailListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessGetCategoriesHandler = (result) => {
-    this.successResponse.listCategories = result.listItems.map((o) => {
-      let dash = '';
-      for (let index = 1; index < o.level; index++) {
-        dash += '- ';
-      }
-      return { value: o.id, label: `${dash}${o.title}` };
-    });
-  };
-
   callbackOnErrorHandler = (error) => {
     error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
@@ -173,40 +156,19 @@ class EmailListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
-
-      // let src = o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-      //   PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
-      // ][PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL]
-      //   ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE][
-      //       PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL
-      //     ]
-      //   : 'test';
+      const date =
+        CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.MODIFIED_TIME &&
+        moment(o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
 
       return {
-        id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
-        productInfo: {
-          image:
-            o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE],
-          name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
-        },
-        categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
-        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
-        featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
-        type: Array.isArray(
-          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-          ]
-        )
-          ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-              PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-            ][0]
-          : '',
-        lastModified: {
-          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATE],
-          dateTime: date ?? '',
-          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_BY],
-        },
+        id: o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.ID],
+        name: o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.NAME],
+        createDate:
+          o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CREATED_TIME] &&
+          moment(o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+        sendDate: date ?? '',
+        author: o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CREATED_BY],
+        status: o[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.STATUS],
       };
     });
   };

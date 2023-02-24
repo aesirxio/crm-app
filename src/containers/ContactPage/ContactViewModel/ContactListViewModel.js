@@ -52,16 +52,16 @@ class ContactListViewModel {
     value ? (this.filter[key] = value) : delete this.filter[key];
 
     //pagination
-    if (key != 'list[limitstart]' && key != 'list[limit]') {
-      delete this.filter['list[limitstart]'];
+    if (key != 'list[start]' && key != 'list[limit]') {
+      delete this.filter['list[start]'];
     } else {
       if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
-        this.filter['list[limitstart]'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
+        this.filter['list[start]'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.pagination.page < this.pagination.totalItems
       ) {
-        this.filter['list[limitstart]'] = (this.pagination.page - 1) * value;
+        this.filter['list[start]'] = (this.pagination.page - 1) * value;
       }
     }
 

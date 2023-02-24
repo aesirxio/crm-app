@@ -72,20 +72,20 @@ class CompanyListViewModel {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
 
     //pagination
-    if (key != 'list[limitstart]' && key != 'list[limit]') {
-      delete this.successResponse.filters['list[limitstart]'];
+    if (key != 'list[start]' && key != 'list[limit]') {
+      delete this.successResponse.filters['list[start]'];
     } else {
       if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[limitstart]'] =
+        this.successResponse.filters['list[start]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[limitstart]'] =
+        this.successResponse.filters['list[start]'] =
           (this.successResponse.pagination.page - 1) * value;
       }
     }

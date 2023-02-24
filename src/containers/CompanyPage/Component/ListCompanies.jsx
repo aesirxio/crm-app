@@ -172,7 +172,7 @@ const ListCompanies = observer((props) => {
     if (value != viewModel.successResponse.pagination.page) {
       viewModel.isLoading();
       viewModel.getListByFilter(
-        'list[limitstart]',
+        'list[start]',
         (value - 1) * viewModel.successResponse.pagination.pageLimit
       );
     }
