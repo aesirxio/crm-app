@@ -162,7 +162,7 @@ export default class emailStore {
   async deleteEmails(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
-      const respondedData = await aesirxPimEmailApiService.deleteEmails(arr);
+      const respondedData = await aesirxPimEmailApiService.delete(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });

@@ -93,7 +93,7 @@ const OpportunityInformation = observer(
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY,
-                  data.value
+                  { name: data.label, id: data.value }
                 );
               },
               className: 'col-lg-12',
@@ -109,8 +109,8 @@ const OpportunityInformation = observer(
                     CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
                   ].map((item) => {
                     return {
-                      label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
-                      value: item?.value,
+                      label: item?.name,
+                      value: item?.id,
                     };
                   })
                 : null,
@@ -128,7 +128,7 @@ const OpportunityInformation = observer(
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT,
                   data?.map((item) => {
-                    return item?.value;
+                    return { name: item.label, id: item.value };
                   })
                 );
               },
@@ -167,7 +167,7 @@ const OpportunityInformation = observer(
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE,
-                  data.value
+                  { name: data.label, id: data.value }
                 );
               },
               className: 'col-lg-12',

@@ -59,12 +59,12 @@ const List = observer((props) => {
     }
   };
 
-  const deleteProducts = () => {
+  const deleteEmails = () => {
     if (listSelected.length < 1) {
       notify(t('txt_row_select_error'), 'error');
     } else {
       viewModel.isLoading();
-      viewModel.deleteProducts(listSelected);
+      viewModel.deleteEmails(listSelected);
     }
   };
 
@@ -80,7 +80,7 @@ const List = observer((props) => {
               iconColor: '#cb222c',
               textColor: '#cb222c',
               handle: async () => {
-                deleteProducts();
+                deleteEmails();
               },
             },
             {

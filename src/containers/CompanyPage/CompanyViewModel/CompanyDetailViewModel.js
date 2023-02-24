@@ -93,6 +93,7 @@ class CompanyDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        this.companyDetailViewModel.formPropsData[key] = {};
         Object.assign(this.companyDetailViewModel.formPropsData[key], value);
       } else {
         this.companyDetailViewModel.formPropsData[key] = value;
