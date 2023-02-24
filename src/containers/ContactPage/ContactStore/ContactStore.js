@@ -158,4 +158,27 @@ export default class ContactStore {
 
     return false;
   }
+
+  async getStatusList(callbackOnSuccess, callbackOnError) {
+    try {
+      const getListAPIService = new AesirxCrmContactApiService();
+      const respondedData = await getListAPIService.getStatusList();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error?.response?.data);
+      });
+    }
+
+    return false;
+  }
 }

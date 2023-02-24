@@ -96,10 +96,6 @@ class EmailDetailViewModel {
       }
     }
   };
-
-  handleAliasChange = (value) => {
-    this.aliasChange = value?.replace(/ /g, '-').toString().toLowerCase();
-  };
 }
 
 export default EmailDetailViewModel;

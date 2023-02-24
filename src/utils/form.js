@@ -17,7 +17,6 @@ const FormImage = lazy(() => import('../components/Form/FormImage'));
 const FormVideo = lazy(() => import('../components/Form/FormVideo'));
 const FormSelection = lazy(() => import('../components/Form/FormSelection'));
 const FormSelectionColumn = lazy(() => import('../components/Form/FormSelectionColumn'));
-const FormSelectionFields = lazy(() => import('../components/Form/FormSelectionFields'));
 const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
 const FormPriceField = lazy(() => import('../components/Form/FormPriceField'));
@@ -130,19 +129,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     })}
                 </Form.Group>
               );
-            case FORM_FIELD_TYPE.SELECTION_FIELDS:
-              return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
-                  {field.label && <Label text={field.label} required={field.required ?? false} />}
 
-                  <FormSelectionFields key={Math.random(40, 200)} field={field} />
-
-                  {field.validation &&
-                    validator.message(field.label, field.getValueSelected, field.validation, {
-                      className: 'text-danger',
-                    })}
-                </Form.Group>
-              );
             case FORM_FIELD_TYPE.SELECTION_CUSTOM:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>

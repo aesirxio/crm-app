@@ -108,9 +108,6 @@ class OpportunityDetailViewModel {
       }
     }
   };
-  handleAliasChange = (value) => {
-    this.aliasChange = value;
-  };
 }
 
 export default OpportunityDetailViewModel;

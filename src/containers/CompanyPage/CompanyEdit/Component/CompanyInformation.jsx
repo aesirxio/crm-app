@@ -7,7 +7,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
 import ComponentSVG from 'components/ComponentSVG';
-import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_COMPANY_DETAIL_FIELD_KEY, CRM_STATUS_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import { Row } from 'react-bootstrap';
 
 const CompanyInformation = observer(
@@ -224,6 +224,43 @@ const CompanyInformation = observer(
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
                   CRM_COMPANY_DETAIL_FIELD_KEY.WEBSITE,
                   data.target.value
+                );
+              },
+              className: 'col-lg-12',
+            },
+            {
+              label: t('txt_status'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected: this.viewModel.companyDetailViewModel.formPropsData[
+                CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS
+              ]
+                ? {
+                    label:
+                      this.viewModel.companyDetailViewModel.formPropsData[
+                        CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS
+                      ]?.name,
+                    value:
+                      this.viewModel.companyDetailViewModel.formPropsData[
+                        CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS
+                      ]?.id,
+                  }
+                : null,
+              getDataSelectOptions: this.viewModel.companyDetailViewModel.companyDetailViewModel
+                ?.statusListItems?.length
+                ? this.viewModel.companyDetailViewModel.companyDetailViewModel?.statusListItems.map(
+                    (item) => {
+                      return {
+                        label: item[CRM_STATUS_DETAIL_FIELD_KEY.TITLE],
+                        value: item[CRM_STATUS_DETAIL_FIELD_KEY.ID],
+                      };
+                    }
+                  )
+                : null,
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS,
+                  data.value
                 );
               },
               className: 'col-lg-12',

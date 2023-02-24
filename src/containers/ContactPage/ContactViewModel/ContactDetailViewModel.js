@@ -11,6 +11,7 @@ class ContactDetailViewModel {
   contactStore = null;
   formStatus = PAGE_STATUS.READY;
   contactDetailViewModel = null;
+  statusListItems = [];
   successResponse = {
     state: true,
     content_id: '',
@@ -62,6 +63,9 @@ class ContactDetailViewModel {
   };
 
   callbackOnSuccessHandler = (result, message) => {
+    if (result?.statusListItems) {
+      this.statusListItems = result.statusListItems;
+    }
     if (result && message) {
       notify(message, 'success');
     }
@@ -88,11 +92,20 @@ class ContactDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        this.contactDetailViewModel.formPropsData[key] = {};
         Object.assign(this.contactDetailViewModel.formPropsData[key], value);
       } else {
         this.contactDetailViewModel.formPropsData[key] = value;
       }
     }
+  };
+
+  getStatusList = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.contactStore.getStatusList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
   };
 }
 

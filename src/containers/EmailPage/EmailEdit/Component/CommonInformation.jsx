@@ -61,7 +61,7 @@ const CommonInformation = observer(
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
                   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
                   data.map((item) => {
-                    return item;
+                    return item.value;
                   })
                 );
               },

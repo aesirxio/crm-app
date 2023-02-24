@@ -29,7 +29,9 @@ const ContactGroupInformation = observer(
           let index = dataTable.findIndex((obj) => {
             return obj.id === item.id;
           });
-          dataTable[index].selected = true;
+          if (index !== -1) {
+            dataTable[index].selected = true;
+          }
           return;
         });
       }

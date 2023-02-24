@@ -12,6 +12,7 @@ class CompanyDetailViewModel {
   formStatus = PAGE_STATUS.READY;
   companyDetailViewModel = null;
   aliasChange = '';
+  statusListItems = [];
   successResponse = {
     state: true,
     content_id: '',
@@ -63,6 +64,9 @@ class CompanyDetailViewModel {
   };
 
   callbackOnSuccessHandler = (result, message) => {
+    if (result?.statusListItems) {
+      this.statusListItems = result.statusListItems;
+    }
     if (result && message) {
       notify(message, 'success');
     }
@@ -95,8 +99,13 @@ class CompanyDetailViewModel {
       }
     }
   };
-  handleAliasChange = (value) => {
-    this.aliasChange = value;
+
+  getStatusList = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.companyStore.getStatusList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
   };
 }
 

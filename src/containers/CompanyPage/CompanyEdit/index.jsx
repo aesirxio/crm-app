@@ -16,7 +16,6 @@ import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/Co
 import PublishOptions from 'components/PublishOptions';
 import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
-import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
 import CompanyInformation from './Component/CompanyInformation';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
@@ -50,6 +49,7 @@ const EditCompany = observer(
         this.formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.companyDetailViewModel.initializeData();
       }
+      await this.companyDetailViewModel.getStatusList();
       await this.contactListViewModel.handleFilter({ limit: 0 });
       await this.contactListViewModel.initializeData();
     }
@@ -63,10 +63,6 @@ const EditCompany = observer(
       });
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.companyDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     render() {
       const { t } = this.props;

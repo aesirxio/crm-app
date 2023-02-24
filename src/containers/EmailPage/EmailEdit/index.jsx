@@ -16,12 +16,7 @@ import ActionsBar from 'components/ActionsBar';
 import CommonInformation from './Component/CommonInformation';
 import { withEmailViewModel } from 'containers/EmailPage/EmailViewModel/EmailViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import {
-  AUTHORIZATION_KEY,
-  PIM_FIELD_DETAIL_FIELD_KEY,
-  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
-  Storage,
-} from 'aesirx-dma-lib';
+import { AUTHORIZATION_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY, Storage } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
@@ -35,7 +30,7 @@ const contactViewModel = new ContactViewModel(contactStore);
 const EditEmail = observer(
   class EditEmail extends Component {
     emailDetailViewModel = null;
-    formPropsData = { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = {};
     isEdit = false;
     constructor(props) {
       super(props);

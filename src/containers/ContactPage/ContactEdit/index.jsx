@@ -56,6 +56,7 @@ const EditContact = observer(
         this.formPropsData[CRM_CONTACT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.contactDetailViewModel.initializeData();
       }
+      await this.contactDetailViewModel.getStatusList();
       await this.companyListViewModel.handleFilter({ limit: 0 });
       await this.companyListViewModel.initializeDataCustom();
       await this.contactGroupListViewModel.handleFilter({ limit: 0 });

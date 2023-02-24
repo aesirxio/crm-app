@@ -98,10 +98,6 @@ class ContactGroupDetailViewModel {
       }
     }
   };
-
-  handleAliasChange = (value) => {
-    this.aliasChange = value;
-  };
 }
 
 export default ContactGroupDetailViewModel;
