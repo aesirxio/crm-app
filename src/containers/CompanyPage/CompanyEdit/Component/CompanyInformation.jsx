@@ -223,6 +223,12 @@ const CompanyInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (!validator?.fields[t('txt_company_name')]) {
+                  validator.showMessageFor(t('txt_company_name'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {
@@ -241,6 +247,12 @@ const CompanyInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (!validator?.fields[t('txt_company_address')]) {
+                  validator.showMessageFor(t('txt_company_address'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {

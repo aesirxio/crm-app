@@ -62,6 +62,12 @@ const OpportunityInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (!validator?.fields[t('txt_opportunity_name')]) {
+                  validator.showMessageFor(t('txt_opportunity_name'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {
@@ -124,6 +130,12 @@ const OpportunityInformation = observer(
                 : null,
               isMulti: true,
               required: true,
+              blurred: () => {
+                if (!validator?.fields[t('txt_contact')]) {
+                  validator.showMessageFor(t('txt_contact'));
+                  this.forceUpdate();
+                }
+              },
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT,

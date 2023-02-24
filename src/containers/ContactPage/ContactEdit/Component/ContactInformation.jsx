@@ -2,8 +2,6 @@ import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
-import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withContactViewModel } from 'containers/ContactPage/ContactViewModel/ContactViewModelContextProvider';
 import {
@@ -41,6 +39,12 @@ const ContactInformation = observer(
               placeholder: t('txt_type'),
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (!validator?.fields[t('txt_contact_name')]) {
+                  validator.showMessageFor(t('txt_contact_name'));
+                  this.forceUpdate();
+                }
+              },
               handleChange: (event) => {
                 this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
                   CRM_CONTACT_DETAIL_FIELD_KEY.NAME,
@@ -104,6 +108,12 @@ const ContactInformation = observer(
                   event.target.value
                 );
               },
+              blurred: () => {
+                if (!validator?.fields[t('txt_email')]) {
+                  validator.showMessageFor(t('txt_email'));
+                  this.forceUpdate();
+                }
+              },
             },
             {
               label: t('txt_phone'),
@@ -122,6 +132,12 @@ const ContactInformation = observer(
                   CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER,
                   event.target.value
                 );
+              },
+              blurred: () => {
+                if (!validator?.fields[t('txt_phone')]) {
+                  validator.showMessageFor(t('txt_phone'));
+                  this.forceUpdate();
+                }
               },
             },
             {
@@ -256,10 +272,6 @@ const ContactInformation = observer(
       ];
       return (
         <div className="position-relative">
-          {(this.props.viewModel.contactDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
-            this.contactGroupListViewModel.formStatus === PAGE_STATUS.LOADING) && (
-            <Spinner className="spinner-overlay" />
-          )}
           <div className="p-24 pb-8px bg-white rounded-1 shadow-sm h-100 mt-24">
             {Object.keys(generateFormSetting)
               .map((groupIndex) => {

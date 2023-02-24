@@ -217,6 +217,12 @@ const ContactGroupInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (!validator?.fields[t('txt_group_name')]) {
+                  validator.showMessageFor(t('txt_group_name'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {

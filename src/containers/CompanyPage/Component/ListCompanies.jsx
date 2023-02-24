@@ -181,12 +181,12 @@ const ListCompanies = observer((props) => {
   const selectTabHandler = (value) => {
     viewModel.isLoading();
     if (value != 'default') {
-      viewModel.getListByFilter('published', {
+      viewModel.getListByFilter('state', {
         value: value,
         type: 'filter',
       });
     } else {
-      viewModel.getListByFilter('published', '');
+      viewModel.getListByFilter('state', '');
     }
   };
 
