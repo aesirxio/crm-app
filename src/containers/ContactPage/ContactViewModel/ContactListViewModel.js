@@ -98,6 +98,12 @@ class ContactListViewModel {
     this.filter = { ...this.filter, ...filter };
   };
 
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
+  };
+
   deleteContacts = async (arr) => {
     const res = await this.contactStore.deleteContacts(
       arr,

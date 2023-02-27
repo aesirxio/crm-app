@@ -135,6 +135,12 @@ class CompanyListViewModel {
     this.filter = { ...this.filter, ...filter };
   };
 
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
+  };
+
   callbackOnErrorHandler = (error) => {
     error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')

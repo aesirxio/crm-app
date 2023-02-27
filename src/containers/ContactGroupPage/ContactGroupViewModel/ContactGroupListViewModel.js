@@ -56,6 +56,12 @@ class ContactGroupListViewModel {
     this.filter = { ...this.filter, ...filter };
   };
 
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
+  };
+
   getListByFilter = async (key, value) => {
     value ? (this.filter[key] = value) : delete this.filter[key];
 

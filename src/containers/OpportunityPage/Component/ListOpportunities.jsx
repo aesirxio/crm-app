@@ -68,14 +68,22 @@ const ListOpportunities = observer((props) => {
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
         return (
-          <div
-            className="text-success cursor-pointer"
-            onClick={() => {
-              history.push(`/contacts/edit/${value.id}`);
-            }}
-          >
-            {value.name}
-          </div>
+          <>
+            {Array.isArray(value) &&
+              value?.map((item, key) => {
+                return (
+                  <div
+                    key={key}
+                    className="text-success cursor-pointer"
+                    onClick={() => {
+                      history.push(`/contacts/edit/${item.id}`);
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                );
+              })}
+          </>
         );
       },
     },
@@ -106,6 +114,7 @@ const ListOpportunities = observer((props) => {
   ];
 
   useEffect(() => {
+    viewModel.clearFilter();
     viewModel.getListPublishStatus();
     viewModel.initializeData();
   }, []);

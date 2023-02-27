@@ -35,7 +35,7 @@ const Input = ({ field, ...props }) => {
       />
       {field.format && (
         <div
-          className={`form-control input-format border-0 border-start border-end text-center ${field.classNameInput}`}
+          className={`form-control input-format border-0 border-start border-end-0 text-center ${field.classNameInput}`}
         >
           {field.format}
         </div>

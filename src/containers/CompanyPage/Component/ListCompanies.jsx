@@ -153,6 +153,7 @@ const ListCompanies = observer((props) => {
   ];
 
   useEffect(() => {
+    viewModel.clearFilter();
     viewModel.initializeData();
     viewModel.getListPublishStatus();
   }, []);

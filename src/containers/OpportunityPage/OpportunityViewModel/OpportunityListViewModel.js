@@ -142,6 +142,12 @@ class OpportunityListViewModel {
     this.filter = { ...this.filter, ...filter };
   };
 
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
+  };
+
   callbackOnErrorHandler = (error) => {
     error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
@@ -205,10 +211,7 @@ class OpportunityListViewModel {
           id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY]?.id,
           name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY]?.name,
         },
-        contactName: {
-          id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.id,
-          name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.name,
-        },
+        contactName: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT],
         amount: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT],
         expectDate:
           o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE] &&

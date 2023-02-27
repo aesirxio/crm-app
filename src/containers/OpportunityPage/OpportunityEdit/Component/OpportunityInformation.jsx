@@ -247,6 +247,7 @@ const OpportunityInformation = observer(
                   data && moment(data).format(FORMAT_DATE_UPDATE_POST)
                 );
               },
+              minDate: moment().toDate(),
               className: 'col-lg-6',
             },
             {

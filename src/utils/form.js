@@ -186,6 +186,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     placeholderText={field.placeholder}
                     icon={field.icon}
                     iconClass={field.iconClass}
+                    minDate={field.minDate}
                   />
                 </Form.Group>
               );

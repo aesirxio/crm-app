@@ -17,6 +17,7 @@ const ListContactGroup = observer((props) => {
   const viewModel = props.viewModel;
 
   useEffect(() => {
+    viewModel.clearFilter();
     viewModel.initializeData();
     viewModel.getListPublishStatus();
   }, []);
