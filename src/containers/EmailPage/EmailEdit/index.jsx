@@ -76,7 +76,7 @@ const EditEmail = observer(
           Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL)
         );
       }
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 

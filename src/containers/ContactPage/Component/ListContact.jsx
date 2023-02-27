@@ -18,6 +18,7 @@ const ListContact = observer((props) => {
 
   useEffect(() => {
     viewModel.initializeData();
+    viewModel.getListPublishStatus();
   }, []);
   const columnsTable = [
     {

@@ -18,6 +18,7 @@ const ListContactGroup = observer((props) => {
 
   useEffect(() => {
     viewModel.initializeData();
+    viewModel.getListPublishStatus();
   }, []);
 
   const publishedBtnHandler = (id, value) => {

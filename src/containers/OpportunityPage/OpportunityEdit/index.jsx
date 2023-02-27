@@ -58,9 +58,9 @@ const EditOpportunity = observer(
         await this.opportunityDetailViewModel.initializeData();
       }
       await this.opportunityDetailViewModel.getStageList();
-      await this.companyListViewModel.handleFilter({ limit: 0 });
+      await this.companyListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.companyListViewModel.initializeDataCustom();
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 

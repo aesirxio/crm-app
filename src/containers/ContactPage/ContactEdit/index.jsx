@@ -57,9 +57,9 @@ const EditContact = observer(
         await this.contactDetailViewModel.initializeData();
       }
       await this.contactDetailViewModel.getStatusList();
-      await this.companyListViewModel.handleFilter({ limit: 0 });
+      await this.companyListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.companyListViewModel.initializeDataCustom();
-      await this.contactGroupListViewModel.handleFilter({ limit: 0 });
+      await this.contactGroupListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactGroupListViewModel.initializeData();
     }
 

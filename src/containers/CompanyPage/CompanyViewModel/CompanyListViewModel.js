@@ -42,12 +42,11 @@ class CompanyListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
+    this.successResponse.state = true;
+  };
 
-    await this.companyStore.getListWithoutPagination(
-      this.callbackOnSuccessGetCompaniesHandler,
-      this.callbackOnErrorHandler
-    );
-
+  getListPublishStatus = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.companyStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

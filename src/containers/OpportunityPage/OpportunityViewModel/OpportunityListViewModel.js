@@ -42,27 +42,17 @@ class OpportunityListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
+    this.successResponse.state = true;
+  };
 
-    await this.opportunityStore.getListWithoutPagination(
-      this.callbackOnSuccessGetOpportunitiesHandler,
-      this.callbackOnErrorHandler
-    );
-
+  getListPublishStatus = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.opportunityStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.successResponse.state = true;
   };
 
-  initializeDataCustom = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-    await this.opportunityStore.getList(
-      this.callbackOnSuccessHandlerCustom,
-      this.callbackOnErrorHandler,
-      this.filter
-    );
-  };
   callbackOnSuccessHandlerCustom = (result) => {
     this.items = result.listItems;
     this.formStatus = PAGE_STATUS.READY;

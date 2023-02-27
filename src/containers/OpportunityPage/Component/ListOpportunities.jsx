@@ -106,6 +106,7 @@ const ListOpportunities = observer((props) => {
   ];
 
   useEffect(() => {
+    viewModel.getListPublishStatus();
     viewModel.initializeData();
   }, []);
 

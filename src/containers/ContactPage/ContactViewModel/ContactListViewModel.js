@@ -39,12 +39,15 @@ class ContactListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.successResponse.state = true;
+  };
 
+  getListPublishStatus = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.contactStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-
     this.successResponse.state = true;
   };
 

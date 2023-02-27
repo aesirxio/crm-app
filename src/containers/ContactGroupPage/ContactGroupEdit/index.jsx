@@ -48,7 +48,7 @@ const EditContactGroup = observer(
         this.formPropsData[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.contactGroupDetailViewModel.initializeData();
       }
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 

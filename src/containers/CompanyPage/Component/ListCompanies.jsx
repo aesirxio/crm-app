@@ -154,6 +154,7 @@ const ListCompanies = observer((props) => {
 
   useEffect(() => {
     viewModel.initializeData();
+    viewModel.getListPublishStatus();
   }, []);
 
   const selectBulkActionsHandler = (value) => {

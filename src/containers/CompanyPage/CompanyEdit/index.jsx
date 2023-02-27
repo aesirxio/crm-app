@@ -50,7 +50,7 @@ const EditCompany = observer(
         await this.companyDetailViewModel.initializeData();
       }
       await this.companyDetailViewModel.getStatusList();
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 
