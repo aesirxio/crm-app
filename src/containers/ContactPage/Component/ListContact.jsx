@@ -137,15 +137,6 @@ const ListContact = observer((props) => {
     }
   };
 
-  const deleteContacts = () => {
-    if (listSelected.length < 1) {
-      notify(t('txt_row_select_error'), 'error');
-    } else {
-      viewModel.isLoading();
-      viewModel.deleteContacts(listSelected);
-    }
-  };
-
   return (
     <>
       <div className="d-flex justify-content-between align-items-start mb-3">
@@ -157,8 +148,16 @@ const ListContact = observer((props) => {
               icon: '/assets/images/delete.svg',
               iconColor: '#cb222c',
               textColor: '#cb222c',
+              isShowPopupDelete: async () => {
+                if (listSelected?.length < 1) {
+                  notify(t('txt_row_select_error'), 'error');
+                  return false;
+                }
+                return true;
+              },
               handle: async () => {
-                deleteContacts();
+                viewModel.isLoading();
+                viewModel.deleteContacts(listSelected);
               },
             },
             {

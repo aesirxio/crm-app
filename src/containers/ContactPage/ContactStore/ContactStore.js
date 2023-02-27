@@ -145,7 +145,7 @@ export default class ContactStore {
   async deleteContacts(arr, callbackOnSuccess, callbackOnError) {
     try {
       const getAesirxCrmContactApiService = new AesirxCrmContactApiService();
-      const respondedData = await getAesirxCrmContactApiService.deleteContacts(arr);
+      const respondedData = await getAesirxCrmContactApiService.delete(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });

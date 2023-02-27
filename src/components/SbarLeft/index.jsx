@@ -14,7 +14,7 @@ import Menu from '../Menu';
 // import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 import Menu2 from 'components/Menu2';
 import { observer } from 'mobx-react';
-// import { AesirXDamStorage } from 'aesirx-dam-app';
+import { AesirXDamStorage } from 'aesirx-dam-app';
 // import { NavLink } from 'react-router-dom';
 const SbarLeft = observer(
   class SbarLeft extends React.Component {
@@ -94,7 +94,9 @@ const SbarLeft = observer(
               <span className="text-white ps-3">{t('txt_help_center')}</span>
             </a> */}
           </div>
-          <div className="px-1">{/* <AesirXDamStorage /> */}</div>
+          <div className="px-1">
+            <AesirXDamStorage />
+          </div>
         </aside>
       );
     }

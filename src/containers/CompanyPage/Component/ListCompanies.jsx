@@ -9,9 +9,11 @@ import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
 import history from 'routes/history';
 import { notify } from 'components/Toast';
+// import DeletePopup from 'components/DeletePopup';
 // import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const ListCompanies = observer((props) => {
+  // const [showPopupDelete, setShowPopupDelete] = useState(false);
   const { t } = props;
   let listSelected = [];
 
@@ -199,15 +201,6 @@ const ListCompanies = observer((props) => {
     viewModel.updateStatus([id], value);
   };
 
-  const deleteCompanies = () => {
-    if (listSelected.length < 1) {
-      notify(t('txt_row_select_error'), 'error');
-    } else {
-      viewModel.isLoading();
-      viewModel.deleteCompanies(listSelected);
-    }
-  };
-
   return (
     <>
       <div className="d-flex justify-content-between align-items-start mb-3">
@@ -221,8 +214,16 @@ const ListCompanies = observer((props) => {
               icon: '/assets/images/delete.svg',
               iconColor: '#cb222c',
               textColor: '#cb222c',
+              isShowPopupDelete: async () => {
+                if (listSelected?.length < 1) {
+                  notify(t('txt_row_select_error'), 'error');
+                  return false;
+                }
+                return true;
+              },
               handle: async () => {
-                deleteCompanies();
+                viewModel.isLoading();
+                viewModel.deleteCompanies(listSelected);
               },
             },
             {

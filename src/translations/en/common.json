@@ -375,5 +375,7 @@
   "txt_assigned_to": "Assigned To",
   "txt_sale_stage": "Sale Stage",
   "txt_send_date": "Send Date",
-  "txt_use_semicolon": "Use semicolon separated carbon copy contact address"
+  "txt_use_semicolon": "Use semicolon separated carbon copy contact address",
+  "txt_you_sure": "Are you sure to delete this item?",
+  "txt_complete_delete": "This will be complete delete and not in trash!"
 }
