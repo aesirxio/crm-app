@@ -218,7 +218,12 @@ const ContactGroupInformation = observer(
               required: true,
               validation: 'required',
               blurred: () => {
-                if (!validator?.fields[t('txt_group_name')]) {
+                if (
+                  !validator?.fields[t('txt_group_name')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_group_name'));
                   this.forceUpdate();
                 }

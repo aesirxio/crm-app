@@ -40,7 +40,12 @@ const ContactInformation = observer(
               required: true,
               validation: 'required',
               blurred: () => {
-                if (!validator?.fields[t('txt_contact_name')]) {
+                if (
+                  !validator?.fields[t('txt_contact_name')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_CONTACT_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_contact_name'));
                   this.forceUpdate();
                 }
@@ -109,7 +114,12 @@ const ContactInformation = observer(
                 );
               },
               blurred: () => {
-                if (!validator?.fields[t('txt_email')]) {
+                if (
+                  !validator?.fields[t('txt_email')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_email'));
                   this.forceUpdate();
                 }
@@ -134,7 +144,12 @@ const ContactInformation = observer(
                 );
               },
               blurred: () => {
-                if (!validator?.fields[t('txt_phone')]) {
+                if (
+                  !validator?.fields[t('txt_phone')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_phone'));
                   this.forceUpdate();
                 }

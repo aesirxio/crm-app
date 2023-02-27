@@ -224,7 +224,12 @@ const CompanyInformation = observer(
               required: true,
               validation: 'required',
               blurred: () => {
-                if (!validator?.fields[t('txt_company_name')]) {
+                if (
+                  !validator?.fields[t('txt_company_name')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_COMPANY_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_company_name'));
                   this.forceUpdate();
                 }
@@ -248,7 +253,12 @@ const CompanyInformation = observer(
               required: true,
               validation: 'required',
               blurred: () => {
-                if (!validator?.fields[t('txt_company_address')]) {
+                if (
+                  !validator?.fields[t('txt_company_address')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_COMPANY_DETAIL_FIELD_KEY.ADDRESS
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_company_address'));
                   this.forceUpdate();
                 }

@@ -63,7 +63,12 @@ const OpportunityInformation = observer(
               required: true,
               validation: 'required',
               blurred: () => {
-                if (!validator?.fields[t('txt_opportunity_name')]) {
+                if (
+                  !validator?.fields[t('txt_opportunity_name')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_opportunity_name'));
                   this.forceUpdate();
                 }
@@ -131,7 +136,12 @@ const OpportunityInformation = observer(
               isMulti: true,
               required: true,
               blurred: () => {
-                if (!validator?.fields[t('txt_contact')]) {
+                if (
+                  !validator?.fields[t('txt_contact')] ||
+                  !this.viewModel.contactDetailViewModel.formPropsData[
+                    CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
+                  ]
+                ) {
                   validator.showMessageFor(t('txt_contact'));
                   this.forceUpdate();
                 }
