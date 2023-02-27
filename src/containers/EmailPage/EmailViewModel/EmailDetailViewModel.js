@@ -44,6 +44,15 @@ class EmailDetailViewModel {
     );
   };
 
+  sendTest = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    return await this.emailStore.sendTest(
+      this.emailDetailViewModel.formPropsData,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     return await this.emailStore.update(

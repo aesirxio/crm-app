@@ -220,7 +220,9 @@ class OpportunityListViewModel {
           name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.name,
         },
         amount: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT],
-        expectDate: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE],
+        expectDate:
+          o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE] &&
+          moment(o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE]).format('DD MMM, YYYY'),
         saleStage: {
           id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE]?.id,
           name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE]?.name,
