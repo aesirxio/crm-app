@@ -13,15 +13,14 @@ class CompanyListViewModel {
   formStatus = PAGE_STATUS.READY;
   companyListViewModel = null;
   items = [];
-  filter = {};
+  filter = {
+    'list[limit]': 10,
+  };
   successResponse = {
     state: false,
     content_id: '',
     listPublishStatus: [],
     1: [],
-    filters: {
-      'list[limit]': 10,
-    },
     listCompaniesWithoutPagination: [],
   };
 
@@ -40,7 +39,7 @@ class CompanyListViewModel {
     await this.companyStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
+      this.filter
     );
     this.successResponse.state = true;
   };
@@ -68,31 +67,30 @@ class CompanyListViewModel {
   };
 
   getListByFilter = async (key, value) => {
-    value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
+    value ? (this.filter[key] = value) : delete this.filter[key];
 
     //pagination
     if (key != 'list[start]' && key != 'list[limit]') {
-      delete this.successResponse.filters['list[start]'];
+      delete this.filter['list[start]'];
     } else {
       if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[start]'] =
+        this.filter['list[start]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[start]'] =
-          (this.successResponse.pagination.page - 1) * value;
+        this.filter['list[start]'] = (this.successResponse.pagination.page - 1) * value;
       }
     }
 
     await this.companyStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
+      this.filter
     );
 
     this.successResponse.state = true;
@@ -109,7 +107,7 @@ class CompanyListViewModel {
       await this.companyStore.getList(
         this.callbackOnSuccessHandler,
         this.callbackOnErrorHandler,
-        this.successResponse.filters
+        this.filter
       );
     }
     this.successResponse.state = true;
@@ -125,7 +123,7 @@ class CompanyListViewModel {
       await this.companyStore.getList(
         this.callbackOnSuccessHandler,
         this.callbackOnErrorHandler,
-        this.successResponse.filters
+        this.filter
       );
     }
     this.successResponse.state = true;

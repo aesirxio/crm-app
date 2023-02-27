@@ -220,7 +220,7 @@ const ContactGroupInformation = observer(
               blurred: () => {
                 if (
                   !validator?.fields[t('txt_group_name')] ||
-                  !this.viewModel.contactDetailViewModel.formPropsData[
+                  !this.viewModel.contactGroupDetailViewModel.formPropsData[
                     CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME
                   ]
                 ) {

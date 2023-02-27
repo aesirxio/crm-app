@@ -65,7 +65,7 @@ const OpportunityInformation = observer(
               blurred: () => {
                 if (
                   !validator?.fields[t('txt_opportunity_name')] ||
-                  !this.viewModel.contactDetailViewModel.formPropsData[
+                  !this.viewModel.opportunityDetailViewModel.formPropsData[
                     CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME
                   ]
                 ) {
@@ -138,7 +138,7 @@ const OpportunityInformation = observer(
               blurred: () => {
                 if (
                   !validator?.fields[t('txt_contact')] ||
-                  !this.viewModel.contactDetailViewModel.formPropsData[
+                  !this.viewModel.opportunityDetailViewModel.formPropsData[
                     CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
                   ]
                 ) {

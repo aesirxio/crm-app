@@ -226,7 +226,7 @@ const CompanyInformation = observer(
               blurred: () => {
                 if (
                   !validator?.fields[t('txt_company_name')] ||
-                  !this.viewModel.contactDetailViewModel.formPropsData[
+                  !this.viewModel.companyDetailViewModel.formPropsData[
                     CRM_COMPANY_DETAIL_FIELD_KEY.NAME
                   ]
                 ) {
@@ -255,7 +255,7 @@ const CompanyInformation = observer(
               blurred: () => {
                 if (
                   !validator?.fields[t('txt_company_address')] ||
-                  !this.viewModel.contactDetailViewModel.formPropsData[
+                  !this.viewModel.companyDetailViewModel.formPropsData[
                     CRM_COMPANY_DETAIL_FIELD_KEY.ADDRESS
                   ]
                 ) {

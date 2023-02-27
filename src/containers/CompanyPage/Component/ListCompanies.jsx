@@ -272,8 +272,8 @@ const ListCompanies = observer((props) => {
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
-              label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
-              value: viewModel?.successResponse?.filters['list[limit]'],
+              label: `${viewModel?.filter['list[limit]']} ${t('txt_items')}`,
+              value: viewModel?.filter['list[limit]'],
             }}
             options={[...Array(9)].map((o, index) => ({
               label: `${(index + 1) * 10} ${t('txt_items')}`,
