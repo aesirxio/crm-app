@@ -3,7 +3,10 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxCrmEmailMarketingApiService } from 'aesirx-dma-lib';
+import {
+  AesirxCrmEmailMarketingApiService,
+  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
+} from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
@@ -41,8 +44,11 @@ export default class emailStore {
 
       resultOnSave = await aesirxCrmEmailApiService.sendTest(createEmailData);
       if (resultOnSave?.result) {
+        let receiversTest = createEmailData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST]
+          ?.map((item) => (item?.email ? item?.email : item?.value))
+          ?.join('; ');
         runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, `Send test to ${receiversTest} successfully`);
         });
       } else {
         runInAction(() => {

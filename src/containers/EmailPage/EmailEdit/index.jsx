@@ -118,6 +118,7 @@ const EditEmail = observer(
                     return {
                       label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
                       value: item[CRM_CONTACT_DETAIL_FIELD_KEY.ID],
+                      email: item[CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS],
                     };
                   })
                 : null,
@@ -177,6 +178,7 @@ const EditEmail = observer(
                             {
                               label: Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
                               value: Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
+                              email: Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
                             },
                           ]
                         );
