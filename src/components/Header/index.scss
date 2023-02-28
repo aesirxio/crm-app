@@ -61,6 +61,9 @@
       &:hover {
         #wr_list_submenu {
           display: block;
+          &.show {
+            display: block;
+          }
         }
       }
       & > .link_menu {
@@ -68,6 +71,16 @@
         & > .text {
           visibility: hidden;
           display: none !important;
+        }
+      }
+      #wr_list_submenu {
+        &.show {
+          display: none;
+        }
+        &.collapsing {
+          height: auto;
+          overflow: unset;
+          transition: unset;
         }
       }
     }

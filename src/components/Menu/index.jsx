@@ -145,7 +145,6 @@ const Menu = observer((props) => {
                   <>
                     {menuList.link && (
                       <NavLink
-                        exact={true}
                         to={menuList.link}
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
                         activeClassName={`active`}
