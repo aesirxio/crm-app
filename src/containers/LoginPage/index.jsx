@@ -10,11 +10,11 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import InputPassword from '../../components/inputPassword';
+// import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
 import { SSOButton } from 'aesirx-sso';
 import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
-import Checkbox from 'components/Checkbox';
+// import Checkbox from 'components/Checkbox';
 import { env } from 'env';
 
 class LoginPage extends React.Component {
@@ -89,7 +89,7 @@ class LoginPage extends React.Component {
                   text={t('txt_sign_in_with_sso')}
                   onGetData={onGetData}
                 />
-                <div className="d-flex align-items-center flex-nowrap mb-24">
+                {/* <div className="d-flex align-items-center flex-nowrap mb-24">
                   <div className="border-bottom w-50"></div>
                   <span className="px-2 text-uppercase fw-medium text-gray">{t('txt_or')}</span>
                   <div className="border-bottom w-50"></div>
@@ -154,7 +154,7 @@ class LoginPage extends React.Component {
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
-                </button>
+                </button> */}
               </form>
             </div>
           </div>
