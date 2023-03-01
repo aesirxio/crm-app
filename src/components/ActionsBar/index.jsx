@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
 import ComponentSVG from 'components/ComponentSVG';
 import './index.scss';
+import DeletePopup from 'components/DeletePopup';
 const ActionsBar = ({ t, buttons = [] }) => {
+  const [showPopupDelete, setShowPopupDelete] = useState(false);
   return (
     <div className="d-flex align-items-center">
       {buttons.map((item, key) => {
@@ -14,7 +16,16 @@ const ActionsBar = ({ t, buttons = [] }) => {
               className={`${
                 item.title === t('txt_cancel') ? 'text-danger' : ''
               } px-16 fw-semibold d-flex align-items-center rounded-1`}
-              onClick={item.handle}
+              onClick={async () => {
+                if (item?.isShowPopupDelete) {
+                  let isShowPopup = await item.isShowPopupDelete();
+                  if (isShowPopup) {
+                    setShowPopupDelete(true);
+                  }
+                } else {
+                  item.handle();
+                }
+              }}
             >
               {item.icon && (
                 <ComponentSVG
@@ -25,6 +36,18 @@ const ActionsBar = ({ t, buttons = [] }) => {
               )}
               <span style={{ color: item.textColor }}>{item.title}</span>
             </Button>
+            {item?.isShowPopupDelete && (
+              <DeletePopup
+                showPopupDelete={showPopupDelete}
+                closePopupDelete={() => {
+                  setShowPopupDelete(false);
+                }}
+                handleDelete={() => {
+                  item.handle();
+                  setShowPopupDelete(false);
+                }}
+              />
+            )}
           </div>
         );
       })}

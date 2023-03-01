@@ -13,15 +13,14 @@ class OpportunityListViewModel {
   formStatus = PAGE_STATUS.READY;
   opportunityListViewModel = null;
   items = [];
-  filter = {};
+  filter = {
+    'list[limit]': 10,
+  };
   successResponse = {
     state: false,
     content_id: '',
     listPublishStatus: [],
     1: [],
-    filters: {
-      'list[limit]': 10,
-    },
     listOpportunitiesWithoutPagination: [],
   };
 
@@ -40,60 +39,49 @@ class OpportunityListViewModel {
     await this.opportunityStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
-
-    await this.opportunityStore.getListWithoutPagination(
-      this.callbackOnSuccessGetOpportunitiesHandler,
-      this.callbackOnErrorHandler
-    );
-
-    await this.opportunityStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+      this.filter
     );
     this.successResponse.state = true;
   };
 
-  initializeDataCustom = async () => {
+  getListPublishStatus = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.opportunityStore.getList(
-      this.callbackOnSuccessHandlerCustom,
-      this.callbackOnErrorHandler,
-      this.filter
+    await this.opportunityStore.getListPublishStatus(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
     );
   };
+
   callbackOnSuccessHandlerCustom = (result) => {
     this.items = result.listItems;
     this.formStatus = PAGE_STATUS.READY;
   };
 
   getListByFilter = async (key, value) => {
-    value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
+    value ? (this.filter[key] = value) : delete this.filter[key];
 
     //pagination
     if (key != 'list[start]' && key != 'list[limit]') {
-      delete this.successResponse.filters['list[start]'];
+      delete this.filter['list[start]'];
     } else {
       if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[start]'] =
+        this.filter['list[start]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['list[start]'] =
-          (this.successResponse.pagination.page - 1) * value;
+        this.filter['list[start]'] = (this.successResponse.pagination.page - 1) * value;
       }
     }
 
     await this.opportunityStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
+      this.filter
     );
 
     this.successResponse.state = true;
@@ -109,7 +97,7 @@ class OpportunityListViewModel {
     await this.opportunityStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
+      this.filter
     );
 
     this.successResponse.state = true;
@@ -126,7 +114,7 @@ class OpportunityListViewModel {
       await this.opportunityStore.getList(
         this.callbackOnSuccessHandler,
         this.callbackOnErrorHandler,
-        this.successResponse.filters
+        this.filter
       );
     }
     this.successResponse.state = true;
@@ -142,7 +130,7 @@ class OpportunityListViewModel {
       await this.opportunityStore.getList(
         this.callbackOnSuccessHandler,
         this.callbackOnErrorHandler,
-        this.successResponse.filters
+        this.filter
       );
     }
     this.successResponse.state = true;
@@ -150,6 +138,12 @@ class OpportunityListViewModel {
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
   };
 
   callbackOnErrorHandler = (error) => {
@@ -215,12 +209,11 @@ class OpportunityListViewModel {
           id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY]?.id,
           name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY]?.name,
         },
-        contactName: {
-          id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.id,
-          name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT]?.name,
-        },
+        contactName: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT],
         amount: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.BUDGET_AMOUNT],
-        expectDate: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE],
+        expectDate:
+          o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE] &&
+          moment(o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ENDING_DATE]).format('DD MMM, YYYY'),
         saleStage: {
           id: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE]?.id,
           name: o[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE]?.name,

@@ -171,7 +171,7 @@ export default class OpportunityStore {
   async deleteOpportunities(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimOpportunityApiService = new AesirxCrmOpportunityApiService();
-      const respondedData = await aesirxPimOpportunityApiService.deleteOpportunities(arr);
+      const respondedData = await aesirxPimOpportunityApiService.delete(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });

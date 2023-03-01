@@ -68,14 +68,22 @@ const ListOpportunities = observer((props) => {
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
         return (
-          <div
-            className="text-success cursor-pointer"
-            onClick={() => {
-              history.push(`/contacts/edit/${value.id}`);
-            }}
-          >
-            {value.name}
-          </div>
+          <>
+            {Array.isArray(value) &&
+              value?.map((item, key) => {
+                return (
+                  <div
+                    key={key}
+                    className="text-success cursor-pointer"
+                    onClick={() => {
+                      history.push(`/contacts/edit/${item.id}`);
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                );
+              })}
+          </>
         );
       },
     },
@@ -106,6 +114,8 @@ const ListOpportunities = observer((props) => {
   ];
 
   useEffect(() => {
+    viewModel.clearFilter();
+    viewModel.getListPublishStatus();
     viewModel.initializeData();
   }, []);
 
@@ -136,26 +146,17 @@ const ListOpportunities = observer((props) => {
   const selectTabHandler = (value) => {
     viewModel.isLoading();
     if (value != 'default') {
-      viewModel.getListByFilter('published', {
+      viewModel.getListByFilter('state', {
         value: value,
         type: 'filter',
       });
     } else {
-      viewModel.getListByFilter('published', '');
+      viewModel.getListByFilter('state', '');
     }
   };
 
   const currentSelectHandler = (arr) => {
     listSelected = arr.map((o) => o.original.id);
-  };
-
-  const deleteOpportunities = () => {
-    if (listSelected.length < 1) {
-      notify(t('txt_row_select_error'), 'error');
-    } else {
-      viewModel.isLoading();
-      viewModel.deleteOpportunities(listSelected);
-    }
   };
 
   return (
@@ -171,8 +172,16 @@ const ListOpportunities = observer((props) => {
               icon: '/assets/images/delete.svg',
               iconColor: '#cb222c',
               textColor: '#cb222c',
+              isShowPopupDelete: async () => {
+                if (listSelected?.length < 1) {
+                  notify(t('txt_row_select_error'), 'error');
+                  return false;
+                }
+                return true;
+              },
               handle: async () => {
-                deleteOpportunities();
+                viewModel.isLoading();
+                viewModel.deleteOpportunities(listSelected);
               },
             },
             {
@@ -219,8 +228,8 @@ const ListOpportunities = observer((props) => {
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
-              label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
-              value: viewModel?.successResponse?.filters['list[limit]'],
+              label: `${viewModel?.filter['list[limit]']} ${t('txt_items')}`,
+              value: viewModel?.filter['list[limit]'],
             }}
             options={[...Array(9)].map((o, index) => ({
               label: `${(index + 1) * 10} ${t('txt_items')}`,

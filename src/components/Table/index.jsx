@@ -16,12 +16,8 @@ import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSortDown,
-  faSortUp,
-  faChevronRight,
-  faChevronLeft,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import ComponentSVG from 'components/ComponentSVG';
 
 function useInstance(instance) {
   const { allColumns } = instance;
@@ -382,7 +378,12 @@ const Table = ({
                 color: '#526269',
               }}
             >
-              <FontAwesomeIcon icon={faChevronLeft} />
+              <ComponentSVG
+                width="12px"
+                height="12px"
+                className="bg-gray"
+                url="/assets/images/chevron-left.png"
+              />
             </div>
             {[...Array(pagination.totalPages)].map((x, index) => (
               <div
@@ -390,7 +391,7 @@ const Table = ({
                 key={index}
                 className={`cursor-pointer border d-flex align-items-center justify-content-center border-end-0`}
                 style={{
-                  width: '38px',
+                  width: '36px',
                   height: '38px',
                   backgroundColor: pagination.page == index + 1 && '#526269',
                   color: pagination.page == index + 1 ? '#fff' : '#526269',
@@ -410,7 +411,12 @@ const Table = ({
                 color: '#526269',
               }}
             >
-              <FontAwesomeIcon icon={faChevronRight} />
+              <ComponentSVG
+                width="12px"
+                height="12px"
+                className="bg-gray"
+                url="/assets/images/chevron-right.png"
+              />
             </div>
           </div>
         </div>

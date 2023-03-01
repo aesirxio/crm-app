@@ -20,6 +20,7 @@ const CustomizedDatePicker = ({
   isUTC,
   icon,
   iconClass,
+  minDate,
 }) => {
   const [startDate, setStartDate] = useState();
   useEffect(() => {
@@ -55,6 +56,7 @@ const CustomizedDatePicker = ({
         }`}
         readOnly={isDisabled}
         placeholderText={placeholderText ?? dateFormat ?? null}
+        minDate={minDate}
       />
     </div>
   );

@@ -84,7 +84,7 @@ const SbarLeft = observer(
                 style={{
                   WebkitMaskImage: `url(/assets/images/help-center.svg)`,
                   WebkitMaskRepeat: 'no-repeat',
-                }}
+                }} 
               ></span>
               <span className="ms-16 text d-inline-block">{t('txt_menu_help_center')}</span>
             </NavLink> */}

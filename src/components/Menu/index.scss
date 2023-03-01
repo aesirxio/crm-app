@@ -21,20 +21,19 @@
     &:hover {
       background-color: $blue;
       color: $white;
-
       i,
       span {
         color: $white;
       }
     }
     &.active {
+      font-weight: 600;
       .icon.arrow {
         transform: rotate(90deg);
       }
     }
 
-    i,
-    span {
+    i {
       transition: all 0.3s ease;
     }
 

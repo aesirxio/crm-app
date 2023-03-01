@@ -145,10 +145,33 @@ export default class ContactStore {
   async deleteContacts(arr, callbackOnSuccess, callbackOnError) {
     try {
       const getAesirxCrmContactApiService = new AesirxCrmContactApiService();
-      const respondedData = await getAesirxCrmContactApiService.deleteContacts(arr);
+      const respondedData = await getAesirxCrmContactApiService.delete(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });
+      return respondedData;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error?.response?.data);
+      });
+    }
+
+    return false;
+  }
+
+  async getStatusList(callbackOnSuccess, callbackOnError) {
+    try {
+      const getListAPIService = new AesirxCrmContactApiService();
+      const respondedData = await getListAPIService.getStatusList();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
       return respondedData;
     } catch (error) {
       runInAction(() => {

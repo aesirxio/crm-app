@@ -18,7 +18,7 @@ import { withEmailViewModel } from 'containers/EmailPage/EmailViewModel/EmailVie
 import PublishOptions from 'components/PublishOptions';
 import {
   AUTHORIZATION_KEY,
-  PIM_FIELD_DETAIL_FIELD_KEY,
+  CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
   Storage,
 } from 'aesirx-dma-lib';
@@ -35,7 +35,7 @@ const contactViewModel = new ContactViewModel(contactStore);
 const EditEmail = observer(
   class EditEmail extends Component {
     emailDetailViewModel = null;
-    formPropsData = { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = {};
     isEdit = false;
     constructor(props) {
       super(props);
@@ -57,13 +57,14 @@ const EditEmail = observer(
         };
       });
     };
-    handleClosePreview = () => {
+    handleClosePreview = async () => {
       this.setState((prevState) => {
         return {
           ...prevState,
           showPreview: false,
         };
       });
+      await this.emailDetailViewModel.sendTest();
     };
     async componentDidMount() {
       if (this.isEdit) {
@@ -75,7 +76,7 @@ const EditEmail = observer(
           Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL)
         );
       }
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 
@@ -98,13 +99,13 @@ const EditEmail = observer(
         {
           fields: [
             {
-              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
+              key: CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
+                CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST
               ]?.length
                 ? this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                    CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS
+                    CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST
                   ].map((item) => {
                     return {
                       label: item.label,
@@ -112,12 +113,20 @@ const EditEmail = observer(
                     };
                   })
                 : null,
-              getDataSelectOptions: null,
+              getDataSelectOptions: this.contactListViewModel.items
+                ? this.contactListViewModel.items.map((item) => {
+                    return {
+                      label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
+                      value: item[CRM_CONTACT_DETAIL_FIELD_KEY.ID],
+                      email: item[CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS],
+                    };
+                  })
+                : null,
               isMulti: true,
               creatable: true,
               handleChange: (data) => {
                 this.emailDetailViewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
-                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS,
+                  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST,
                   data
                 );
               },
@@ -161,7 +170,23 @@ const EditEmail = observer(
                   },
                   {
                     title: t('txt_send_a_test'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        this.emailDetailViewModel.handleFormPropsData(
+                          CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST,
+                          [
+                            {
+                              label: Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
+                              value: Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
+                              email: Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL),
+                            },
+                          ]
+                        );
+                        await this.emailDetailViewModel.sendTest();
+                      } else {
+                        this.handleValidateForm();
+                      }
+                    },
                   },
                   {
                     title: t('txt_send_email'),
@@ -287,7 +312,7 @@ const EditEmail = observer(
                           </td>
                           <td className="border-bottom-0 py-4px">
                             {this.emailDetailViewModel.emailDetailViewModel.formPropsData[
-                              'SUBJECT'
+                              CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.SUBJECT
                             ] ?? null}
                           </td>
                         </tr>
@@ -298,8 +323,9 @@ const EditEmail = observer(
                     className="p-24 bg-white rounded-2 border border-gray-500 rounded-top-end-0 rounded-top-start-0"
                     dangerouslySetInnerHTML={{
                       __html:
-                        this.emailDetailViewModel.emailDetailViewModel.formPropsData['MESSAGE'] ??
-                        null,
+                        this.emailDetailViewModel.emailDetailViewModel.formPropsData[
+                          CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CONTENT
+                        ] ?? null,
                     }}
                   ></div>
                 </Col>

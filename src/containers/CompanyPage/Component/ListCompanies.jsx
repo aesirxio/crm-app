@@ -9,9 +9,11 @@ import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
 import history from 'routes/history';
 import { notify } from 'components/Toast';
+// import DeletePopup from 'components/DeletePopup';
 // import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const ListCompanies = observer((props) => {
+  // const [showPopupDelete, setShowPopupDelete] = useState(false);
   const { t } = props;
   let listSelected = [];
 
@@ -151,7 +153,9 @@ const ListCompanies = observer((props) => {
   ];
 
   useEffect(() => {
+    viewModel.clearFilter();
     viewModel.initializeData();
+    viewModel.getListPublishStatus();
   }, []);
 
   const selectBulkActionsHandler = (value) => {
@@ -181,12 +185,12 @@ const ListCompanies = observer((props) => {
   const selectTabHandler = (value) => {
     viewModel.isLoading();
     if (value != 'default') {
-      viewModel.getListByFilter('published', {
+      viewModel.getListByFilter('state', {
         value: value,
         type: 'filter',
       });
     } else {
-      viewModel.getListByFilter('published', '');
+      viewModel.getListByFilter('state', '');
     }
   };
 
@@ -197,15 +201,6 @@ const ListCompanies = observer((props) => {
   const publishedBtnHandler = (id, value) => {
     viewModel.isLoading();
     viewModel.updateStatus([id], value);
-  };
-
-  const deleteCompanies = () => {
-    if (listSelected.length < 1) {
-      notify(t('txt_row_select_error'), 'error');
-    } else {
-      viewModel.isLoading();
-      viewModel.deleteCompanies(listSelected);
-    }
   };
 
   return (
@@ -221,8 +216,16 @@ const ListCompanies = observer((props) => {
               icon: '/assets/images/delete.svg',
               iconColor: '#cb222c',
               textColor: '#cb222c',
+              isShowPopupDelete: async () => {
+                if (listSelected?.length < 1) {
+                  notify(t('txt_row_select_error'), 'error');
+                  return false;
+                }
+                return true;
+              },
               handle: async () => {
-                deleteCompanies();
+                viewModel.isLoading();
+                viewModel.deleteCompanies(listSelected);
               },
             },
             {
@@ -269,8 +272,8 @@ const ListCompanies = observer((props) => {
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
-              label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
-              value: viewModel?.successResponse?.filters['list[limit]'],
+              label: `${viewModel?.filter['list[limit]']} ${t('txt_items')}`,
+              value: viewModel?.filter['list[limit]'],
             }}
             options={[...Array(9)].map((o, index) => ({
               label: `${(index + 1) * 10} ${t('txt_items')}`,

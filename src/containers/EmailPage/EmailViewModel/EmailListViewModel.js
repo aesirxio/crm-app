@@ -104,8 +104,8 @@ class EmailListViewModel {
     this.successResponse.state = true;
   };
 
-  deleteEmail = async (arr) => {
-    const res = await this.emailStore.deleteEmail(
+  deleteEmails = async (arr) => {
+    const res = await this.emailStore.deleteEmails(
       arr,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

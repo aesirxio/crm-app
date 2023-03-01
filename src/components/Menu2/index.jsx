@@ -51,7 +51,7 @@ class Menu2 extends React.Component {
         <div className="py-1 px-16 item_menu item_menu_home">
           <a
             href="/"
-            className="d-block text-blue-0 p-16 link_menu rounded-2 text-decoration-none  "
+            className="d-block text-blue-0 p-16 link_menu rounded-2 text-decoration-none text-white"
           >
             <i>
               <FontAwesomeIcon icon={faArrowLeft} />

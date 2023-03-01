@@ -3,7 +3,10 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxCrmEmailMarketingApiService } from 'aesirx-dma-lib';
+import {
+  AesirxCrmEmailMarketingApiService,
+  CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
+} from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
@@ -12,9 +15,9 @@ export default class emailStore {
     try {
       let resultOnSave;
 
-      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
 
-      resultOnSave = await aesirxPimEmailApiService.create(createEmailData);
+      resultOnSave = await aesirxCrmEmailApiService.create(createEmailData);
       if (resultOnSave?.result) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave?.result, 'Created successfully');
@@ -33,12 +36,40 @@ export default class emailStore {
     }
   }
 
+  async sendTest(createEmailData, callbackOnSuccess, callbackOnError) {
+    try {
+      let resultOnSave;
+
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
+
+      resultOnSave = await aesirxCrmEmailApiService.sendTest(createEmailData);
+      if (resultOnSave?.result) {
+        let receiversTest = createEmailData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.RECEIVERS_TEST]
+          ?.map((item) => (item?.email ? item?.email : item?.value))
+          ?.join('; ');
+        runInAction(() => {
+          callbackOnSuccess(resultOnSave?.result, `Send test to ${receiversTest} successfully`);
+        });
+      } else {
+        runInAction(() => {
+          callbackOnError(resultOnSave);
+        });
+      }
+      return resultOnSave?.result;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error?.response?.data);
+      });
+      return 0;
+    }
+  }
+
   async update(updateEmailData, callbackOnSuccess, callbackOnError) {
     try {
       let resultOnSave;
-      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
 
-      resultOnSave = await aesirxPimEmailApiService.update(updateEmailData);
+      resultOnSave = await aesirxCrmEmailApiService.update(updateEmailData);
 
       if (resultOnSave?.result) {
         runInAction(() => {
@@ -65,9 +96,9 @@ export default class emailStore {
       const results = true;
 
       if (results) {
-        const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
+        const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
 
-        const respondedData = await aesirxPimEmailApiService.getDetail(id);
+        const respondedData = await aesirxCrmEmailApiService.getDetail(id);
 
         if (respondedData) {
           runInAction(() => {
@@ -88,8 +119,8 @@ export default class emailStore {
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
-      const respondedData = await aesirxPimEmailApiService.getList(filters);
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
+      const respondedData = await aesirxCrmEmailApiService.getList(filters);
       if (respondedData) {
         runInAction(() => {
           callbackOnSuccess(respondedData);
@@ -132,8 +163,8 @@ export default class emailStore {
     if (!id) return false;
 
     try {
-      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
-      const respondedData = await aesirxPimEmailApiService.getDetailInfo(id);
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
+      const respondedData = await aesirxCrmEmailApiService.getDetailInfo(id);
       return respondedData;
     } catch (error) {
       // no error throw
@@ -144,8 +175,8 @@ export default class emailStore {
 
   async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
-      const respondedData = await aesirxPimEmailApiService.updateStatus(arr, status);
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
+      const respondedData = await aesirxCrmEmailApiService.updateStatus(arr, status);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Updated successfully');
       });
@@ -161,8 +192,8 @@ export default class emailStore {
 
   async deleteEmails(arr, callbackOnSuccess, callbackOnError) {
     try {
-      const aesirxPimEmailApiService = new AesirxCrmEmailMarketingApiService();
-      const respondedData = await aesirxPimEmailApiService.deleteEmails(arr);
+      const aesirxCrmEmailApiService = new AesirxCrmEmailMarketingApiService();
+      const respondedData = await aesirxCrmEmailApiService.delete(arr);
       runInAction(() => {
         callbackOnSuccess(respondedData, 'Deleted successfully');
       });

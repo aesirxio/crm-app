@@ -102,14 +102,12 @@ class OpportunityDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        this.opportunityDetailViewModel.formPropsData[key] = {};
         Object.assign(this.opportunityDetailViewModel.formPropsData[key], value);
       } else {
         this.opportunityDetailViewModel.formPropsData[key] = value;
       }
     }
-  };
-  handleAliasChange = (value) => {
-    this.aliasChange = value;
   };
 }
 

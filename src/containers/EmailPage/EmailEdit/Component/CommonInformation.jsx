@@ -84,11 +84,11 @@ const CommonInformation = observer(
                   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CCERS
                 ],
               className: 'col-lg-10',
-              placeholder: '',
+              placeholder: t('txt_use_semicolon'),
               handleChange: (event) => {
                 this.viewModel.emailDetailViewModel.emailDetailViewModel.handleFormPropsData(
                   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.CCERS,
-                  [event.target.value]
+                  event.target.value
                 );
               },
             },

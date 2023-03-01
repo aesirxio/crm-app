@@ -103,32 +103,32 @@ const UpdateGeneral = observer(
               label: 'txt_organization',
               key: UPDATE_GENERAL_FIELD_KEY.ORGANIZATION,
               type: FORM_FIELD_TYPE.INPUT,
-              value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ORGANIZATION],
+              getValueSelected: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ORGANIZATION],
               className: 'col-lg-6',
-              readOnly: true,
+              disabled: true,
             },
             {
               label: 'txt_username',
               key: UPDATE_GENERAL_FIELD_KEY.USERNAME,
               type: FORM_FIELD_TYPE.INPUT,
-              value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME],
+              getValueSelected: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME],
               className: 'col-lg-6',
-              readOnly: true,
+              disabled: true,
             },
             {
               label: 'txt_Email',
               key: UPDATE_GENERAL_FIELD_KEY.EMAIL,
               type: FORM_FIELD_TYPE.INPUT,
-              value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.EMAIL],
+              getValueSelected: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.EMAIL],
               className: 'col-lg-6',
-              readOnly: true,
+              disabled: true,
             },
 
             {
               label: 'txt_fullname',
               key: UPDATE_GENERAL_FIELD_KEY.FULLNAME,
               type: FORM_FIELD_TYPE.INPUT,
-              value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME],
+              getValueSelected: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME],
               className: 'col-lg-6',
               handleChange: (event) => {
                 this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = event.target.value;
@@ -138,7 +138,7 @@ const UpdateGeneral = observer(
               label: 'txt_Phone',
               key: UPDATE_GENERAL_FIELD_KEY.PHONE,
               type: FORM_FIELD_TYPE.INPUT,
-              value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE],
+              getValueSelected: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE],
               className: 'col-lg-6',
               handleChange: (event) => {
                 this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = event.target.value;

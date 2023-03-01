@@ -371,5 +371,8 @@
   "txt_expect_date": "Expect Date",
   "txt_assigned_to": "Assigned To",
   "txt_sale_stage": "Sale Stage",
-  "txt_send_date": "Send Date"
+  "txt_send_date": "Send Date",
+  "txt_use_semicolon": "Use semicolon separated carbon copy contact address",
+  "txt_you_sure": "Ви впевнені, що хочете видалити цей елемент?",
+  "txt_complete_delete": "Це буде повне видалення, а не в кошик!"
 }

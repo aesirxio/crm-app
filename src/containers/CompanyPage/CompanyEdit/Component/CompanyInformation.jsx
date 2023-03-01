@@ -7,7 +7,11 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
 import ComponentSVG from 'components/ComponentSVG';
-import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import {
+  CRM_COMPANY_DETAIL_FIELD_KEY,
+  CRM_CONTACT_DETAIL_FIELD_KEY,
+  CRM_STATUS_DETAIL_FIELD_KEY,
+} from 'aesirx-dma-lib';
 import { Row } from 'react-bootstrap';
 
 const CompanyInformation = observer(
@@ -21,10 +25,27 @@ const CompanyInformation = observer(
     render() {
       const { t, validator, isEdit } = this.props;
       let dataTable = this.contactListViewModel.items ?? [];
+      if (
+        this.viewModel.companyDetailViewModel.formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS]
+          ?.length &&
+        dataTable.length
+      ) {
+        this.viewModel.companyDetailViewModel.formPropsData[
+          CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS
+        ].map((item) => {
+          let index = dataTable.findIndex((obj) => {
+            return obj.id === item.id;
+          });
+          if (index !== -1) {
+            dataTable[index].selected = true;
+          }
+          return;
+        });
+      }
       const handleSelectContact = (data, isAll = false) => {
         if (isAll) {
           this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-            'CONTACTS',
+            CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS,
             this.contactListViewModel.items
           );
           dataTable.map((item) => {
@@ -33,9 +54,16 @@ const CompanyInformation = observer(
         } else {
           let dataAppend = Object.assign(data.original, { selected: true });
           this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-            'CONTACTS',
-            this.viewModel.companyDetailViewModel.formPropsData['CONTACTS']?.length
-              ? [...this.viewModel.companyDetailViewModel.formPropsData['CONTACTS'], dataAppend]
+            CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS,
+            this.viewModel.companyDetailViewModel.formPropsData[
+              CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS
+            ]?.length
+              ? [
+                  ...this.viewModel.companyDetailViewModel.formPropsData[
+                    CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS
+                  ],
+                  dataAppend,
+                ]
               : [dataAppend]
           );
           let indexSelected = dataTable.findIndex((obj) => {
@@ -49,25 +77,28 @@ const CompanyInformation = observer(
       const handleUnSelectContact = async (data, isAll = false) => {
         if (isAll) {
           this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-            'CONTACTS',
+            CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS,
             []
           );
           dataTable.map((item) => {
             return Object.assign(item, { selected: false });
           });
         } else {
-          let dataOnSelected = this.viewModel.companyDetailViewModel.formPropsData['CONTACTS'];
+          let dataOnSelected =
+            this.viewModel.companyDetailViewModel.formPropsData[
+              CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS
+            ];
           if (dataOnSelected.length > 1) {
             let dataFiltered = dataOnSelected.filter(function (item) {
               return item.id !== data.original.id;
             });
             this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-              'CONTACTS',
+              CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS,
               dataFiltered
             );
           } else {
             this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
-              'CONTACTS',
+              CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS,
               []
             );
           }
@@ -95,7 +126,7 @@ const CompanyInformation = observer(
         },
         {
           Header: t('txt_email'),
-          accessor: 'title',
+          accessor: CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS,
           width: 150,
           className: 'py-18 text-gray text-uppercase fw-semi align-middle',
           Cell: ({ value }) => {
@@ -165,7 +196,7 @@ const CompanyInformation = observer(
         },
         {
           Header: t('txt_email'),
-          accessor: 'title',
+          accessor: CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS,
           width: 150,
           className: 'py-18 text-gray text-uppercase fw-semi align-middle',
           Cell: ({ value }) => {
@@ -192,6 +223,17 @@ const CompanyInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (
+                  !validator?.fields[t('txt_company_name')] ||
+                  !this.viewModel.companyDetailViewModel.formPropsData[
+                    CRM_COMPANY_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
+                  validator.showMessageFor(t('txt_company_name'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {
@@ -210,6 +252,17 @@ const CompanyInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (
+                  !validator?.fields[t('txt_company_address')] ||
+                  !this.viewModel.companyDetailViewModel.formPropsData[
+                    CRM_COMPANY_DETAIL_FIELD_KEY.ADDRESS
+                  ]
+                ) {
+                  validator.showMessageFor(t('txt_company_address'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {
@@ -224,6 +277,46 @@ const CompanyInformation = observer(
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
                   CRM_COMPANY_DETAIL_FIELD_KEY.WEBSITE,
                   data.target.value
+                );
+              },
+              className: 'col-lg-12',
+            },
+            {
+              label: t('txt_status'),
+              key: CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected: this.viewModel.companyDetailViewModel.formPropsData[
+                CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS
+              ]
+                ? {
+                    label:
+                      this.viewModel.companyDetailViewModel.formPropsData[
+                        CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS
+                      ]?.name,
+                    value:
+                      this.viewModel.companyDetailViewModel.formPropsData[
+                        CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS
+                      ]?.id,
+                  }
+                : null,
+              getDataSelectOptions: this.viewModel.companyDetailViewModel.companyDetailViewModel
+                ?.statusListItems?.length
+                ? this.viewModel.companyDetailViewModel.companyDetailViewModel?.statusListItems.map(
+                    (item) => {
+                      return {
+                        label: item[CRM_STATUS_DETAIL_FIELD_KEY.TITLE],
+                        value: item[CRM_STATUS_DETAIL_FIELD_KEY.ID],
+                      };
+                    }
+                  )
+                : null,
+              handleChange: (data) => {
+                this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
+                  CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS,
+                  {
+                    name: data.label,
+                    id: data.value,
+                  }
                 );
               },
               className: 'col-lg-12',
@@ -328,7 +421,7 @@ const CompanyInformation = observer(
               ? [
                   {
                     label: t('txt_add_contact_to_company'),
-                    key: 'CONTACTS',
+                    key: CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS,
                     type: FORM_FIELD_TYPE.SELECTION_COLUMN,
                     columnsTable: columnsTable,
                     dataTable: dataTable,
@@ -337,9 +430,11 @@ const CompanyInformation = observer(
                     },
                     columnsTableSelected: columnsTableSelected,
                     dataTableSelected: this.viewModel.companyDetailViewModel.formPropsData[
-                      'CONTACTS'
+                      CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS
                     ]?.length
-                      ? this.viewModel.companyDetailViewModel.formPropsData['CONTACTS']
+                      ? this.viewModel.companyDetailViewModel.formPropsData[
+                          CRM_COMPANY_DETAIL_FIELD_KEY.CONTACTS
+                        ]
                       : [],
                     onUnSelectAll: () => {
                       handleUnSelectContact(null, true);

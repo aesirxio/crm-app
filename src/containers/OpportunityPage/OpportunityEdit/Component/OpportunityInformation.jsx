@@ -62,6 +62,17 @@ const OpportunityInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (
+                  !validator?.fields[t('txt_opportunity_name')] ||
+                  !this.viewModel.opportunityDetailViewModel.formPropsData[
+                    CRM_OPPORTUNITY_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
+                  validator.showMessageFor(t('txt_opportunity_name'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {
@@ -93,7 +104,7 @@ const OpportunityInformation = observer(
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.COMPANY,
-                  data.value
+                  { name: data.label, id: data.value }
                 );
               },
               className: 'col-lg-12',
@@ -109,8 +120,8 @@ const OpportunityInformation = observer(
                     CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
                   ].map((item) => {
                     return {
-                      label: item[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
-                      value: item?.value,
+                      label: item?.name,
+                      value: item?.id,
                     };
                   })
                 : null,
@@ -124,11 +135,22 @@ const OpportunityInformation = observer(
                 : null,
               isMulti: true,
               required: true,
+              blurred: () => {
+                if (
+                  !validator?.fields[t('txt_contact')] ||
+                  !this.viewModel.opportunityDetailViewModel.formPropsData[
+                    CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT
+                  ]
+                ) {
+                  validator.showMessageFor(t('txt_contact'));
+                  this.forceUpdate();
+                }
+              },
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CONTACT,
                   data?.map((item) => {
-                    return item?.value;
+                    return { name: item.label, id: item.value };
                   })
                 );
               },
@@ -167,7 +189,7 @@ const OpportunityInformation = observer(
               handleChange: (data) => {
                 this.viewModel.opportunityDetailViewModel.opportunityDetailViewModel.handleFormPropsData(
                   CRM_OPPORTUNITY_DETAIL_FIELD_KEY.STAGE,
-                  data.value
+                  { name: data.label, id: data.value }
                 );
               },
               className: 'col-lg-12',
@@ -225,6 +247,7 @@ const OpportunityInformation = observer(
                   data && moment(data).format(FORMAT_DATE_UPDATE_POST)
                 );
               },
+              minDate: moment().toDate(),
               className: 'col-lg-6',
             },
             {

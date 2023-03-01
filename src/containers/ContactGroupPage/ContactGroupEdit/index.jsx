@@ -14,10 +14,9 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withContactGroupViewModel } from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactGroupInformation from './Component/ContactGroupInformation';
-import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
@@ -46,10 +45,10 @@ const EditContactGroup = observer(
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.contactGroupDetailViewModel.initializeData();
       }
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 
@@ -62,10 +61,6 @@ const EditContactGroup = observer(
       });
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.contactGroupDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     render() {
       const { t } = this.props;

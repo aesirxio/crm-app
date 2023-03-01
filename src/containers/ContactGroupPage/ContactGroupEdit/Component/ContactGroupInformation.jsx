@@ -29,7 +29,9 @@ const ContactGroupInformation = observer(
           let index = dataTable.findIndex((obj) => {
             return obj.id === item.id;
           });
-          dataTable[index].selected = true;
+          if (index !== -1) {
+            dataTable[index].selected = true;
+          }
           return;
         });
       }
@@ -215,6 +217,17 @@ const ContactGroupInformation = observer(
               },
               required: true,
               validation: 'required',
+              blurred: () => {
+                if (
+                  !validator?.fields[t('txt_group_name')] ||
+                  !this.viewModel.contactGroupDetailViewModel.formPropsData[
+                    CRM_LIST_GROUP_DETAIL_FIELD_KEY.NAME
+                  ]
+                ) {
+                  validator.showMessageFor(t('txt_group_name'));
+                  this.forceUpdate();
+                }
+              },
               className: 'col-lg-12',
             },
             {

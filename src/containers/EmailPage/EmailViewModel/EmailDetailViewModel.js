@@ -44,6 +44,15 @@ class EmailDetailViewModel {
     );
   };
 
+  sendTest = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    return await this.emailStore.sendTest(
+      this.emailDetailViewModel.formPropsData,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     return await this.emailStore.update(
@@ -95,10 +104,6 @@ class EmailDetailViewModel {
         this.emailDetailViewModel.formPropsData[key] = value;
       }
     }
-  };
-
-  handleAliasChange = (value) => {
-    this.aliasChange = value?.replace(/ /g, '-').toString().toLowerCase();
   };
 }
 

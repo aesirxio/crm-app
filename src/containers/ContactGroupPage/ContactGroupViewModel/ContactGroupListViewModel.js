@@ -40,7 +40,11 @@ class ContactGroupListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.successResponse.state = true;
+  };
 
+  getListPublishStatus = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.contactGroupStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
@@ -50,6 +54,12 @@ class ContactGroupListViewModel {
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
   };
 
   getListByFilter = async (key, value) => {

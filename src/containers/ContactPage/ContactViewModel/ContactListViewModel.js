@@ -39,12 +39,15 @@ class ContactListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.successResponse.state = true;
+  };
 
+  getListPublishStatus = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.contactStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-
     this.successResponse.state = true;
   };
 
@@ -93,6 +96,12 @@ class ContactListViewModel {
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+
+  clearFilter = () => {
+    this.filter = {
+      'list[limit]': 10,
+    };
   };
 
   deleteContacts = async (arr) => {

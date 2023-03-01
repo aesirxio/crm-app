@@ -14,9 +14,8 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
-import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
 import OpportunityInformation from './Component/OpportunityInformation';
 import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
@@ -30,7 +29,7 @@ const contactViewModel = new ContactViewModel(contactStore);
 const EditOpportunity = observer(
   class EditOpportunity extends Component {
     opportunityDetailViewModel = null;
-    formPropsData = { [PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = { [CRM_OPPORTUNITY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
     isEdit = false;
     constructor(props) {
       super(props);
@@ -55,13 +54,13 @@ const EditOpportunity = observer(
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[CRM_OPPORTUNITY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.opportunityDetailViewModel.initializeData();
       }
       await this.opportunityDetailViewModel.getStageList();
-      await this.companyListViewModel.handleFilter({ limit: 0 });
+      await this.companyListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.companyListViewModel.initializeDataCustom();
-      await this.contactListViewModel.handleFilter({ limit: 0 });
+      await this.contactListViewModel.handleFilter({ limit: 0, 'filter[state]': 1 });
       await this.contactListViewModel.initializeData();
     }
 
@@ -74,10 +73,6 @@ const EditOpportunity = observer(
       });
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.opportunityDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     render() {
       const { t } = this.props;
