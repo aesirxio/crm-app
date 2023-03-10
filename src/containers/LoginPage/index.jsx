@@ -14,6 +14,7 @@ import { login } from '../../auth';
 import { SSOButton } from 'aesirx-sso';
 import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
 import { env } from 'env';
+import ComponentImage from 'components/ComponentImage';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -66,7 +67,14 @@ class LoginPage extends React.Component {
       window.location.reload();
     };
     return (
-      <div className="vh-100 bg-blue-9">
+      <div className="vh-100 bg-blue-9 position-relative">
+        <div className="position-absolute bottom-0 start-0">
+          <ComponentImage
+            className="w-100 h-100 object-cover"
+            alt={'bg-login'}
+            src={'assets/images/login-bg.png'}
+          />
+        </div>
         <div className="row justify-content-center align-items-center h-100 bg-white">
           <div className="col-md-6 col-xxl-4">
             <div className="d-block p-2 p-lg-5">
