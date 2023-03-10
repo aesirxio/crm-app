@@ -10,12 +10,11 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
 import { SSOButton } from 'aesirx-sso';
 import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
-import Checkbox from 'components/Checkbox';
 import { env } from 'env';
+import ComponentImage from 'components/ComponentImage';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -68,7 +67,14 @@ class LoginPage extends React.Component {
       window.location.reload();
     };
     return (
-      <div className="vh-100 bg-blue-9">
+      <div className="vh-100 bg-blue-9 position-relative">
+        <div className="position-absolute bottom-0 start-0">
+          <ComponentImage
+            className="w-100 h-100 object-cover"
+            alt={'bg-login'}
+            src={'assets/images/login-bg.png'}
+          />
+        </div>
         <div className="row justify-content-center align-items-center h-100 bg-white">
           <div className="col-md-6 col-xxl-4">
             <div className="d-block p-2 p-lg-5">
@@ -89,72 +95,6 @@ class LoginPage extends React.Component {
                   text={t('txt_sign_in_with_sso')}
                   onGetData={onGetData}
                 />
-                <div className="d-flex align-items-center flex-nowrap mb-24">
-                  <div className="border-bottom w-50"></div>
-                  <span className="px-2 text-uppercase fw-medium text-gray">{t('txt_or')}</span>
-                  <div className="border-bottom w-50"></div>
-                </div>
-                <label className="form-label fw-semibold mb-1 text-black">
-                  {t('txt_Email')} <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.handleInputChange}
-                  ref={this.usernameInput}
-                  onBlur={() => {
-                    this.validator.showMessageFor('Email or username');
-                  }}
-                />
-                {this.validator.message('Email or username', this.state.username, 'required', {
-                  className: 'text-danger',
-                })}
-                <label className="form-label fw-semibold mt-24 mb-1 text-black" htmlFor="password">
-                  {t('txt_projectpage_password')} <span className="text-danger">*</span>
-                </label>
-                <InputPassword
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.handleInputChange}
-                  onKeyPress={this.onKeyPress}
-                  onBlur={() => {
-                    this.validator.showMessageFor('password');
-                  }}
-                />
-                {this.validator.message('password', this.state.password, 'required', {
-                  className: 'text-danger',
-                })}
-                <div className="d-flex justify-content-between pt-24 text-black">
-                  <Checkbox text={t('txt_remember_me')} />
-                  <a
-                    href="https://pim.aesirx.io/auth/forgotpassword"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="d-flex fw-semibold fs-6"
-                  >
-                    {t('tx_forgot_password')}
-                  </a>
-                </div>
-                <button
-                  type="button"
-                  className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-24 text-uppercase py-14`}
-                  onClick={this.handleSubmit}
-                >
-                  {t('txt_sign_in')}
-                  <div className="ps-2 btn_loading">
-                    <div
-                      className="spinner-border"
-                      style={{ width: '1.7rem', height: '1.7rem' }}
-                      role="status"
-                    >
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                </button>
               </form>
             </div>
           </div>
