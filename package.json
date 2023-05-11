@@ -15,7 +15,7 @@
     "aesirx-ckeditor": "^1.0.0",
     "aesirx-dam-app": "^1.2.9",
     "aesirx-dma-lib": "^1.8.1",
-    "aesirx-sso": "^1.0.3",
+    "aesirx-sso": "^1.0.10",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
     "d3-fetch": "^3.0.1",
@@ -103,5 +103,9 @@
   },
   "overrides": {
     "autoprefixer": "10.4.5"
+  },
+  "resolutions": {
+    "react": "^17",
+    "react-dom": "^17"
   }
 }

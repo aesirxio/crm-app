@@ -94,6 +94,8 @@ class LoginPage extends React.Component {
                   className="btn w-100 fw-bold btn-blue-3 position-relative d-flex align-item-center justify-content-center mb-24 px-6 btn-small"
                   text={t('txt_sign_in_with_sso')}
                   onGetData={onGetData}
+                  demoUser={env.REACT_APP_DEMO_USER ?? ''}
+                  demoPassword={env.REACT_APP_DEMO_PASSWORD ?? ''}
                 />
               </form>
             </div>
