@@ -17,7 +17,7 @@ import {
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import ComponentNoData from 'components/ComponentNoData';
-import ComponentSVG from 'components/ComponentSVG';
+import {SVGComponent as ComponentSVG} from 'aesirx-uikit';
 function useInstance(instance) {
   const { allColumns } = instance;
 

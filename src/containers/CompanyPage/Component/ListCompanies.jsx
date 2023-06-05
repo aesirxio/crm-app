@@ -5,12 +5,12 @@ import { withCompanyViewModel } from '../CompanyViewModel/CompanyViewModelContex
 import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
-import SelectComponent from 'components/Select';
+import { Spinner } from 'aesirx-uikit';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import history from 'routes/history';
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 // import DeletePopup from 'components/DeletePopup';
-// import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+// import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 
 const ListCompanies = observer((props) => {
   // const [showPopupDelete, setShowPopupDelete] = useState(false);

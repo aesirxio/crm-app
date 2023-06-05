@@ -3,9 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG, ModalDAMComponent } from 'aesirx-uikit';
 import ComponentVideo from 'components/ComponentVideo';
-import ModalDAMComponent from 'components/ModalDamComponent';
+
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 

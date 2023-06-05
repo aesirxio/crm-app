@@ -3,12 +3,12 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withContactViewModel } from '../ContactViewModel/ContactViewModelContextProvider';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
 import history from 'routes/history';
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import { notify } from 'components/Toast';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
 
 const ListContact = observer((props) => {
   const { t } = props;

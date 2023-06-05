@@ -2,7 +2,7 @@ import { FORMAT_DATE_UPDATE_POST, FORM_FIELD_TYPE } from 'constants/FormFieldTyp
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
@@ -13,7 +13,7 @@ import {
   CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_OPPORTUNITY_DETAIL_FIELD_KEY,
   CRM_STAGE_DETAIL_FIELD_KEY,
-} from 'aesirx-dma-lib';
+} from 'aesirx-lib';
 const OpportunityInformation = observer(
   class OpportunityInformation extends Component {
     constructor(props) {

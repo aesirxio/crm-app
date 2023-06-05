@@ -3,25 +3,18 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-// import { isLogin } from 'auth';
-
 import React, { lazy } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { LoginPage, ProfilePage, DigitalAssetsPage } from 'aesirx-uikit';
 
-const LoginPage = lazy(() => import('../containers/LoginPage'));
-
-const WelcomePage = lazy(() => import('../containers/WelcomePage'));
-// const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProductProvider = lazy(() => import('containers/EmailPage/edit'));
 const EditOpportunityProvider = lazy(() => import('containers/OpportunityPage/edit'));
 const EditCompanyProvider = lazy(() => import('containers/CompanyPage/edit'));
 const EditFContactGroupProvider = lazy(() => import('containers/ContactGroupPage/edit'));
-const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
+
 const EditContactProvider = lazy(() => import('containers/ContactPage/edit'));
 
-const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const EmailPage = lazy(() => import('../containers/EmailPage'));
 const OpportunitiesPage = lazy(() => import('../containers/OpportunityPage'));
 const CompaniesPage = lazy(() => import('../containers/CompanyPage'));
@@ -32,7 +25,7 @@ const authRoutes = [
   {
     path: '/login',
     exact: true,
-    main: () => <LoginPage />,
+    main: () => <LoginPage text="CRM" />,
   },
 ];
 
@@ -139,11 +132,6 @@ const settingRoutes = [
     path: '/profile',
     exact: false,
     main: ({ match, location }) => <ProfilePage match={match} location={location} />,
-  },
-  {
-    path: '/welcome',
-    exact: true,
-    main: () => <WelcomePage />,
   },
 ];
 

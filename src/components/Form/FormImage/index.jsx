@@ -3,13 +3,13 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
-import ModalDAMComponent from 'components/ModalDamComponent';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
+
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
+import { Image, ModalDAMComponent } from 'aesirx-uikit';
 
-import ComponentImage from '../../ComponentImage';
 import './index.scss';
 const FormImage = ({ field, ...props }) => {
   const { t } = props;
@@ -70,7 +70,7 @@ const FormImage = ({ field, ...props }) => {
                         >
                           <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
-                        <ComponentImage src={item?.download_url} alt={field.value} />
+                        <Image src={item?.download_url} alt={field.value} />
                       </div>
                     </Ratio>
                   </Col>

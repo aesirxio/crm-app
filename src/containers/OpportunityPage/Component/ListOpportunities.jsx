@@ -5,10 +5,10 @@ import { withOpportunityViewModel } from '../OpportunityViewModel/OpportunityVie
 import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
-import SelectComponent from 'components/Select';
+
+import { AesirXSelect as SelectComponent, Spinner } from 'aesirx-uikit';
 import history from 'routes/history';
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 import numberWithCommas from 'utils/formatNumber';
 
 const ListOpportunities = observer((props) => {

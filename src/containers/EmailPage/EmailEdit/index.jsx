@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -21,13 +21,13 @@ import {
   CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
   Storage,
-} from 'aesirx-dma-lib';
+} from 'aesirx-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
 import EditHeader from 'components/EditHeader';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { renderingGroupFieldHandler } from 'utils/form';
 const contactStore = new ContactStore();

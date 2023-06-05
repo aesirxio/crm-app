@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import './index.scss';

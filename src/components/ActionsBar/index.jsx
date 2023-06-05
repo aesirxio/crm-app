@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
-import ComponentSVG from 'components/ComponentSVG';
+import {SVGComponent as ComponentSVG} from 'aesirx-uikit';
 import './index.scss';
 import DeletePopup from 'components/DeletePopup';
 const ActionsBar = ({ t, buttons = [] }) => {
