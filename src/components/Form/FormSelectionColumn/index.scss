@@ -2,7 +2,7 @@
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
-@import '../../../scss/utils/bootstrap.scss';
+@import 'aesirx-uikit/dist/utils/bootstrap.scss';
 
 .selection-grid-item {
   width: calc(50% - 40px);
@@ -29,9 +29,9 @@
       &.disabled {
         pointer-events: none;
         td {
-          color: $disabled-content;
+          color: var(--bs-disabled-content);
           .icon {
-            background-color: $disabled-content;
+            background-color: var(--bs-disabled-content);
           }
         }
       }

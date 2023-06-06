@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withEmailViewModel } from '../EmailViewModel/EmailViewModelContextProvider';
 import Table from 'components/Table';
-import SelectComponent from 'components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import Spinner from 'components/Spinner';
-import history from 'routes/history';
+
 import ActionsBar from 'components/ActionsBar';
-import { notify } from 'components/Toast';
+import { notify, history, Spinner } from 'aesirx-uikit';
 
 const List = observer((props) => {
   const { t } = props;
@@ -205,4 +204,4 @@ const List = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withEmailViewModel(List));
+export default withTranslation()(withEmailViewModel(List));

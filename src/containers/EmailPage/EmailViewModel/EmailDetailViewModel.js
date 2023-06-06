@@ -5,8 +5,8 @@
 
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { notify } from '../../../components/Toast';
-import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { notify } from 'aesirx-uikit';
+import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class EmailDetailViewModel {
   emailStore = null;
   formStatus = PAGE_STATUS.READY;

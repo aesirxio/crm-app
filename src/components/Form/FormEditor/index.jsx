@@ -1,9 +1,9 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { useState } from 'react';
-import ModalDAMComponent from 'components/ModalDamComponent';
+
 import styles from './index.module.scss';
 import './index.scss';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG, ModalDAMComponent } from 'aesirx-uikit';
 const ClassicEditor = require('aesirx-ckeditor');
 const FormEditor = ({ field }) => {
   const [editorState, setEditorState] = useState();

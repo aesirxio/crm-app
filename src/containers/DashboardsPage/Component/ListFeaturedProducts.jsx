@@ -160,4 +160,4 @@ const ListFeaturedProducts = observer((props) => {
   );
 });
 
-export default withTranslation('common')(ListFeaturedProducts);
+export default withTranslation()(ListFeaturedProducts);

@@ -4,11 +4,11 @@ import { observer } from 'mobx-react-lite';
 import { withContactGroupViewModel } from '../ContactGroupViewModel/ContactGroupViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
-import history from 'routes/history';
+import { Spinner, history } from 'aesirx-uikit';
+
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import { notify } from 'components/Toast';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
 
 const ListContactGroup = observer((props) => {
   const { t } = props;
@@ -301,4 +301,4 @@ const ListContactGroup = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withContactGroupViewModel(ListContactGroup));
+export default withTranslation()(withContactGroupViewModel(ListContactGroup));

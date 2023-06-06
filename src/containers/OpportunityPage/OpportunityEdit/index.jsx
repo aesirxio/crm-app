@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import EditHeader from 'components/EditHeader';
 import OpportunityInformation from './Component/OpportunityInformation';
@@ -177,4 +177,4 @@ const EditOpportunity = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withOpportunityViewModel(EditOpportunity)));
+export default withTranslation()(withRouter(withOpportunityViewModel(EditOpportunity)));

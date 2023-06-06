@@ -1,5 +1,5 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { AUTHORIZATION_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY, Storage } from 'aesirx-dma-lib';
+import { AUTHORIZATION_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY, Storage } from 'aesirx-lib';
 import { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
@@ -98,4 +98,4 @@ class FromEmail extends Component {
       }, []);
   }
 }
-export default withTranslation('common')(withEmailViewModel(FromEmail));
+export default withTranslation()(withEmailViewModel(FromEmail));

@@ -30,4 +30,4 @@ const DashboardProvider = observer(
     }
   }
 );
-export default withTranslation('common')(DashboardProvider);
+export default withTranslation()(DashboardProvider);

@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import { FORMAT_DATE_TIME_UPDATE_POST } from 'constants/FormFieldType';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';

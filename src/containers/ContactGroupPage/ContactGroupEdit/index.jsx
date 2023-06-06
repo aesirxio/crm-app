@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withContactGroupViewModel } from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactGroupInformation from './Component/ContactGroupInformation';
 import EditHeader from 'components/EditHeader';
@@ -160,4 +160,4 @@ const EditContactGroup = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withContactGroupViewModel(EditContactGroup)));
+export default withTranslation()(withRouter(withContactGroupViewModel(EditContactGroup)));

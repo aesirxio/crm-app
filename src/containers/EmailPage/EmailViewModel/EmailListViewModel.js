@@ -10,9 +10,9 @@
 
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 class EmailListViewModel {
   emailStore = null;
   formStatus = PAGE_STATUS.READY;

@@ -28,4 +28,4 @@ const EmailsPage = observer(
   }
 );
 
-export default withTranslation('common')(EmailsPage);
+export default withTranslation()(EmailsPage);

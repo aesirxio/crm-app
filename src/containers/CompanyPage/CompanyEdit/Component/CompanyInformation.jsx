@@ -2,16 +2,16 @@ import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import {
   CRM_COMPANY_DETAIL_FIELD_KEY,
   CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_STATUS_DETAIL_FIELD_KEY,
-} from 'aesirx-dma-lib';
+} from 'aesirx-lib';
 import { Row } from 'react-bootstrap';
 
 const CompanyInformation = observer(
@@ -467,4 +467,4 @@ const CompanyInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withCompanyViewModel(CompanyInformation));
+export default withTranslation()(withCompanyViewModel(CompanyInformation));

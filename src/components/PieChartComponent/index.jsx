@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer, Sector, Text } from 'recharts';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import numberWithCommas from 'utils/formatNumber';
+import { Helper } from 'aesirx-lib';
 const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, ...props }) => {
   const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
@@ -168,7 +168,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
                       fontWeight="bold"
                       fill="var(--bs-body-color)"
                     >
-                      {numberWithCommas(total.value)}
+                      {Helper.numberWithCommas(total.value)}
                     </Text>
                   );
                 }}
@@ -214,4 +214,4 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
   );
 };
 
-export default withTranslation('common')(PieChartComponent);
+export default withTranslation()(PieChartComponent);

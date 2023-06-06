@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxCrmListGroupApiService, AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { AesirxCrmListGroupApiService, AesirxPimUtilApiService } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class ContactGroupStore {

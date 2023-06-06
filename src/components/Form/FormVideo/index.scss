@@ -1,5 +1,3 @@
-@import '../../../scss/utils/bootstrap.scss';
-
 .field-single-image {
   width: 248px;
   height: 248px;
@@ -19,6 +17,6 @@
   top: 13px;
   right: 13px;
   &:hover {
-    background-color: $gray-300;
+    background-color: var(--bs-gray-300);
   }
 }

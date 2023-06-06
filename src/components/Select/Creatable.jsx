@@ -8,9 +8,9 @@ import React from 'react';
 import CreatableSelect from 'react-select/creatable';
 import { components } from 'react-select';
 import customStyles from './customStyles';
-import { ThemesContext } from 'themes/ThemeContextProvider';
+import { ThemesContext } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 
 class CreatableComponent extends React.Component {
   constructor(props) {
@@ -53,29 +53,6 @@ class CreatableComponent extends React.Component {
       plColor = '#bfc9f7';
     }
     let styles = customStyles(isBorder, plColor, arrowColor, creatable);
-
-    // const ClearIndicator = (props) => {
-    //   const {
-    //     children = <div className="text-danger">{t('txt_remove_all')}</div>,
-    //     getStyles,
-    //     innerProps: { ref, ...restInnerProps },
-    //   } = props;
-    //   return (
-    //     <div
-    //       {...restInnerProps}
-    //       ref={ref}
-    //       style={{
-    //         ...getStyles('clearIndicator', props),
-    //         position: 'absolute',
-    //         top: '-38px',
-    //         right: '0',
-    //         paddingRight: 0,
-    //       }}
-    //     >
-    //       <div style={{ padding: '0px 5px' }}>{children}</div>
-    //     </div>
-    //   );
-    // };
 
     const MultiValueRemove = (props) => {
       return (
@@ -123,4 +100,4 @@ class CreatableComponent extends React.Component {
 }
 
 CreatableComponent.contextType = ThemesContext;
-export default withTranslation('common')(CreatableComponent);
+export default withTranslation()(CreatableComponent);
