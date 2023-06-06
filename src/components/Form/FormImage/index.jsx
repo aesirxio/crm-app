@@ -3,12 +3,10 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
-
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import { Image, ModalDAMComponent } from 'aesirx-uikit';
+import { SVGComponent as ComponentSVG, Image, ModalDAMComponent } from 'aesirx-uikit';
 
 import './index.scss';
 const FormImage = ({ field, ...props }) => {
@@ -116,7 +114,7 @@ const FormImage = ({ field, ...props }) => {
                     >
                       <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                     </div>
-                    <ComponentImage src={file[0]?.download_url} alt={field.value} />
+                    <Image src={file[0]?.download_url} alt={field.value} />
                   </>
                 )
               : null}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import styles from './index.module.scss';
 import './index.scss';
-import { SVGComponent as ComponentSVG, ModalComponent } from 'aesirx-uikit';
+import { SVGComponent as ComponentSVG, ModalDAMComponent } from 'aesirx-uikit';
 const ClassicEditor = require('aesirx-ckeditor');
 const FormEditor = ({ field }) => {
   const [editorState, setEditorState] = useState();
