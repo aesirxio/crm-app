@@ -5,10 +5,9 @@ import Table from 'components/Table';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { Spinner } from 'aesirx-uikit';
-import history from 'routes/history';
+
 import ActionsBar from 'components/ActionsBar';
-import { notify } from 'aesirx-uikit';
+import { notify, history, Spinner } from 'aesirx-uikit';
 
 const List = observer((props) => {
   const { t } = props;
@@ -205,4 +204,4 @@ const List = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withEmailViewModel(List));
+export default withTranslation()(withEmailViewModel(List));

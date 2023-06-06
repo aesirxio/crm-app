@@ -1,4 +1,4 @@
-import {SVGComponent as ComponentSVG} from 'aesirx-uikit';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import FormSelection from 'components/Form/FormSelection';
 import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
@@ -169,4 +169,4 @@ const PublishOptions = observer(
     }
   }
 );
-export default withTranslation('common')(PublishOptions);
+export default withTranslation()(PublishOptions);

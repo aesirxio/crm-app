@@ -5,10 +5,10 @@ import { withContactViewModel } from '../ContactViewModel/ContactViewModelContex
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
-import history from 'routes/history';
+
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { notify } from 'aesirx-uikit';
+import { notify, history } from 'aesirx-uikit';
 
 const ListContact = observer((props) => {
   const { t } = props;
@@ -243,4 +243,4 @@ const ListContact = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withContactViewModel(ListContact));
+export default withTranslation()(withContactViewModel(ListContact));

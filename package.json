@@ -9,11 +9,10 @@
     "@ckeditor/ckeditor5-font": "^35.2.0",
     "@ckeditor/ckeditor5-html-embed": "^35.2.0",
     "@ckeditor/ckeditor5-react": "^5.0.3",
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-brands-svg-icons": "^5.15.1",
-    "@fortawesome/free-regular-svg-icons": "^5.15.1",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "aesirx-ckeditor": "^1.0.0",
     "aesirx-dam-app": "^1.2.11",
     "aesirx-sso": "^1.0.10",
@@ -81,10 +80,8 @@
     "sass": "^1.52",
     "serve": "^13.0.2"
   },
-  "overrides": {
-    "autoprefixer": "10.4.5"
-  },
   "resolutions": {
+    "bootstrap": "5.2.3",
     "react": "^18",
     "react-dom": "^18"
   }

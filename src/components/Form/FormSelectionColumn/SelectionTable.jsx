@@ -17,7 +17,7 @@ import {
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import ComponentNoData from 'components/ComponentNoData';
-import {SVGComponent as ComponentSVG} from 'aesirx-uikit';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 function useInstance(instance) {
   const { allColumns } = instance;
 
@@ -181,4 +181,4 @@ const SelectionTable = ({ columns, data, dataList, classNameTable, isSelectedTab
   );
 };
 
-export default withTranslation('common')(SelectionTable);
+export default withTranslation()(SelectionTable);

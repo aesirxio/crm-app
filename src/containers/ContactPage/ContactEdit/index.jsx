@@ -167,4 +167,4 @@ const EditContact = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withContactViewModel(EditContact)));
+export default withTranslation()(withRouter(withContactViewModel(EditContact)));

@@ -179,4 +179,4 @@ const CommonInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withEmailViewModel(CommonInformation));
+export default withTranslation()(withEmailViewModel(CommonInformation));

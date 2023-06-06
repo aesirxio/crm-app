@@ -1,5 +1,5 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
-import {SVGComponent as ComponentSVG} from 'aesirx-uikit';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
@@ -33,4 +33,4 @@ const DateRangePicker = (props) => {
   );
 };
 
-export default withTranslation('common')(DateRangePicker);
+export default withTranslation()(DateRangePicker);

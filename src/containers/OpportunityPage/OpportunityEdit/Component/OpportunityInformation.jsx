@@ -343,4 +343,4 @@ const OpportunityInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withOpportunityViewModel(OpportunityInformation));
+export default withTranslation()(withOpportunityViewModel(OpportunityInformation));

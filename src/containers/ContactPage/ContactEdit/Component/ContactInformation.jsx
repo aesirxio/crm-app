@@ -303,4 +303,4 @@ const ContactInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withContactViewModel(ContactInformation));
+export default withTranslation()(withContactViewModel(ContactInformation));

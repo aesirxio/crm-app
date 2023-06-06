@@ -14,7 +14,7 @@ import { withRouter } from 'react-router-dom';
 import PieChartComponent from 'components/PieChartComponent';
 import { Col, Row } from 'react-bootstrap';
 import ComponentCard from 'components/ComponentCard';
-import numberWithCommas from 'utils/formatNumber';
+import { Helper } from 'aesirx-lib';
 import './index.scss';
 // import RecentsActivities from './Component/RecentsActivities';
 // import DataCompleteness from './Component/DataCompleteness';
@@ -92,7 +92,7 @@ const Dashboard = observer(
                       title={t('txt_email')}
                       icon={'/assets/images/product-icon.svg'}
                       iconColor={'#1AB394'}
-                      value={numberWithCommas(
+                      value={Helper.numberWithCommas(
                         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_PRODUCT] ?? 0
                       )}
                       loading={this.viewModel.formStatus}
@@ -110,7 +110,7 @@ const Dashboard = observer(
                       title={t('txt_companies')}
                       icon={'/assets/images/categories.svg'}
                       iconColor={'#EF3737'}
-                      value={numberWithCommas(
+                      value={Helper.numberWithCommas(
                         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_CATEGORIES] ?? 0
                       )}
                       loading={this.viewModel.formStatus}
@@ -154,4 +154,4 @@ const Dashboard = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withDashboardViewModel(Dashboard)));
+export default withTranslation()(withRouter(withDashboardViewModel(Dashboard)));

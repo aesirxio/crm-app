@@ -30,4 +30,4 @@ const EditOpportunityProvider = observer(
     }
   }
 );
-export default withTranslation('common')(EditOpportunityProvider);
+export default withTranslation()(EditOpportunityProvider);

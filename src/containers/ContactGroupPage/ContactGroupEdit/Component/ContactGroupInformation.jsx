@@ -271,4 +271,4 @@ const ContactGroupInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withContactGroupViewModel(ContactGroupInformation));
+export default withTranslation()(withContactGroupViewModel(ContactGroupInformation));

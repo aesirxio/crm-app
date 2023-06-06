@@ -129,4 +129,4 @@ const FormImage = ({ field, ...props }) => {
   );
 };
 
-export default withTranslation('common')(FormImage);
+export default withTranslation()(FormImage);

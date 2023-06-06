@@ -163,4 +163,4 @@ const EditCompany = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withCompanyViewModel(EditCompany)));
+export default withTranslation()(withRouter(withCompanyViewModel(EditCompany)));

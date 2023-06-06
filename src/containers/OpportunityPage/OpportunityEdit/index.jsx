@@ -177,4 +177,4 @@ const EditOpportunity = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withOpportunityViewModel(EditOpportunity)));
+export default withTranslation()(withRouter(withOpportunityViewModel(EditOpportunity)));

@@ -6,7 +6,6 @@
 import React, { lazy } from 'react';
 import { LoginPage, ProfilePage, DigitalAssetsPage } from 'aesirx-uikit';
 
-const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProductProvider = lazy(() => import('containers/EmailPage/edit'));
 const EditOpportunityProvider = lazy(() => import('containers/OpportunityPage/edit'));
@@ -50,11 +49,7 @@ const mainRoutes = [
     exact: true,
     main: () => <CompaniesPage />,
   },
-  {
-    path: ['/setting', '/setting/configuration'],
-    exact: true,
-    main: () => <SettingPage />,
-  },
+
   {
     path: '/help-center',
     exact: true,

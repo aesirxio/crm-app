@@ -160,4 +160,4 @@ const EditContactGroup = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withContactGroupViewModel(EditContactGroup)));
+export default withTranslation()(withRouter(withContactGroupViewModel(EditContactGroup)));

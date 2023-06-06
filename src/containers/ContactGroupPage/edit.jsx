@@ -30,4 +30,4 @@ const EditContactGroupProvider = observer(
     }
   }
 );
-export default withTranslation('common')(EditContactGroupProvider);
+export default withTranslation()(EditContactGroupProvider);

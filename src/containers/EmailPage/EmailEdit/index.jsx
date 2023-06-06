@@ -367,4 +367,4 @@ const EditEmail = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withEmailViewModel(EditEmail)));
+export default withTranslation()(withRouter(withEmailViewModel(EditEmail)));

@@ -100,4 +100,4 @@ class CreatableComponent extends React.Component {
 }
 
 CreatableComponent.contextType = ThemesContext;
-export default withTranslation('common')(CreatableComponent);
+export default withTranslation()(CreatableComponent);

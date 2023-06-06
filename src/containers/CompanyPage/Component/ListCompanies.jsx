@@ -7,10 +7,8 @@ import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import history from 'routes/history';
-import { notify } from 'aesirx-uikit';
-// import DeletePopup from 'components/DeletePopup';
-// import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-lib';
+
+import { notify, history } from 'aesirx-uikit';
 
 const ListCompanies = observer((props) => {
   // const [showPopupDelete, setShowPopupDelete] = useState(false);
@@ -305,4 +303,4 @@ const ListCompanies = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withCompanyViewModel(ListCompanies));
+export default withTranslation()(withCompanyViewModel(ListCompanies));

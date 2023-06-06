@@ -30,4 +30,4 @@ const EditEmailProvider = observer(
     }
   }
 );
-export default withTranslation('common')(EditEmailProvider);
+export default withTranslation()(EditEmailProvider);

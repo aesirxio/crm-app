@@ -30,4 +30,4 @@ const EditCompanyProvider = observer(
     }
   }
 );
-export default withTranslation('common')(EditCompanyProvider);
+export default withTranslation()(EditCompanyProvider);

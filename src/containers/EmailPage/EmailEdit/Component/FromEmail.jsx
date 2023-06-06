@@ -98,4 +98,4 @@ class FromEmail extends Component {
       }, []);
   }
 }
-export default withTranslation('common')(withEmailViewModel(FromEmail));
+export default withTranslation()(withEmailViewModel(FromEmail));

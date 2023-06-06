@@ -467,4 +467,4 @@ const CompanyInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withCompanyViewModel(CompanyInformation));
+export default withTranslation()(withCompanyViewModel(CompanyInformation));

@@ -95,4 +95,4 @@ class FormSelectionColumn extends Component {
   }
 }
 
-export default withTranslation('common')(FormSelectionColumn);
+export default withTranslation()(FormSelectionColumn);

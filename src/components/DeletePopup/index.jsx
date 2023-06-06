@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Modal } from 'react-bootstrap';
 
 const DeletePopup = ({ showPopupDelete, closePopupDelete, handleDelete }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   return (
     <Modal show={showPopupDelete} onHide={closePopupDelete} centered={true}>

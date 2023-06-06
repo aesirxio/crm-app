@@ -6,10 +6,8 @@ import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
 
-import { AesirXSelect as SelectComponent, Spinner } from 'aesirx-uikit';
-import history from 'routes/history';
-import { notify } from 'aesirx-uikit';
-import numberWithCommas from 'utils/formatNumber';
+import { AesirXSelect as SelectComponent, Spinner , notify, history} from 'aesirx-uikit';
+import { Helper } from 'aesirx-lib';
 
 const ListOpportunities = observer((props) => {
   const { t } = props;
@@ -92,7 +90,7 @@ const ListOpportunities = observer((props) => {
       accessor: 'amount',
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        return <div>{numberWithCommas(value) ?? 0} VND</div>;
+        return <div>{Helper.numberWithCommas(value) ?? 0} VND</div>;
       },
     },
     {
@@ -261,4 +259,4 @@ const ListOpportunities = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withOpportunityViewModel(ListOpportunities));
+export default withTranslation()(withOpportunityViewModel(ListOpportunities));
