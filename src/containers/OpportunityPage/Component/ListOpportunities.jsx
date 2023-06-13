@@ -6,7 +6,7 @@ import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
 
-import { AesirXSelect as SelectComponent, Spinner, notify, history } from 'aesirx-uikit';
+import { AesirXSelect as SelectComponent, Spinner, notify } from 'aesirx-uikit';
 import { Helper } from 'aesirx-lib';
 import { historyPush } from 'routes/routes';
 

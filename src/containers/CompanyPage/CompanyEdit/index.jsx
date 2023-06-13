@@ -68,7 +68,6 @@ const EditCompany = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
       console.log('rerender Company');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
