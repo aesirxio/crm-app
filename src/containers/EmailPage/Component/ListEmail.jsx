@@ -7,7 +7,8 @@ import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 
 import ActionsBar from 'components/ActionsBar';
-import { notify, history, Spinner } from 'aesirx-uikit';
+import { notify, Spinner } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const List = observer((props) => {
   const { t } = props;
@@ -86,7 +87,7 @@ const List = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/email/add');
+                historyPush('/email/add');
               },
             },
           ]}

@@ -22,6 +22,8 @@ import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
 import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
 import ContactGroupStore from 'containers/ContactGroupPage/ContactGroupStore/ContactGroupStore';
 import ContactGroupViewModel from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModel';
+import { historyPush } from 'routes/routes';
+
 const companyStore = new CompanyStore();
 const companyViewModel = new CompanyViewModel(companyStore);
 const contactGroupStore = new ContactGroupStore();
@@ -75,7 +77,7 @@ const EditContact = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
+
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -99,7 +101,7 @@ const EditContact = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/contacts`);
+                      historyPush(`/contacts`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -111,7 +113,7 @@ const EditContact = observer(
                           ? await this.contactDetailViewModel.update()
                           : await this.contactDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/contacts`);
+                          historyPush(`/contacts`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -129,7 +131,7 @@ const EditContact = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.contactDetailViewModel.create();
-                          result && history.push(`/contacts/edit/${result}`);
+                          result && historyPush(`/contacts/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();

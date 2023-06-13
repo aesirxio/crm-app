@@ -6,8 +6,9 @@ import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
 
-import { AesirXSelect as SelectComponent, Spinner , notify, history} from 'aesirx-uikit';
+import { AesirXSelect as SelectComponent, Spinner, notify } from 'aesirx-uikit';
 import { Helper } from 'aesirx-lib';
+import { historyPush } from 'routes/routes';
 
 const ListOpportunities = observer((props) => {
   const { t } = props;
@@ -39,7 +40,7 @@ const ListOpportunities = observer((props) => {
                 <div className="text-green">
                   <button
                     onClick={() => {
-                      history.push(`/opportunity/edit/${value?.id}`);
+                      historyPush(`/opportunity/edit/${value?.id}`);
                     }}
                     className="p-0 border-0 bg-transparent d-inline-block text-green"
                   >
@@ -74,7 +75,7 @@ const ListOpportunities = observer((props) => {
                     key={key}
                     className="text-success cursor-pointer"
                     onClick={() => {
-                      history.push(`/contacts/edit/${item.id}`);
+                      historyPush(`/contacts/edit/${item.id}`);
                     }}
                   >
                     {item.name}
@@ -187,7 +188,7 @@ const ListOpportunities = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/opportunity/add');
+                historyPush('/opportunity/add');
               },
             },
           ]}
@@ -246,7 +247,7 @@ const ListOpportunities = observer((props) => {
         <Table
           classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
-          data={viewModel?.successResponse?.listOpportunities}
+          data={viewModel?.successResponse?.listOpportunities ?? []}
           selection={false}
           pagination={viewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}

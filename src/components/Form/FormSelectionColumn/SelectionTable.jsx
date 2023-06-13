@@ -23,7 +23,7 @@ function useInstance(instance) {
 
   let rowSpanHeaders = [];
 
-  allColumns.forEach((column) => {
+  allColumns?.forEach((column) => {
     const { id, enableRowSpan } = column;
 
     if (enableRowSpan !== undefined) {

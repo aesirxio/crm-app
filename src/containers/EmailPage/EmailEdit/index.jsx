@@ -30,6 +30,8 @@ import EditHeader from 'components/EditHeader';
 import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { renderingGroupFieldHandler } from 'utils/form';
+import { historyPush } from 'routes/routes';
+
 const contactStore = new ContactStore();
 const contactViewModel = new ContactViewModel(contactStore);
 const EditEmail = observer(
@@ -57,6 +59,7 @@ const EditEmail = observer(
         };
       });
     };
+
     handleClosePreview = async () => {
       this.setState((prevState) => {
         return {
@@ -66,6 +69,7 @@ const EditEmail = observer(
       });
       await this.emailDetailViewModel.sendTest();
     };
+
     async componentDidMount() {
       if (this.isEdit) {
         this.formPropsData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
@@ -94,7 +98,7 @@ const EditEmail = observer(
     }
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       const generateFormSetting = [
         {
           fields: [
@@ -136,9 +140,7 @@ const EditEmail = observer(
           ],
         },
       ];
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
+
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.emailDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -157,7 +159,7 @@ const EditEmail = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/email/all`);
+                      historyPush(`/email/all`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -199,7 +201,7 @@ const EditEmail = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.emailDetailViewModel.create();
-                          result && history.push(`/email`);
+                          result && historyPush(`/email`);
                         }
                       } else {
                         this.handleValidateForm();
