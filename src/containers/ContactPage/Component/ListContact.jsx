@@ -8,7 +8,8 @@ import ActionsBar from 'components/ActionsBar';
 
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { notify, history } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListContact = observer((props) => {
   const { t } = props;
@@ -43,7 +44,7 @@ const ListContact = observer((props) => {
             <div className="text-green">
               <button
                 onClick={() => {
-                  history.push(`/contacts/edit/${row.cells[1].value}`);
+                  historyPush(`/contacts/edit/${row.cells[1].value}`);
                 }}
                 className="p-0 border-0 bg-transparent d-inline-block text-green"
               >
@@ -167,7 +168,7 @@ const ListContact = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/contacts/add');
+                historyPush('/contacts/add');
               },
             },
           ]}

@@ -20,6 +20,8 @@ import EditHeader from 'components/EditHeader';
 import CompanyInformation from './Component/CompanyInformation';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
+import { historyPush } from 'routes/routes';
+
 const contactStore = new ContactStore();
 const contactViewModel = new ContactViewModel(contactStore);
 const EditCompany = observer(
@@ -89,7 +91,7 @@ const EditCompany = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/company`);
+                      historyPush(`/company`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -106,7 +108,7 @@ const EditCompany = observer(
                           ? await this.companyDetailViewModel.update()
                           : await this.companyDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/company`);
+                          historyPush(`/company`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -124,7 +126,7 @@ const EditCompany = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.companyDetailViewModel.create();
-                          result && history.push(`/company/edit/${result}`);
+                          result && historyPush(`/company/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();

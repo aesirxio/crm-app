@@ -7,8 +7,8 @@ import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-
-import { notify, history } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListCompanies = observer((props) => {
   // const [showPopupDelete, setShowPopupDelete] = useState(false);
@@ -41,7 +41,7 @@ const ListCompanies = observer((props) => {
                 <div className="text-green">
                   <button
                     onClick={() => {
-                      history.push(`/company/edit/${value?.id}`);
+                      historyPush(`/company/edit/${value?.id}`);
                     }}
                     className="p-0 border-0 bg-transparent d-inline-block text-green"
                   >
@@ -231,7 +231,7 @@ const ListCompanies = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/company/add');
+                historyPush('/company/add');
               },
             },
           ]}

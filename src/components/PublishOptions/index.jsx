@@ -20,11 +20,13 @@ const PublishOptions = observer(
     constructor(props) {
       super(props);
       this.utilsListViewModel = utilsViewModel ? utilsViewModel.getUtilsListViewModel() : null;
+      this.state = { listPublishStatus: [] };
     }
 
     async componentDidMount() {
       if (!this.utilsListViewModel.listPublishStatus.length) {
         await this.utilsListViewModel.getListPublishStatus();
+        this.setState({ listPublishStatus: this.utilsListViewModel?.listPublishStatus });
       }
     }
     render() {
@@ -63,7 +65,7 @@ const PublishOptions = observer(
                       formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS] !== undefined
                         ? {
                             label: t(
-                              `txt_${this.utilsListViewModel.listPublishStatus
+                              `txt_${this.state.listPublishStatus
                                 ?.find(
                                   (x) =>
                                     x.value.toString() ===
@@ -75,12 +77,10 @@ const PublishOptions = observer(
                             value: formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS]?.toString(),
                           }
                         : null,
-                    getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
-                      (status) => ({
-                        label: t(`txt_${status?.label && status.label?.toString().toLowerCase()}`),
-                        value: status.value.toString(),
-                      })
-                    ),
+                    getDataSelectOptions: this.state.listPublishStatus?.map((status) => ({
+                      label: t(`txt_${status?.label && status.label?.toString().toLowerCase()}`),
+                      value: status.value.toString(),
+                    })),
                     arrowColor: 'var(--dropdown-indicator-color)',
                     handleChange: (data) => {
                       detailViewModal.handleFormPropsData(

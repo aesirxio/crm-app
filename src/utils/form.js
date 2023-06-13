@@ -8,6 +8,7 @@ import Label from '../components/Form/Label';
 import { FORM_FIELD_TYPE } from '../constants/FormFieldType';
 import { Form } from 'react-bootstrap';
 import FormAgeField from '../components/Form/FormAgeField';
+import { FormEditor } from 'aesirx-uikit';
 
 import FormSelectionCustom from 'components/Form/FormSelectionCustom';
 
@@ -21,7 +22,6 @@ const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
 const FormPriceField = lazy(() => import('../components/Form/FormPriceField'));
 const FormRadio = lazy(() => import('../components/Form/FormRadio'));
-const FormEditor = lazy(() => import('../components/Form/FormEditor'));
 
 const Input = lazy(() => import('../components/Form/Input'));
 

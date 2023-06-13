@@ -4,9 +4,8 @@
  */
 
 import React, { lazy } from 'react';
-import { LoginPage, ProfilePage, DigitalAssetsPage } from 'aesirx-uikit';
+import { LoginPage, ProfilePage, DigitalAssetsPage, history } from 'aesirx-uikit';
 
-const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProductProvider = lazy(() => import('containers/EmailPage/edit'));
 const EditOpportunityProvider = lazy(() => import('containers/OpportunityPage/edit'));
 const EditCompanyProvider = lazy(() => import('containers/CompanyPage/edit'));
@@ -48,12 +47,6 @@ const mainRoutes = [
     path: ['/company', '/company'],
     exact: true,
     main: () => <CompaniesPage />,
-  },
-
-  {
-    path: '/help-center',
-    exact: true,
-    main: () => <HelpCenterPage />,
   },
   {
     path: '/email/edit/:id',
@@ -130,4 +123,21 @@ const settingRoutes = [
   },
 ];
 
-export { authRoutes, mainRoutes, settingRoutes };
+const integrationRoutes = () =>
+  mainRoutes
+    .filter((item) => item.path !== '/dam')
+    .map((item) => {
+      if (Array.isArray(item.path)) {
+        item.path = item.path.map((path) => '/crm' + path);
+      } else {
+        item.path = '/crm' + item.path;
+      }
+
+      return item;
+    });
+
+const historyPush = (link) => {
+  return history.push((process.env.REACT_APP_INTERGRATION ? '/crm' : '') + link);
+};
+
+export { authRoutes, mainRoutes, settingRoutes, integrationRoutes, historyPush };

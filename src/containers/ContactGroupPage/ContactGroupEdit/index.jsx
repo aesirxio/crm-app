@@ -20,6 +20,8 @@ import ContactGroupInformation from './Component/ContactGroupInformation';
 import EditHeader from 'components/EditHeader';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
+import { historyPush } from 'routes/routes';
+
 const contactStore = new ContactStore();
 const contactViewModel = new ContactViewModel(contactStore);
 const EditContactGroup = observer(
@@ -64,7 +66,6 @@ const EditContactGroup = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
 
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
@@ -88,7 +89,7 @@ const EditContactGroup = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/contact-groups`);
+                      historyPush(`/contact-groups`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -100,7 +101,7 @@ const EditContactGroup = observer(
                           ? await this.contactGroupDetailViewModel.update()
                           : await this.contactGroupDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/contact-groups`);
+                          historyPush(`/contact-groups`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -118,7 +119,7 @@ const EditContactGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.contactGroupDetailViewModel.create();
-                          result && history.push(`/contact-groups/edit/${result}`);
+                          result && historyPush(`/contact-groups/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();
