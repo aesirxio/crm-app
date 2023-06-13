@@ -5,12 +5,12 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
-import CustomizedDatePicker from 'components/DatePicker';
 import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
 import { AUTHORIZATION_KEY, Storage } from 'aesirx-lib';
 import UtilsStore from 'store/UtilsStore/UtilsStore';
 import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
 import { observer } from 'mobx-react';
+import { CustomizedDatePicker } from 'aesirx-uikit';
 
 const utilsStore = new UtilsStore();
 const utilsViewModel = new UtilsViewModel(utilsStore);
@@ -20,13 +20,11 @@ const PublishOptions = observer(
     constructor(props) {
       super(props);
       this.utilsListViewModel = utilsViewModel ? utilsViewModel.getUtilsListViewModel() : null;
-      this.state = { listPublishStatus: [] };
     }
 
     async componentDidMount() {
       if (!this.utilsListViewModel.listPublishStatus.length) {
         await this.utilsListViewModel.getListPublishStatus();
-        this.setState({ listPublishStatus: this.utilsListViewModel?.listPublishStatus });
       }
     }
     render() {
@@ -65,7 +63,7 @@ const PublishOptions = observer(
                       formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS] !== undefined
                         ? {
                             label: t(
-                              `txt_${this.state.listPublishStatus
+                              `txt_${this.utilsListViewModel.listPublishStatus
                                 ?.find(
                                   (x) =>
                                     x.value.toString() ===
@@ -77,10 +75,12 @@ const PublishOptions = observer(
                             value: formPropsData[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS]?.toString(),
                           }
                         : null,
-                    getDataSelectOptions: this.state.listPublishStatus?.map((status) => ({
-                      label: t(`txt_${status?.label && status.label?.toString().toLowerCase()}`),
-                      value: status.value.toString(),
-                    })),
+                    getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
+                      (status) => ({
+                        label: t(`txt_${status?.label && status.label?.toString().toLowerCase()}`),
+                        value: status.value.toString(),
+                      })
+                    ),
                     arrowColor: 'var(--dropdown-indicator-color)',
                     handleChange: (data) => {
                       detailViewModal.handleFormPropsData(

@@ -247,7 +247,7 @@ const ListOpportunities = observer((props) => {
         <Table
           classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
-          data={viewModel?.successResponse?.listOpportunities}
+          data={viewModel?.successResponse?.listOpportunities ?? []}
           selection={false}
           pagination={viewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}

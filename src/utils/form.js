@@ -8,12 +8,12 @@ import Label from '../components/Form/Label';
 import { FORM_FIELD_TYPE } from '../constants/FormFieldType';
 import { Form } from 'react-bootstrap';
 import FormAgeField from '../components/Form/FormAgeField';
-import { FormEditor } from 'aesirx-uikit';
+import { FormEditor, CustomizedDatePicker } from 'aesirx-uikit';
 
 import FormSelectionCustom from 'components/Form/FormSelectionCustom';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
-const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
+
 const FormImage = lazy(() => import('../components/Form/FormImage'));
 const FormVideo = lazy(() => import('../components/Form/FormVideo'));
 const FormSelection = lazy(() => import('../components/Form/FormSelection'));
