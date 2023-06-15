@@ -4,8 +4,8 @@ import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 import { observer } from 'mobx-react';
 import { withContactGroupViewModel } from 'containers/ContactGroupPage/ContactGroupViewModel/ContactGroupViewModelContextProvider';
-import ComponentSVG from 'components/ComponentSVG';
-import { CRM_CONTACT_DETAIL_FIELD_KEY, CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
+import { CRM_CONTACT_DETAIL_FIELD_KEY, CRM_LIST_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
 
 const ContactGroupInformation = observer(
   class ContactGroupInformation extends Component {
@@ -271,4 +271,4 @@ const ContactGroupInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withContactGroupViewModel(ContactGroupInformation));
+export default withTranslation()(withContactGroupViewModel(ContactGroupInformation));

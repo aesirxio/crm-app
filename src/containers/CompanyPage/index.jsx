@@ -28,4 +28,4 @@ const CompanyPage = observer(
   }
 );
 
-export default withTranslation('common')(CompanyPage);
+export default withTranslation()(CompanyPage);

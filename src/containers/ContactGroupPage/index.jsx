@@ -31,4 +31,4 @@ const ContactGroupPage = observer(
   }
 );
 
-export default withTranslation('common')(ContactGroupPage);
+export default withTranslation()(ContactGroupPage);

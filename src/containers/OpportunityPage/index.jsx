@@ -28,4 +28,4 @@ const OpportunityPage = observer(
   }
 );
 
-export default withTranslation('common')(OpportunityPage);
+export default withTranslation()(OpportunityPage);

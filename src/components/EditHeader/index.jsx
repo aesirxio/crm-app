@@ -3,17 +3,18 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import React from 'react';
+import { historyPush } from 'routes/routes';
 const EditHeader = ({ props, title, isEdit, redirectUrl }) => {
-  const { t, history } = props;
+  const { t } = props;
   return (
     <div className="position-relative">
       <h2 className="text-blue-0 fw-bold mb-8px d-flex align-items-center">
         <div
           className="p-sm ps-0 cursor-pointer d-flex"
           onClick={() => {
-            history.push(redirectUrl);
+            historyPush(redirectUrl);
           }}
         >
           <ComponentSVG url="/assets/images/back.svg" className={'bg-success'} />

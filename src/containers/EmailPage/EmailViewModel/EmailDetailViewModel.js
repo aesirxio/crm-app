@@ -4,9 +4,9 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
-import { notify } from '../../../components/Toast';
-import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { makeAutoObservable, runInAction } from 'mobx';
+import { notify } from 'aesirx-uikit';
+import { CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class EmailDetailViewModel {
   emailStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -27,7 +27,10 @@ class EmailDetailViewModel {
   };
 
   initializeData = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+
     await this.emailStore.getEmailDetail(
       this.emailDetailViewModel.formPropsData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetEmailSuccessHandler,

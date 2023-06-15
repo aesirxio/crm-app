@@ -3,13 +3,11 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
-import ModalDAMComponent from 'components/ModalDamComponent';
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
+import { SVGComponent as ComponentSVG, Image, ModalDAMComponent } from 'aesirx-uikit';
 
-import ComponentImage from '../../ComponentImage';
 import './index.scss';
 const FormImage = ({ field, ...props }) => {
   const { t } = props;
@@ -70,7 +68,7 @@ const FormImage = ({ field, ...props }) => {
                         >
                           <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
-                        <ComponentImage src={item?.download_url} alt={field.value} />
+                        <Image src={item?.download_url} alt={field.value} />
                       </div>
                     </Ratio>
                   </Col>
@@ -116,7 +114,7 @@ const FormImage = ({ field, ...props }) => {
                     >
                       <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                     </div>
-                    <ComponentImage src={file[0]?.download_url} alt={field.value} />
+                    <Image src={file[0]?.download_url} alt={field.value} />
                   </>
                 )
               : null}
@@ -129,4 +127,4 @@ const FormImage = ({ field, ...props }) => {
   );
 };
 
-export default withTranslation('common')(FormImage);
+export default withTranslation()(FormImage);

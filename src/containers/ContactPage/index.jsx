@@ -27,4 +27,4 @@ const ContactPage = observer(
   }
 );
 
-export default withTranslation('common')(ContactPage);
+export default withTranslation()(ContactPage);

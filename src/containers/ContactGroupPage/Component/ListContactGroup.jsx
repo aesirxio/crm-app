@@ -4,11 +4,12 @@ import { observer } from 'mobx-react-lite';
 import { withContactGroupViewModel } from '../ContactGroupViewModel/ContactGroupViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
-import history from 'routes/history';
+import { Spinner } from 'aesirx-uikit';
+
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import { notify } from 'components/Toast';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListContactGroup = observer((props) => {
   const { t } = props;
@@ -50,7 +51,7 @@ const ListContactGroup = observer((props) => {
               <div className="text-green">
                 <button
                   onClick={() => {
-                    history.push(`/contact-groups/edit/${value.id}`);
+                    historyPush(`/contact-groups/edit/${value.id}`);
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
@@ -227,7 +228,7 @@ const ListContactGroup = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/contact-groups/add');
+                historyPush('/contact-groups/add');
               },
             },
           ]}
@@ -301,4 +302,4 @@ const ListContactGroup = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withContactGroupViewModel(ListContactGroup));
+export default withTranslation()(withContactGroupViewModel(ListContactGroup));

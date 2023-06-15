@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -21,15 +21,17 @@ import {
   CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
   Storage,
-} from 'aesirx-dma-lib';
+} from 'aesirx-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
 import EditHeader from 'components/EditHeader';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { renderingGroupFieldHandler } from 'utils/form';
+import { historyPush } from 'routes/routes';
+
 const contactStore = new ContactStore();
 const contactViewModel = new ContactViewModel(contactStore);
 const EditEmail = observer(
@@ -57,6 +59,7 @@ const EditEmail = observer(
         };
       });
     };
+
     handleClosePreview = async () => {
       this.setState((prevState) => {
         return {
@@ -66,6 +69,7 @@ const EditEmail = observer(
       });
       await this.emailDetailViewModel.sendTest();
     };
+
     async componentDidMount() {
       if (this.isEdit) {
         this.formPropsData[CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
@@ -94,7 +98,7 @@ const EditEmail = observer(
     }
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       const generateFormSetting = [
         {
           fields: [
@@ -136,9 +140,7 @@ const EditEmail = observer(
           ],
         },
       ];
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
+
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.emailDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -157,7 +159,7 @@ const EditEmail = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/email/all`);
+                      historyPush(`/email/all`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -199,7 +201,7 @@ const EditEmail = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.emailDetailViewModel.create();
-                          result && history.push(`/email`);
+                          result && historyPush(`/email`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -367,4 +369,4 @@ const EditEmail = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withEmailViewModel(EditEmail)));
+export default withTranslation()(withRouter(withEmailViewModel(EditEmail)));

@@ -9,7 +9,7 @@ import {
   CRM_CONTACT_DETAIL_FIELD_KEY,
   CRM_LIST_GROUP_DETAIL_FIELD_KEY,
   CRM_STATUS_DETAIL_FIELD_KEY,
-} from 'aesirx-dma-lib';
+} from 'aesirx-lib';
 
 const ContactInformation = observer(
   class ContactInformation extends Component {
@@ -303,4 +303,4 @@ const ContactInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withContactViewModel(ContactInformation));
+export default withTranslation()(withContactViewModel(ContactInformation));

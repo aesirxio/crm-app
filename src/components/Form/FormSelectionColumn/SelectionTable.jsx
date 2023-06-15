@@ -17,13 +17,13 @@ import {
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import ComponentNoData from 'components/ComponentNoData';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 function useInstance(instance) {
   const { allColumns } = instance;
 
   let rowSpanHeaders = [];
 
-  allColumns.forEach((column) => {
+  allColumns?.forEach((column) => {
     const { id, enableRowSpan } = column;
 
     if (enableRowSpan !== undefined) {
@@ -181,4 +181,4 @@ const SelectionTable = ({ columns, data, dataList, classNameTable, isSelectedTab
   );
 };
 
-export default withTranslation('common')(SelectionTable);
+export default withTranslation()(SelectionTable);

@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withOpportunityViewModel } from 'containers/OpportunityPage/OpportunityViewModel/OpportunityViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_OPPORTUNITY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import EditHeader from 'components/EditHeader';
 import OpportunityInformation from './Component/OpportunityInformation';
@@ -22,6 +22,8 @@ import CompanyStore from 'containers/CompanyPage/CompanyStore/CompanyStore';
 import CompanyViewModel from 'containers/CompanyPage/CompanyViewModel/CompanyViewModel';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
+import { historyPush } from 'routes/routes';
+
 const companyStore = new CompanyStore();
 const companyViewModel = new CompanyViewModel(companyStore);
 const contactStore = new ContactStore();
@@ -76,11 +78,9 @@ const EditOpportunity = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
+
       console.log('rerender Opportunity');
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
+
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.opportunityDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -99,7 +99,7 @@ const EditOpportunity = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/opportunity`);
+                      historyPush(`/opportunity`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -116,7 +116,7 @@ const EditOpportunity = observer(
                           ? await this.opportunityDetailViewModel.update()
                           : await this.opportunityDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/opportunity`);
+                          historyPush(`/opportunity`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -134,7 +134,7 @@ const EditOpportunity = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.opportunityDetailViewModel.create();
-                          result && history.push(`/opportunity/edit/${result}`);
+                          result && historyPush(`/opportunity/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -177,4 +177,4 @@ const EditOpportunity = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withOpportunityViewModel(EditOpportunity)));
+export default withTranslation()(withRouter(withOpportunityViewModel(EditOpportunity)));

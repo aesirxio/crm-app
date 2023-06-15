@@ -6,8 +6,8 @@
 import {
   AesirxCrmEmailMarketingApiService,
   CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY,
-} from 'aesirx-dma-lib';
-import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
+} from 'aesirx-lib';
+import { AesirxPimUtilApiService } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class emailStore {

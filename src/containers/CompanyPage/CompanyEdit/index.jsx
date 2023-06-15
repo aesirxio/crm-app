@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -14,12 +14,14 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withCompanyViewModel } from 'containers/CompanyPage/CompanyViewModel/CompanyViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_COMPANY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import EditHeader from 'components/EditHeader';
 import CompanyInformation from './Component/CompanyInformation';
 import ContactStore from 'containers/ContactPage/ContactStore/ContactStore';
 import ContactViewModel from 'containers/ContactPage/ContactViewModel/ContactViewModel';
+import { historyPush } from 'routes/routes';
+
 const contactStore = new ContactStore();
 const contactViewModel = new ContactViewModel(contactStore);
 const EditCompany = observer(
@@ -66,7 +68,6 @@ const EditCompany = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
       console.log('rerender Company');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
@@ -89,7 +90,7 @@ const EditCompany = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/company`);
+                      historyPush(`/company`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -106,7 +107,7 @@ const EditCompany = observer(
                           ? await this.companyDetailViewModel.update()
                           : await this.companyDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/company`);
+                          historyPush(`/company`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -124,7 +125,7 @@ const EditCompany = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.companyDetailViewModel.create();
-                          result && history.push(`/company/edit/${result}`);
+                          result && historyPush(`/company/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -163,4 +164,4 @@ const EditCompany = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withCompanyViewModel(EditCompany)));
+export default withTranslation()(withRouter(withCompanyViewModel(EditCompany)));

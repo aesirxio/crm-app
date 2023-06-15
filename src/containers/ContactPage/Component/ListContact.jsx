@@ -3,12 +3,13 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withContactViewModel } from '../ContactViewModel/ContactViewModelContextProvider';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
-import history from 'routes/history';
+
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import { notify } from 'components/Toast';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListContact = observer((props) => {
   const { t } = props;
@@ -43,7 +44,7 @@ const ListContact = observer((props) => {
             <div className="text-green">
               <button
                 onClick={() => {
-                  history.push(`/contacts/edit/${row.cells[1].value}`);
+                  historyPush(`/contacts/edit/${row.cells[1].value}`);
                 }}
                 className="p-0 border-0 bg-transparent d-inline-block text-green"
               >
@@ -167,7 +168,7 @@ const ListContact = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/contacts/add');
+                historyPush('/contacts/add');
               },
             },
           ]}
@@ -243,4 +244,4 @@ const ListContact = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withContactViewModel(ListContact));
+export default withTranslation()(withContactViewModel(ListContact));

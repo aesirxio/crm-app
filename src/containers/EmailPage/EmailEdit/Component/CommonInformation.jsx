@@ -2,13 +2,13 @@ import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withEmailViewModel } from 'containers/EmailPage/EmailViewModel/EmailViewModelContextProvider';
 import { Row } from 'react-bootstrap';
 import FromEmail from './FromEmail';
-import { CRM_CONTACT_DETAIL_FIELD_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { CRM_CONTACT_DETAIL_FIELD_KEY, CRM_EMAIL_MARKETING_DETAIL_FIELD_KEY } from 'aesirx-lib';
 
 const CommonInformation = observer(
   class CommonInformation extends Component {
@@ -179,4 +179,4 @@ const CommonInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withEmailViewModel(CommonInformation));
+export default withTranslation()(withEmailViewModel(CommonInformation));

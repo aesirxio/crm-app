@@ -17,7 +17,7 @@ import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent as ComponentSVG } from 'aesirx-uikit';
 
 function useInstance(instance) {
   const { allColumns } = instance;
@@ -425,4 +425,4 @@ const Table = ({
   );
 };
 
-export default withTranslation('common')(Table);
+export default withTranslation()(Table);
