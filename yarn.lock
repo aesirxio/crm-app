@@ -9266,10 +9266,10 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-bootstrap-typeahead@^6.0.0:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/react-bootstrap-typeahead/-/react-bootstrap-typeahead-6.2.2.tgz#4fd8531c35d2cab6fe433d3da06321d38b4f89b9"
-  integrity sha512-uFlS9sYZYzlYBM3RhOxZ8lSMhxh5MibsUhZVRuddrwFAx1TxcOuTV5Gt/eJI2UmwySANgmo42tBPPMwLskKSLw==
+react-bootstrap-typeahead@^6.0.0, react-bootstrap-typeahead@^6.2.3:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-typeahead/-/react-bootstrap-typeahead-6.2.3.tgz#85aa956fe608a4463e297df7f714c9f8c2ffcd32"
+  integrity sha512-Ge2au2WxR8CWsAH3GbKsaJpIEV2OMKum2Ov7/kuVMBlHNKwsJc2ULJIjk3yZMoTvvfOzOnYDScaWrQwzPc5c/A==
   dependencies:
     "@babel/runtime" "^7.14.6"
     "@popperjs/core" "^2.10.2"
