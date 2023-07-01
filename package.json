@@ -13,7 +13,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "aesirx-dam-app": "^1.3.0",
     "aesirx-lib": "^1.10.0",
-    "aesirx-uikit": "^1.1.0",
+    "aesirx-uikit": "^1.1.1",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.1.6",
     "mobx": "^6.9.0",
