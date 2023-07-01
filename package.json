@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18",
-    "@babel/preset-react": "^7.17",
+    "@babel/preset-react": "^7.22",
     "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
