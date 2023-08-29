@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-react": "^7.17",
     "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.3",
@@ -87,7 +88,15 @@
   "resolutions": {
     "bootstrap": "5.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tough-cookie": "^4",
+    "semver": "^7",
+    "jsdom": "^16",
+    "nth-check": "^2",
+    "postcss": "^8",
+    "json5": "^2",
+    "d3-color": "^3",
+    "minimatch": "^5"
   },
   "files": [
     "dist",
