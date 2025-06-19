@@ -155,9 +155,12 @@ class ContactListViewModel {
         name: o[CRM_CONTACT_DETAIL_FIELD_KEY.NAME],
         email: o[CRM_CONTACT_DETAIL_FIELD_KEY.EMAIL_ADDRESS],
         phone: o[CRM_CONTACT_DETAIL_FIELD_KEY.PHONE_NUMBER],
-        createDate:
-          o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_TIME] &&
-          moment(o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+        createDate: {
+          date:
+            o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_TIME] &&
+            moment(o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+          by: o[CRM_CONTACT_DETAIL_FIELD_KEY.CREATED_BY],
+        },
         lastModified: {
           status: o[CRM_CONTACT_DETAIL_FIELD_KEY.STATUS],
           date: date ?? '',

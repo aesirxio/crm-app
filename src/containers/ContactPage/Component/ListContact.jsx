@@ -81,7 +81,9 @@ const ListContact = observer((props) => {
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
-            <div>{value}</div>
+            <div>
+              {value.date} {t('txt_by')} {value.by}
+            </div>
           </div>
         );
       },

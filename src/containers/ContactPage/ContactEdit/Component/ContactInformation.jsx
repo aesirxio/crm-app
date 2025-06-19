@@ -221,7 +221,7 @@ const ContactInformation = observer(
                       };
                     }
                   )
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.contactDetailViewModel.contactDetailViewModel.handleFormPropsData(
                   CRM_CONTACT_DETAIL_FIELD_KEY.CONTACT_STATUS,

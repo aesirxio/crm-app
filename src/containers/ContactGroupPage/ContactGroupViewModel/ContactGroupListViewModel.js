@@ -138,9 +138,12 @@ class ContactGroupListViewModel {
           id: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.ID],
         },
         numberContact: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CONTACTS]?.length ?? 0,
-        createDate:
-          o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] &&
-          moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+        createDate: {
+          date:
+            o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] &&
+            moment(o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+          by: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.CREATED_BY],
+        },
         status: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],
         lastModified: {
           status: o[CRM_LIST_GROUP_DETAIL_FIELD_KEY.STATUS],

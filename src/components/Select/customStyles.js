@@ -13,13 +13,13 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         alignItems: creatable ? 'start' : 'center',
         boxShadow: 'none',
         borderRadius: '5px',
-        borderColor: isBorder ? 'var(--input-border-color)' : 'transparent',
+        borderColor: isBorder ? 'var(--aesirxui-border-color)' : 'transparent',
         '&:hover': {
           // borderColor: isBorder ? '#8bdcbc' : 'transparent',
           // borderRight: '1px solid var(input-border-color)',
         },
         // borderRight: '1px solid var(input-border-color)',
-        backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--bs-white)',
+        backgroundColor: isDisabled ? 'var(--aesirxui-input-disabled-bg)' : 'var(--aesirxui-white)',
         cursor: 'pointer',
         width: 'auto',
         paddingLeft: state.isMulti ? 0 : 7,
@@ -35,23 +35,22 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         border: 0,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
-        borderLeft: '1px solid var(--input-border-color)',
-        borderRight: '1px solid var(--input-border-color)',
+        borderLeft: '1px solid var(--aesirxui-gray-dark)',
+        borderRight: '1px solid var(--aesirxui-gray-dark)',
         boxShadow: '0 3px 5px rgb(0 0 0 / 5%)',
-        borderTop: '1px solid var(--input-border-color)',
-        borderBottom: '1px solid var(--input-border-color)',
+        borderTop: '1px solid var(--aesirxui-gray-dark)',
+        borderBottom: '1px solid var(--aesirxui-gray-dark)',
         zIndex: 10,
-        backgroundColor: 'var(--dropdown-bg)',
       };
     },
     option: (provided, state) => {
       return {
         ...provided,
-        color: state.isSelected ? 'var(--dropdown-item-hover-color)' : 'var(--dropdown-item-color)',
-        backgroundColor: state.isSelected ? 'var(--dropdown-item-hover-bg)' : 'var(--dropdown-bg)',
+        color: state.isSelected ? 'var(--aesirxui-menu-lang-color)' : 'var(--aesirxui-body-color)',
+        backgroundColor: state.isSelected ? 'var(--aesirxui-menu-lang-hover-bg)' : 'var(--aesirxui-white)',
         '&:hover': {
-          color: 'var(--dropdown-item-hover-color)',
-          backgroundColor: 'var(--dropdown-item-hover-bg)',
+          color: 'var(--aesirxui-menu-lang-color)',
+          backgroundColor: 'var(--aesirxui-menu-lang-hover-bg)',
         },
       };
     },
@@ -59,25 +58,25 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
 
     dropdownIndicator: (base) => ({
       ...base,
-      color: arrowColor ? arrowColor : 'var(--bs-success)',
+      color: arrowColor ? arrowColor : 'var(--aesirxui-success)',
       '&:hover': {
-        color: 'var(--bs-success)',
+        color: 'var(--aesirxui-success)',
       },
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: 'var(--bs-body-color)',
+      color: 'var(--aesirxui-body-color)',
     }),
     placeholder: (defaultStyles) => {
       return {
         ...defaultStyles,
-        color: plColor ? plColor : 'var(--input-placeholder-color)',
+        color: plColor ? plColor : 'var(--aesirxui-input-placeholder-color)',
       };
     },
     multiValue: (styles) => {
       return {
         ...styles,
-        backgroundColor: 'var(--dropdown-multi-bg)',
+        backgroundColor: 'var(--aesirxui-menu-lang-hover-bg)',
         margin: '0 8px 5.5px 2px',
         borderRadius: '5px',
       };
@@ -89,8 +88,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     multiValueLabel: (styles) => ({
       ...styles,
-      color: 'var(--bs-body-color)',
-      backgroundColor: 'var(--dropdown-multi-bg)',
+      color: 'var(--aesirxui-body-color)',
       order: 2,
       padding: '10px 16px 10px 0',
       paddingLeft: '0',

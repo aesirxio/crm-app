@@ -189,9 +189,12 @@ class CompanyListViewModel {
           date: date ?? '',
           by: o[CRM_COMPANY_DETAIL_FIELD_KEY.MODIFIED_BY] ?? '',
         },
-        createDate:
-          o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME] &&
-          moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+        createDate: {
+          date:
+            o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME] &&
+            moment(o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_TIME]).format('DD MMM, YYYY'),
+          by: o[CRM_COMPANY_DETAIL_FIELD_KEY.CREATED_BY],
+        },
         status: o[CRM_COMPANY_DETAIL_FIELD_KEY.STATUS],
       };
     });
