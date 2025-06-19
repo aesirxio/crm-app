@@ -309,7 +309,7 @@ const CompanyInformation = observer(
                       };
                     }
                   )
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.companyDetailViewModel.companyDetailViewModel.handleFormPropsData(
                   CRM_COMPANY_DETAIL_FIELD_KEY.COMPANY_STATUS,

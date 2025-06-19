@@ -141,7 +141,11 @@ const ListContactGroup = observer((props) => {
       width: 100,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
-        return <>{value}</>;
+        return (
+          <>
+            {value.date} {t('txt_by')} {value.by}
+          </>
+        );
       },
     },
     {
